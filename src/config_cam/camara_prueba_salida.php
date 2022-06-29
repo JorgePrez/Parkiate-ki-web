@@ -48,19 +48,12 @@ $uploader = $cloudinary->uploadApi();
 
 include('dbcon.php');
 
-include 'camaras_endpoints.php';
 
-
-
-
-//2CE369: PARQUEO CLUB LA AURORA
-
-//ESTA VARIABLE CAMBIA CONFORME EL PARQUEO QUE SE ESTE MONITOREANDO
 $id_parqueo ='2CE369'; //$_GET['id_parqueo']; //'2CE369'
 
+//$id_parqueo ='F7B816'; // '2CE369'; //$_GET['id_parqueo']; //'2CE369'
 
-/////////////////1. VER SI ESTA ACTIVADA LA CAMARA CON ESE ID 
-                      //Y SI ESTA ACTIVADA WHILE HASTA QUE SE DESACTIVE
+
 
 
 
@@ -74,72 +67,38 @@ $result12 = pg_query($conn, $query12) or die('ERROR : ' . pg_last_error());
 $id_firebase='';
 
 
-while ($row = pg_fetch_row($result12)) {
-  $id_firebase=$row[0];
-     
-}
+              
+           
 
 
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/activado";
+                                  
+                      
+    
+     while ($row = pg_fetch_row($result12)) {
+                    $id_firebase=$row[0];
+                       
+              }
 
 
-$database->getReference($ref_tabla1)->set(true);
-
-
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/activado";
+    $ref_tabla="/Parking_Status/".$id_firebase."/"."sensor1"."/estado"; //TODO:
 
     
-$activado = $database->getReference($ref_tabla1)->getValue();
+    $status = $database->getReference($ref_tabla)->getValue();
+
+    $id_parqueo ='F7B816';
 
 
-echo "CAMARA DE SALIDA ACTIVADA:";
-echo "\n";
+   // $id_parqueo ='F7B816'; //TEMPORAL
 
 
-while((str_contains($activado, '1')))
-
+if(str_contains($status, '1'))
 {
 
-  
-  $id_parqueo ='F7B816';
+//$received = file_get_contents('http://192.168.1.7/picture'); 
 
-
-
-
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/activado";
-
-    
-$activado = $database->getReference($ref_tabla1)->getValue();
-
-
-//2. si hay un objeto, tomamos foto, procesamos, y al finalizar de procesar
-    //cambiar el estado de la variable "procesando" a falso
-
-
-
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/objeto";
-
-    
-$objeto = $database->getReference($ref_tabla1)->getValue();
-
-if((str_contains($objeto, '1')))
-
-
-{
-
-  echo "HAY OBJETO PROCESANNDO.......................:";
-  echo "\n";
-  $success=true;
-
-  $url = $endpoint_salida;
-
-
-
-/*
-  $url = 
+$url = 
 //'https://res.cloudinary.com/parkiate-ki/image/upload/v1655505257/autos/entrada/vehiculo/jne4f3z9apldjvtrvt2y.jpg';
-'http://192.168.1.3/picture';*/
-
+'http://192.168.1.7/picture';
 // Initialize the cURL session
 $ch = curl_init($url);
 
@@ -165,7 +124,7 @@ curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_exec($ch);
 
 // Closes a cURL session and frees all resources
-//curl_close($ch);
+curl_close($ch);
 
 // Close file
 fclose($fp);
@@ -270,198 +229,53 @@ $placa_detectada = strtoupper($placa_detectada);
 //3DESPUES COMPARAR CANTIDAD DE CARACTERES , si es 7 agregar en correccion N , sino agregar S
 
 
+//[A-Z]{3}|[0-9]{5}
 
-$placa_necesita_correccion='S';
-
-
-
-/*A	Vehículo de alquiler
-C	Vehículo Comercial
-CC	Cuerpo Consular
-CD	Cuerpo Diplomático
-M	Motocicletas y Ciclomotores
-(Formato reducido)
-
-MI	Misión Internacional
-O	Vehículo Oficial
-P	Vehículo Privado
-TC	Remolque
-U	Bus urbano
-*/
-
-$placa_necesita_correccion='S';
-
-/* 1. Comprobar que cumpla con el formato $000AAA siendo $= A | C | M | O | P | U 
-   -> Se marca que la placa cumple con formato 
-*/
+$placa_necesita_correccion='';
 
 
-/* 2.Comprobar que cumppla con el formato $$00AAA siendop $= CC | CD | MI | TC 
-    -> Se marca que la placa cumple con formato 
+if(preg_match('/^[A-Z]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
 
-*/
-
-
-/* 3. (ERROR) Que pasa si detecta 6 caracteres , si cumple el formato 000AAA, se le agregara la P por ser más probable
-   -> Se marca que la placa cumple con formato 
-
-*/
-
-/* 4. (ERROR)  Que pasa si detecta 5 o menos letras, si el primer caracter es un numero , se le agrega la P por ser más probable
-  
-   ->Se marca que no cumple con formato
-
-   */
-
-  /* 5. (ERROR) CUALQUIER otro error que suceda debe ser corregido manualmente (es muy poco probable que suceda esto)
-
-   */
-
-
-   //ANTES DE COMPROBAR ESTO SE HARAN ALGUNAS CORRECIONES RESPECTO A ERRORES DE FORMATO CON RESPECTO A LA CONFUSIÓN DE | 0 con O | 5 con S | 1 con I | ,
-   //ESTOS SOLO SE HARÁN SI TIENEN 7 CARACTERES
-
-   //Algunas correciones primer caracter si es 0 se cambiara por una O
-
-
-  if(preg_match('/^[0]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
-       $placa_detectada= substr($placa_detectada,1);
-       $placa_detectada='O'.$placa_detectada; 
-      $placa_necesita_correccion='N';
-    }
-  
-  
-  if(preg_match('/^[A-Z]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
-    $n_caracter=substr($placa_detectada, 0, 1);
-    //A | C | M | O | P | U 
-    if(($n_caracter=='A')||
-    ($n_caracter=='C')||
-    ($n_caracter=='M')||
-    ($n_caracter=='O')||
-    ($n_caracter=='P')||
-    ($n_caracter=='U')
-    ){
-      $placa_necesita_correccion='N';
-    }
-    else{
-      // P por ser más probable
-       $placa_detectada= substr($placa_detectada,1);
-       $placa_detectada='P'.$placa_detectada; 
-      $placa_necesita_correccion='N';
-    }
-  }
-
-
-    if(preg_match('/^[A-Z]{2}\d{2}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
-      $n_caracter=substr($placa_detectada, 0, 2);
-      // CC | CD | MI | TC 
-      if(($n_caracter=='CC')||
-      ($n_caracter=='CD')||
-      ($n_caracter=='MI')||
-      ($n_caracter=='TC')
-      ){
-        $placa_necesita_correccion='N';
-      }
-      else{
-        $placa_necesita_correccion='S';  
-      }
-  }
-
-
-  
-  if(preg_match('/^[A-Z]{3}\d{3}$/',$placa_detectada) and strlen($placa_detectada)==6){
-      $placa_necesita_correccion='N';
-}
-
-if(preg_match('/^[A-Z]{3}\d{5}$/',$placa_detectada) and strlen($placa_detectada)==8){
   $placa_necesita_correccion='N';
+
 }
 
-if(preg_match('/^[A-Z]{3}\d{3}$/',$placa_detectada) and strlen($placa_detectada)==6){
+else if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/', $placa_detectada) and strlen($placa_detectada)==6)
+{
+  $string='paso con 6';
+
+  $placa_detectada='P'.$placa_detectada;
   $placa_necesita_correccion='N';
+
+
 }
+else{
+  $primer_caracter=substr($placa_detectada, 0, 1);
 
-
-  if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==6){
-    $placa_detectada='P'.$placa_detectada; 
-   $placa_necesita_correccion='N';
+  if(is_numeric($primer_caracter)){
+    $placa_detectada='P'.$placa_detectada;
+  }else{
+   // $placa_detectada= substr($placa_detectada,1);
   }
 
-  if(strlen($placa_detectada)<=5){
-    $n_caracter=substr($placa_detectada, 0, 1);
+  $placa_necesita_correccion='S';
+}
 
-  if(is_numeric($n_caracter)){
+if(preg_match('/^[A-Z]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
+
+  $placa_necesita_correccion='N';
+
+
+  $primer_caracter=substr($placa_detectada, 0, 1);
+
+  if($primer_caracter=='D'){
+    $placa_detectada= substr($placa_detectada,1);
     $placa_detectada='P'.$placa_detectada;
   }
 
-   $placa_necesita_correccion='S';
+}
 
-
-
-  }
-
-
-  if((strlen($placa_detectada)==8)&&($placa_necesita_correccion=='S')){
-
-
-                                                $placa_detectada= substr($placa_detectada,1);
-
-
-                                                
-                                              if(preg_match('/^[0]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
-                                                $placa_detectada= substr($placa_detectada,1);
-                                                $placa_detectada='O'.$placa_detectada; 
-                                              $placa_necesita_correccion='N';
-                                            }
-
-
-                                            if(preg_match('/^[A-Z]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
-                                            $n_caracter=substr($placa_detectada, 0, 1);
-                                            //A | C | M | O | P | U 
-                                            if(($n_caracter=='A')||
-                                            ($n_caracter=='C')||
-                                            ($n_caracter=='M')||
-                                            ($n_caracter=='O')||
-                                            ($n_caracter=='P')||
-                                            ($n_caracter=='U')
-                                            ){
-                                              $placa_necesita_correccion='N';
-                                            }
-                                            else{
-                                              // P por ser más probable
-                                                $placa_detectada= substr($placa_detectada,1);
-                                                $placa_detectada='P'.$placa_detectada; 
-                                              $placa_necesita_correccion='N';
-                                            }
-                                            }
-
-
-                                            if(preg_match('/^[A-Z]{2}\d{2}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==7){
-                                              $n_caracter=substr($placa_detectada, 0, 2);
-                                              // CC | CD | MI | TC 
-                                              if(($n_caracter=='CC')||
-                                              ($n_caracter=='CD')||
-                                              ($n_caracter=='MI')||
-                                              ($n_caracter=='TC')
-                                              ){
-                                                $placa_necesita_correccion='N';
-                                              }
-                                              else{
-                                                $placa_necesita_correccion='S';  
-                                              }
-                                            }
-
-
-
-
-
- 
-
-
-                   }
-
-
-//SI PARA ESTE PUNTO SIGUE necesotamdp correcion pasamos a ver los candidatos
+//SI PARA ESTE PUNTO SIGUE SI DETECTAR TODAS LAS LETRAS, VAMOS A USAR LOS OTROS RESULTADOS SI HAY
  if($placa_necesita_correccion=='S'){
 
 
@@ -486,142 +300,56 @@ if(preg_match('/^[A-Z]{3}\d{3}$/',$placa_detectada) and strlen($placa_detectada)
    // echo "\n";
 
    
-$placa_necesita_correccion_interno='S';
-
-
-if(preg_match('/^[0]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==7){
-  $placa_detectada_interno= substr($placa_detectada_interno,1);
-  $placa_detectada_interno='O'.$placa_detectada_interno; 
- $placa_necesita_correccion_interno='N';
-}
+$placa_necesita_correccion_interno='';
 
 
 if(preg_match('/^[A-Z]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==7){
-$n_caracter=substr($placa_detectada_interno, 0, 1);
-//A | C | M | O | P | U 
-if(($n_caracter=='A')||
-($n_caracter=='C')||
-($n_caracter=='M')||
-($n_caracter=='O')||
-($n_caracter=='P')||
-($n_caracter=='U')
-){
- $placa_necesita_correccion_interno='N';
+
+  $placa_necesita_correccion_interno='N';
+
 }
 
+else if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/', $placa_detectada_interno) and strlen($placa_detectada_interno)==6)
+{
+  $string='paso con 6';
+
+  $placa_detectada_interno='P'.$placa_detectada_interno;
+  $placa_necesita_correccion_interno='N';
+
+
+}
 else{
- // P por ser más probable
-  $placa_detectada_interno= substr($placa_detectada_interno,1);
-  $placa_detectada_interno='P'.$placa_detectada_interno; 
- $placa_necesita_correccion_interno='N';
-}
-}
+  $primer_caracter=substr($placa_detectada_interno, 0, 1);
 
+  if(is_numeric($primer_caracter)){
+    $placa_detectada_interno='P'.$placa_detectada_interno;
+  }else{
+   // $placa_detectada_interno= substr($placa_detectada_interno,1);
+  }
 
-if(preg_match('/^[A-Z]{2}\d{2}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==7){
- $n_caracter=substr($placa_detectada_interno, 0, 2);
- // CC | CD | MI | TC 
- if(($n_caracter=='CC')||
- ($n_caracter=='CD')||
- ($n_caracter=='MI')||
- ($n_caracter=='TC')
- ){
-   $placa_necesita_correccion_interno='N';
- }
-
- else{
-   $placa_necesita_correccion_interno='S';
- }
-
+  $placa_necesita_correccion_interno='S';
 }
 
+if(preg_match('/^[A-Z]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==7){
 
+  $placa_necesita_correccion_interno='N';
+  $primer_caracter=substr($placa_detectada_interno, 0, 1);
 
-if(preg_match('/^[A-Z]{3}\d{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==6){
- $placa_necesita_correccion_interno='N';
-}
+  if($primer_caracter=='D'){
+    $placa_detectada_interno= substr($placa_detectada_interno,1);
+    $placa_detectada_interno='P'.$placa_detectada_interno;
+  }
 
-if(preg_match('/^[A-Z]{3}\d{5}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==8){
-$placa_necesita_correccion_interno='N';
-}
-
-if(preg_match('/^[A-Z]{3}\d{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==6){
-$placa_necesita_correccion_interno='N';
-}
-
-
-if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==6){
-$placa_detectada_interno='P'.$placa_detectada_interno; 
-$placa_necesita_correccion_interno='N';
-}
-
-if(strlen($placa_detectada_interno)<=5){
-$n_caracter=substr($placa_detectada_interno, 0, 1);
-
-if(is_numeric($n_caracter)){
-$placa_detectada_interno='P'.$placa_detectada_interno;
-}
-
-$placa_necesita_correccion_interno='S';
-}
-
-
-if((strlen($placa_detectada_interno)==8)&&($placa_necesita_correccion_interno=='S')){
-
-
-                                                  $placa_detectada_interno= substr($placa_detectada_interno,1);
-
-
-                                                  
-                                                if(preg_match('/^[0]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==7){
-                                                  $placa_detectada_interno= substr($placa_detectada_interno,1);
-                                                  $placa_detectada_interno='O'.$placa_detectada_interno; 
-                                                $placa_necesita_correccion_interno='N';
-                                                }
-
-
-                                                if(preg_match('/^[A-Z]{1}\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==7){
-                                                $n_caracter=substr($placa_detectada_interno, 0, 1);
-                                                //A | C | M | O | P | U 
-                                                if(($n_caracter=='A')||
-                                                ($n_caracter=='C')||
-                                                ($n_caracter=='M')||
-                                                ($n_caracter=='O')||
-                                                ($n_caracter=='P')||
-                                                ($n_caracter=='U')
-                                                ){
-                                                $placa_necesita_correccion_interno='N';
-                                                }
-                                                else{
-                                                // P por ser más probable
-                                                  $placa_detectada_interno= substr($placa_detectada_interno,1);
-                                                  $placa_detectada_interno='P'.$placa_detectada_interno; 
-                                                $placa_necesita_correccion_interno='N';
-                                                }
-                                                }
-
-
-                                                if(preg_match('/^[A-Z]{2}\d{2}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==7){
-                                                $n_caracter=substr($placa_detectada_interno, 0, 2);
-                                                // CC | CD | MI | TC 
-                                                if(($n_caracter=='CC')||
-                                                ($n_caracter=='CD')||
-                                                ($n_caracter=='MI')||
-                                                ($n_caracter=='TC')
-                                                ){
-                                                  $placa_necesita_correccion_interno='N';
-                                                }
-                                                else{
-                                                  $placa_necesita_correccion_interno='S';  
-                                                }
-                                                }
 
 }
-
 
 if( $placa_necesita_correccion_interno=='N'){
   $placa_detectada=$placa_detectada_interno;
   $placa_necesita_correccion='N';
+
+
+  
+  
   break;
 }
 
@@ -640,14 +368,6 @@ echo "Longitud: ";
 
 
  }
-
-
-
-
-
-
-
-
 
 
 
@@ -717,20 +437,11 @@ pg_free_result($resultadoplacaexiste1);
 
 $img= $file;
 
-$rutafull='/parqueos/'.$id_parqueo.'/camara_salida/full';
-$rutaplaca='/parqueos/'.$id_parqueo.'/camara_salida/placa';
-$rutavehiculo='/parqueos/'.$id_parqueo.'/camara_salida/vehiculo';
-
-
-
-
-
 if(!($placa_detectada==$ultimaplaca)){
 
-
-$response_full=json_encode($uploader->upload($img,['folder' => $rutafull]));
-$response_placa=json_encode($uploader->upload($img,['folder' => $rutaplaca,'width' => $w, 'height' => $h, 'crop' => 'crop' , 'x' => $x, 'y' => $y]));
-$response_auto=json_encode($uploader->upload($img,['folder' => $rutavehiculo,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
+$response_full=json_encode($uploader->upload($img,['folder' => 'autos/salida/full']));
+$response_placa=json_encode($uploader->upload($img,['folder' => 'autos/salida/placa','width' => $w, 'height' => $h, 'crop' => 'crop' , 'x' => $x, 'y' => $y]));
+$response_auto=json_encode($uploader->upload($img,['folder' => 'autos/salida/vehiculo','width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
 
 
 $imagen_full = json_decode($response_full);
@@ -906,22 +617,9 @@ $query= "UPDATE placas_entrada SET dentro_fuera='F' WHERE id_placa_entrada='$id_
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
-
-
-
-echo "\n";
-echo "Success: camara_salida registrando";
-echo "\n";
-
-$success=true;
-
-
-
-
-
  
 }
-else {  //////
+else {
   echo 'Warning: Ninguna placa coincide exactamente, buscando la placa más parecida';
 
 
@@ -1108,6 +806,8 @@ if(!(strlen($placaprovisional)>0)){
   echo 'Warning: No hay placa que coincida';
 
   //Borrar la que ya existe....
+
+
   $query = "DELETE FROM placas_salida WHERE id_parqueo='$id_parqueo' AND id_placa_salida='$id_placa_salida'";
   if($resultadoeliminar = pg_query($query)){
     echo "Data Deleted Successfully.";
@@ -1117,23 +817,9 @@ if(!(strlen($placaprovisional)>0)){
   }
   
   pg_free_result($resultadoeliminar);
-
-  $success=false;
   
 
 }
-else{
-  
-  echo "\n";
-  echo "Success: camara_salida registrando";
-  $success=true;
-
-
-
-
-}
-
-
 
 
 }
@@ -1144,8 +830,6 @@ else{
   echo "\n";
 
   echo 'Warning: Foto repetida';
-  $success=false;
-
 
 }
 
@@ -1157,75 +841,35 @@ else{
   echo "\n";
 
   echo "Warning: en la foto no hay ninguna placa";
-  $success=false;
-
 
 }
 
 
+}
+else {
 
-
-
-
-
-
-
-
-  //TERMINANDO DE PROCESAR Y CAMBIANDO VARIABLE
-      $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/procesando";
-
-
-$database->getReference($ref_tabla1)->set(false);
-
-
-
-  echo "termino de procesar, mostrando resultado";
   echo "\n";
 
-
-    //CON EL RESULTADO DEBEMOS MOSTRAR SI FUE BUEN PROCESAdO O MAL PROCESADO
-
-
-  if($success){
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/success";
-
-
-    $database->getReference($ref_tabla1)->set(true);
-
-  }
-  else{
-
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/success";
-
-
-    $database->getReference($ref_tabla1)->set(false);
-
-
-  }
-  
-
-  
-
-
-
-
-
-  sleep(10);
-
-
+  echo "Warning: No hay nada en la imagen";
 
 
 
 }
 
-//sleep(2);
+
+//p567a0ahttps://res.cloudinary.com/parkiate-ki/image/upload/v1653182389/autos/entrada/placa/zxjygwpqbd5q9wadxfw5.jpg
+
+//https://res.cloudinary.com/parkiate-ki/image/upload/v1653182390/autos/entrada/vehiculo/ewrypv9irsp1akim1xxc.jpg
+
+//$bounding_box_auto = $xmin_auto + $ymin_auto + $xmax_auto + $ymax_auto;
+
+//echo $bounding_box_auto;
 
 
-}
-
-echo "---------------------CAMARA SALIDA DESACTIVADA ,FINALIZANDO SCRIPT-----------------";
 
 
+//print_r($result);
+//exit;
 
 ?>
 

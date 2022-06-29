@@ -49,16 +49,10 @@ $uploader = $cloudinary->uploadApi();
 include('dbcon.php');
 
 
+//$id_parqueo ='F7B816'; // '2CE369'; //$_GET['id_parqueo']; //'2CE369'
 
-//2CE369: PARQUEO CLUB LA AURORA
 
-//ESTA VARIABLE CAMBIA CONFORME EL PARQUEO QUE SE ESTE MONITOREANDO
 $id_parqueo ='2CE369'; //$_GET['id_parqueo']; //'2CE369'
-
-
-/////////////////1. VER SI ESTA ACTIVADA LA CAMARA CON ESE ID 
-                      //Y SI ESTA ACTIVADA WHILE HASTA QUE SE DESACTIVE
-
 
 
 
@@ -71,71 +65,41 @@ $result12 = pg_query($conn, $query12) or die('ERROR : ' . pg_last_error());
 $id_firebase='';
 
 
-while ($row = pg_fetch_row($result12)) {
-  $id_firebase=$row[0];
-     
-}
+              
+           
 
 
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_entrada/activado";
+                                  
+                      
+    
+     while ($row = pg_fetch_row($result12)) {
+                    $id_firebase=$row[0];
+                       
+              }
 
 
-$database->getReference($ref_tabla1)->set(true);
-
-
-
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_entrada/activado";
+    $ref_tabla="/Parking_Status/".$id_firebase."/"."sensor2"."/estado"; 
 
     
-$activado = $database->getReference($ref_tabla1)->getValue();
+    $status = $database->getReference($ref_tabla)->getValue();
+
+    $id_parqueo ='F7B816';
 
 
-
-while((str_contains($activado, '1')))
-
+if(str_contains($status, '1'))
 {
-
-  $id_parqueo ='86BE48';
-
-
-
-echo "CAMARA ACTIVADA:";
-echo "\n";
+/*
+$received = file_get_contents('http://192.168.1.13/picture'); 
 
 
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_entrada/activado";
-
-    
-$activado = $database->getReference($ref_tabla1)->getValue();
-
-
-//2. si hay un objeto, tomamos foto, procesamos, y al finalizar de procesar
-    //cambiar el estado de la variable "procesando" a falso
+$img = 'placa_entrada_p.jpeg';   
+file_put_contents($img, $received);*/
 
 
 
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_entrada/objeto";
-
-    
-$objeto = $database->getReference($ref_tabla1)->getValue();
-
-if((str_contains($objeto, '1')))
-
-
-{
-
-  echo "HAY OBJETO PROCESANNDO.......................:";
-  echo "\n";
-
-  //sleep(10);
-
-  $success=true;
-
-
-
-  $url = 
+$url = 
 //'https://res.cloudinary.com/parkiate-ki/image/upload/v1655505257/autos/entrada/vehiculo/jne4f3z9apldjvtrvt2y.jpg';
-'http://192.168.1.3/picture';
+'http://192.168.1.13/picture';
 // Initialize the cURL session
 $ch = curl_init($url);
 
@@ -145,7 +109,7 @@ $dir = './';
 
 // Use basename() function to return
 // the base name of file
-$file_name = basename('placa_entrada.jpeg');
+$file_name = basename('placa_entrada_p.jpeg');
 
 // Save file into file location
 $save_file_loc = $dir . $file_name;
@@ -161,7 +125,7 @@ curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_exec($ch);
 
 // Closes a cURL session and frees all resources
-//curl_close($ch);
+curl_close($ch);
 
 // Close file
 fclose($fp);
@@ -172,7 +136,7 @@ fclose($fp);
 
 
 // CREATE FILE READY TO UPLOAD WITH CURL
-$file = realpath('placa_entrada.jpeg');  
+$file = realpath('placa_entrada_p.jpeg');  
 if (function_exists('curl_file_create')) { // php 5.5+
   $cFile = curl_file_create($file);
 } else {
@@ -224,7 +188,7 @@ $response = json_decode($result);
 //echo $response;
 
 
-//curl_close($ch);
+curl_close($ch);
 
 //print_r($response->results[0]);
 //DEL RESPONSE NECESITO: 
@@ -470,24 +434,9 @@ echo $placa_necesita_correccion;
 $img= $file;
 
 
-//rutas: /parqueos/ID_PARQUEO/camara_entrada/ (full | placa | vehiculo)
-
-
-
-$rutafull='/parqueos/'.$id_parqueo.'/camara_entrada/full';
-$rutaplaca='/parqueos/'.$id_parqueo.'/camara_entrada/placa';
-$rutavehiculo='/parqueos/'.$id_parqueo.'/camara_entrada/vehiculo';
-
-/*
 $response_full=json_encode($uploader->upload($img,['folder' => 'autos/entrada/full']));
 $response_placa=json_encode($uploader->upload($img,['folder' => 'autos/entrada/placa','width' => $w, 'height' => $h, 'crop' => 'crop' , 'x' => $x, 'y' => $y]));
 $response_auto=json_encode($uploader->upload($img,['folder' => 'autos/entrada/vehiculo','width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-*/
-
-$response_full=json_encode($uploader->upload($img,['folder' => $rutafull]));
-$response_placa=json_encode($uploader->upload($img,['folder' => $rutaplaca,'width' => $w, 'height' => $h, 'crop' => 'crop' , 'x' => $x, 'y' => $y]));
-$response_auto=json_encode($uploader->upload($img,['folder' => $rutavehiculo,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
 
 
 $imagen_full = json_decode($response_full);
@@ -607,11 +556,6 @@ pg_free_result($result);
 echo "\n";
 
 echo "Success: camara_entrada registrando";
-
-$success=true;
-
-
-
 /*
 }
 else{
@@ -633,8 +577,6 @@ echo $placa_detectada;
 echo "-->";
 echo $placa_necesita_correccion;
 
-$success=false;
-
 }
 
 
@@ -647,71 +589,37 @@ else{
   echo "\n";
 
   echo "warning: en la foto no hay ninguna placa";
-  $success=false;
 
 }
 
 
+}
+else {
 
-
-
-
-
-
-  //TERMINANDO DE PROCESAR Y CAMBIANDO VARIABLE
-      $ref_tabla1="/Parking_Status/".$id_firebase."/camara_entrada/procesando";
-
-
-$database->getReference($ref_tabla1)->set(false);
-
-
-
-  echo "termino de procesar, mostrando resultado";
-  echo "\n";
-
-
-    //CON EL RESULTADO DEBEMOS MOSTRAR SI FUE BUEN PROCESAdO O MAL PROCESADO
-
-//$success=false;
-
-  if($success){
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_entrada/success";
-
-
-    $database->getReference($ref_tabla1)->set(true);
-
-  }
-  else{
-
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_entrada/success";
-
-
-    $database->getReference($ref_tabla1)->set(false);
-
-
-  }
-  
-
-  
-
-
-  sleep(10);
-
-
-
-
+  echo "warning: No hay nada en la imagen";
 
 
 
 }
 
-}
 
-echo "---------------------CAMARA ENTRADA DESACTIVADA ,FINALIZANDO SCRIPT-----------------";
+//p567a0ahttps://res.cloudinary.com/parkiate-ki/image/upload/v1653182389/autos/entrada/placa/zxjygwpqbd5q9wadxfw5.jpg
+
+//https://res.cloudinary.com/parkiate-ki/image/upload/v1653182390/autos/entrada/vehiculo/ewrypv9irsp1akim1xxc.jpg
+
+//$bounding_box_auto = $xmin_auto + $ymin_auto + $xmax_auto + $ymax_auto;
+
+//echo $bounding_box_auto;
 
 
+
+
+//print_r($result);
+//exit;
 
 ?>
+
+
 
 
 
