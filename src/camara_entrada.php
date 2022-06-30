@@ -99,6 +99,8 @@ while((str_contains($activado, '1')))
 {
 
  // $id_parqueo ='86BE48';
+// $id_parqueo_r ='2329C7';
+
 
  $id_parqueo ='F7B816';
 
@@ -364,12 +366,21 @@ if(preg_match('/^[A-Z]{3}\d{3}$/',$placa_detectada) and strlen($placa_detectada)
 }
 
 
+if(preg_match('/^[A-Z]{2}\d{3}$/',$placa_detectada) and strlen($placa_detectada)==5){
+  $placa_necesita_correccion='N';
+}
+
+
+
   if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada) and strlen($placa_detectada)==6){
     $placa_detectada='P'.$placa_detectada; 
    $placa_necesita_correccion='N';
   }
 
-  if(strlen($placa_detectada)<=5){
+
+  
+
+  if((strlen($placa_detectada)<=5)&&($placa_necesita_correccion=='S')){
     $n_caracter=substr($placa_detectada, 0, 1);
 
   if(is_numeric($n_caracter)){
@@ -531,13 +542,17 @@ if(preg_match('/^[A-Z]{3}\d{3}$/',$placa_detectada_interno) and strlen($placa_de
 $placa_necesita_correccion_interno='N';
 }
 
+if(preg_match('/^[A-Z]{2}\d{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==5){
+  $placa_necesita_correccion_interno='N';
+  }
+
 
 if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==6){
 $placa_detectada_interno='P'.$placa_detectada_interno; 
 $placa_necesita_correccion_interno='N';
 }
 
-if(strlen($placa_detectada_interno)<=5){
+if((strlen($placa_detectada_interno)<=5)&&($placa_necesita_correccion_interno=='S')){
 $n_caracter=substr($placa_detectada_interno, 0, 1);
 
 if(is_numeric($n_caracter)){
@@ -681,7 +696,16 @@ $response_auto=json_encode($uploader->upload($img,['folder' => 'autos/entrada/ve
 
 $response_full=json_encode($uploader->upload($img,['folder' => $rutafull]));
 $response_placa=json_encode($uploader->upload($img,['folder' => $rutaplaca,'width' => $w, 'height' => $h, 'crop' => 'crop' , 'x' => $x, 'y' => $y]));
-$response_auto=json_encode($uploader->upload($img,['folder' => $rutavehiculo,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
+
+if($xmin_auto > 0 && $ymin_auto > 0 && $xmax_auto > 0 && $ymax_auto > 0){
+  $response_auto=json_encode($uploader->upload($img,['folder' => $rutavehiculo,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
+
+}
+else{
+  $response_auto=json_encode($uploader->upload($img,['folder' => $rutavehiculo]));
+
+}
+
 
 
 $imagen_full = json_decode($response_full);

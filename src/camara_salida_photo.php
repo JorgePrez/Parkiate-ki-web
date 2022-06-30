@@ -46,7 +46,6 @@ date_default_timezone_set('America/Guatemala');
 
 $uploader = $cloudinary->uploadApi();
 
-include('dbcon.php');
 
 include 'camaras_endpoints.php';
 
@@ -56,82 +55,17 @@ include 'camaras_endpoints.php';
 //2CE369: PARQUEO CLUB LA AURORA
 
 //ESTA VARIABLE CAMBIA CONFORME EL PARQUEO QUE SE ESTE MONITOREANDO
-$id_parqueo ='2CE369'; //$_GET['id_parqueo']; //'2CE369'
+//$id_parqueo ='2CE369'; //$_GET['id_parqueo']; //'2CE369'
 
 
-/////////////////1. VER SI ESTA ACTIVADA LA CAMARA CON ESE ID 
-                      //Y SI ESTA ACTIVADA WHILE HASTA QUE SE DESACTIVE
+$id_parqueo_r ='2329C7';
 
 
-
-
-$query12 = "select id_firebase from parqueo where id_parqueo='$id_parqueo'";
-
-
-$result12 = pg_query($conn, $query12) or die('ERROR : ' . pg_last_error());
-
-
-$id_firebase='';
-
-
-while ($row = pg_fetch_row($result12)) {
-  $id_firebase=$row[0];
-     
-}
-
-
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/activado";
-
-
-$database->getReference($ref_tabla1)->set(true);
-
-
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/activado";
+$id_parqueo=$id_parqueo_r;
+ 
 
     
-$activado = $database->getReference($ref_tabla1)->getValue();
-
-
-echo "CAMARA DE SALIDA ACTIVADA:";
-echo "\n";
-
-
-while((str_contains($activado, '1')))
-
-{
-
-  
-  $id_parqueo ='F7B816';
-
-
-
-
-$ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/activado";
-
-    
-$activado = $database->getReference($ref_tabla1)->getValue();
-
-
-//2. si hay un objeto, tomamos foto, procesamos, y al finalizar de procesar
-    //cambiar el estado de la variable "procesando" a falso
-
-
-
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/objeto";
-
-    
-$objeto = $database->getReference($ref_tabla1)->getValue();
-
-if((str_contains($objeto, '1')))
-
-
-{
-
-  echo "HAY OBJETO PROCESANNDO.......................:";
-  echo "\n";
-  $success=true;
-
-  $url = $endpoint_salida;
+$url = $endpoint_image_salida;
 
 
 
@@ -149,7 +83,7 @@ $dir = './';
 
 // Use basename() function to return
 // the base name of file
-$file_name = basename('placa_salida_p.jpeg');
+$file_name = basename('placa_salida_photo.jpeg');
 
 // Save file into file location
 $save_file_loc = $dir . $file_name;
@@ -179,7 +113,7 @@ fclose($fp);
 
 
 // CREATE FILE READY TO UPLOAD WITH CURL
-$file = realpath('placa_salida_p.jpeg');  
+$file = realpath('placa_salida_photo.jpeg');  
 if (function_exists('curl_file_create')) { // php 5.5+
   $cFile = curl_file_create($file);
 } else {
@@ -190,7 +124,7 @@ if (function_exists('curl_file_create')) { // php 5.5+
 $data = array(
     'upload' => $cFile,
     'regions' => 'gp', //gt
-    'camera_id' => 'camara_salida', // Optional , camara_salida  //
+    'camera_id' => 'camara_salida_photo', // Optional , camara_salida  //
 );
 
 // Prepare new cURL resource
@@ -209,8 +143,6 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 
 $now = new Datetime('now');
 $now = $now->format('Y-m-d H:i:s');
-
-
 
 
 
@@ -459,11 +391,6 @@ if(preg_match('/^[A-Z]{2}\d{3}$/',$placa_detectada) and strlen($placa_detectada)
 
 
 
-
-
- 
-
-
                    }
 
 
@@ -654,21 +581,6 @@ echo "Longitud: ";
 
 
  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1186,69 +1098,6 @@ else{
 
 
 }
-
-
-
-
-
-
-
-
-
-
-  //TERMINANDO DE PROCESAR Y CAMBIANDO VARIABLE
-      $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/procesando";
-
-
-$database->getReference($ref_tabla1)->set(false);
-
-
-
-  echo "termino de procesar, mostrando resultado";
-  echo "\n";
-
-
-    //CON EL RESULTADO DEBEMOS MOSTRAR SI FUE BUEN PROCESAdO O MAL PROCESADO
-
-
-  if($success){
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/success";
-
-
-    $database->getReference($ref_tabla1)->set(true);
-
-  }
-  else{
-
-    $ref_tabla1="/Parking_Status/".$id_firebase."/camara_salida/success";
-
-
-    $database->getReference($ref_tabla1)->set(false);
-
-
-  }
-  
-
-  
-
-
-
-
-
-  sleep(10);
-
-
-
-
-
-}
-
-//sleep(2);
-
-
-}
-
-echo "---------------------CAMARA SALIDA DESACTIVADA ,FINALIZANDO SCRIPT-----------------";
 
 
 

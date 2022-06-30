@@ -94,7 +94,10 @@ else{
 
 $id_parqueo=$_COOKIE["id_parqueo"];
 //ID_FIREBASE
-$query = "select id_placa_entrada,foto_auto_entrada,deteccion_entrada,hora_deteccion_entrada from placas_entrada where hora_deteccion_entrada =(select max(hora_deteccion_entrada) from placas_entrada) AND id_parqueo='$id_parqueo'";
+
+
+$query ="select id_placa_entrada,foto_auto_entrada,deteccion_entrada,hora_deteccion_entrada
+from placas_entrada where id_parqueo='$id_parqueo' and hora_deteccion_entrada =(select max(hora_deteccion_entrada) from placas_entrada where id_parqueo='$id_parqueo')";
 //                       $query = "select * from prospectos_template";
 
 $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
@@ -108,7 +111,6 @@ $deteccion_entrada='';
 $hora_deteccion_entrada='';
 
 
-$tuplasaafectadas_placa1 = pg_affected_rows($result);
 
 
 
@@ -121,10 +123,26 @@ while ($row = pg_fetch_row($result)) {
  
 }
 
+$foto_auto_entrada12=$foto_auto_entrada1;
+
+
+$tuplasaafectadas_placa1 = pg_affected_rows($result);
+
+/*
+echo "\n";
+echo "hora deteccion entrada:";
+echo $hora_deteccion_entrada;
+echo "------";
+echo $foto_auto_entrada1;
+echo "\n";*/
+
 pg_free_result($result);
 
 
-$query = "select id_placa_salida,foto_auto_salida,deteccion_salida,hora_deteccion_salida from placas_salida where hora_deteccion_salida = (select max(hora_deteccion_salida) from placas_salida) AND id_parqueo='$id_parqueo'";
+
+$query = "select id_placa_salida,foto_auto_salida,deteccion_salida,hora_deteccion_salida from placas_salida where id_parqueo='$id_parqueo' and hora_deteccion_salida = (select max(hora_deteccion_salida) from placas_salida where id_parqueo='$id_parqueo')";
+
+
 //                       $query = "select * from prospectos_template";
 
 $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
@@ -132,6 +150,8 @@ $id_placa_salida='';
 $foto_auto_salida1='';
 $deteccion_salida='';
 $hora_deteccion_salida='';
+
+
 
 
 
@@ -144,6 +164,12 @@ while ($row = pg_fetch_row($result)) {
  
 }
 
+echo "\n";
+echo "hora deteccion salida:";
+echo $hora_deteccion_salida;
+echo "\n";
+
+
 $tuplasaafectadas_placa2 = pg_affected_rows($result);
 
 
@@ -153,8 +179,11 @@ pg_free_result($result);
 
 ?>
 #spotify1 {
-  background: url(<?php echo $foto_auto_entrada1?>) no-repeat center top;
-/*	background: url(https://res.cloudinary.com/parkiate-ki/image/upload/v1653981444/autos/entrada/vehiculo/cpj3hx32gphfdkqgccgh.jpg) no-repeat center top; */
+  background: url(<?php echo $foto_auto_salida2?>) no-repeat center top;
+
+  
+  /*background:url('https://res.cloudinary.com/parkiate-ki/image/upload/v1653897978/detalles/10-109983_security-camera-icon-png-cctv-icon-transparent-png_mxdo9a.png') no-repeat center top;
+  */
   margin-top: -15px;
 	background-attachment: relative;
 	background-position: center center;
@@ -281,6 +310,75 @@ pg_free_result($result);
 	margin-left: 5px;
 	margin-top: 5px;
 }
+
+
+
+
+#spotify21 {
+	/*background: url(../placa_salida.jpeg) no-repeat center top;*/
+    background:url(<?php echo $foto_auto_entrada1?>) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 220px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#spotify21 .btn-clear-g {
+	top: 15%;
+	right: 10px;
+	position: absolute;
+	margin-top: 5px;
+}
+
+#spotify21 .btn-theme04  {
+	top: 15%;
+	right: 10px;
+	position: absolute;
+	margin-top: 5px;
+}
+#spotify21 .sp-title {
+	bottom: 60%;
+	left: 75px;
+	position: absolute;
+	color: #efefef;
+}
+#spotify21 .sp-title h4 {
+	font-weight: 900;
+}
+
+#spotify21 .sp-title h3 {
+    font-weight: 900;
+    display: table; /* keep the background color wrapped tight */
+    margin: 0px auto 0px auto; /* keep the table centered */
+    padding:5px;font-size:20px;background-color:black;color:#ffffff;
+}
+
+#spotify21 .sp-title h5 {
+    display: table; /* keep the background color wrapped tight */
+    margin: 0px auto 0px auto; /* keep the table centered */
+    background-color:black;color:#ffffff;
+}
+
+#spotify21 .play{
+	bottom: 18%;
+	right: 25px;
+	position: absolute;
+	color: #efefef;
+	font-size: 20px
+}
+.followers {
+	margin-left: 5px;
+	margin-top: 5px;
+}
+
 
 
 #spotify3 {
@@ -1254,7 +1352,7 @@ echo                             '</h5>
 
                   <?php
 if($tuplasaafectadas_placa1>0){
-  echo '<div id="spotify1">';
+  echo '<div id="spotify21">';
 
 }
 else{

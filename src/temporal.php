@@ -68,7 +68,7 @@ $placa_necesita_correccion='N';
 }
 
 
-if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',$placa_detectada_interno) and strlen($placa_detectada_interno)==6){
+if(preg_match('/^\d{3}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/',) and strlen($placa_detectada_interno)==6){
 $placa_detectada_interno='P'.$placa_detectada_interno; 
 $placa_necesita_correccion='N';
 }

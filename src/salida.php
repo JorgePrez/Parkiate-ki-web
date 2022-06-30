@@ -466,7 +466,7 @@ else{
 
 echo	"<td> 
 <div class='photo'>
-<a class='fancybox' href=$foto_placa_entrada><img class='img-responsive' src=$foto_placa_entrada alt=''></a>
+<a class='fancybox' href=$foto_placa_entrada><img class='img-responsive' src=$foto_placa_entrada width='100px' height='auto' alt=''></a>
 </div>
 </td>";
 
@@ -569,7 +569,7 @@ Necesita correción (posiblemente)
         echo  
         
         "<td>
-        <a class='fancybox' href=$completo_entrada><img class='img-responsive' src=$completo_entrada width='60px' height='auto' alt=''></a>        
+        <a class='fancybox' href=$completo_entrada><img class='img-responsive' src=$completo_entrada width='80px' height='auto' alt=''></a>        
           </td>";
  
 
