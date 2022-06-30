@@ -628,385 +628,107 @@ include 'logout.php';
               $nombrecompleto= $row[0];
               }
 
-
-              $domingo2='';
-              $sabado2='';
-              $viernes2='';
-              $jueves2='';
-              $miercoles2='';
-              $martes2='';
-              $lunes2='';
-       
-
-              $domingo2_c=0;
-              $sabado2_c=0;
-              $viernes2_c=0;
-              $jueves2_c=0;
-              $miercoles2_c=0;
-              $martes2_c=0;
-              $lunes2_c=0;
-     
-
-              $domingo=false;
-
-              $sabado=true;
-              $viernes=false;
-              $jueves=false;
-              $miercoles=false;
-              $martes=false;
-              $lunes=false;
-
-              if($domingo==true){
-                $domingo2=date('y-m-d');
-                $domingo2_c=40;
-                $sabado2=Date('y-m-d', strtotime('-1 days'));  
-                $sabado2_c=20;
                 
-                $viernes2=Date('y-m-d', strtotime('-2 days'));    
-                $viernes2_c=20;
+                $day7=Date('d/m', strtotime('-6 days'));
+                $day6=Date('d/m', strtotime('-5 days'));
+                $day5=Date('d/m', strtotime('-4 days'));
+                $day4=Date('d/m', strtotime('-3 days'));
+                $day3=Date('d/m', strtotime('-2 days'));
+                $day2=Date('d/m', strtotime('-1 days'));
+                $day1= date('d/m');
 
-                $jueves2=Date('y-m-d', strtotime('-3 days'));
-                $jueves2_c=20;
-
-                $miercoles2=Date('y-m-d', strtotime('-4 days'));
-                $miercoles2_c=20;
 
 
-                $martes2=Date('y-m-d', strtotime('-5 days'));
-                $martes2_c=20;
-
-                $lunes2=Date('y-m-d', strtotime('-6 days'));
-                $lunes2_c=20;
-              }
-
-              else if( $sabado==true){
-                $domingo2=Date('y-m-d', strtotime('+1 days'));                ;
-                $sabado2=date('y-m-d');;
-                $viernes2=Date('y-m-d', strtotime('-1 days'));    ;
-                $jueves2=Date('y-m-d', strtotime('-2 days'));;
-                $miercoles2=Date('y-m-d', strtotime('-3 days'));;
-                $martes2=Date('y-m-d', strtotime('-4 days'));;
-                $lunes2=Date('y-m-d', strtotime('-5 days'));;
-           
-
-                $domingo2_c=0;
-                $sabado2_c=40;
                 
-                $viernes2_c=20;
-
-                $jueves2_c=20;
-
-                $miercoles2_c=20;
-
-
-                $martes2_c=20;
-
-                $lunes2_c=20;
+                $day7_c=Date('Y-m-d', strtotime('-6 days'));
+                $day6_c=Date('Y-m-d', strtotime('-5 days'));
+                $day5_c=Date('Y-m-d', strtotime('-4 days'));
+                $day4_c=Date('Y-m-d', strtotime('-3 days'));
+                $day3_c=Date('Y-m-d', strtotime('-2 days'));
+                $day2_c=Date('Y-m-d', strtotime('-1 days'));
+                $day1_c= date('Y-m-d');
 
 
-              }
 
-              else if( $viernes==true){
-                $domingo2=Date('y-m-d', strtotime('+2 days'));                ;
-                $sabado2=Date('y-m-d', strtotime('+1 days'));  ;
-                $viernes2=date('y-m-d');;    ;
-                $jueves2=Date('y-m-d', strtotime('-1 days'));;
-                $miercoles2=Date('y-m-d', strtotime('-2 days'));;
-                $martes2=Date('y-m-d', strtotime('-3 days'));;
-                $lunes2=Date('y-m-d', strtotime('-4 days'));;
+                $cantidad7=0;
+                $cantidad6=0;
+                $cantidad5=0;
+                $cantidad4=0;
+                $cantidad3=0;
+                $cantidad2=0;
+                $cantidad1=0;
 
 
-                $domingo2_c=0;
-                $sabado2_c=00;
                 
-                $viernes2_c=40;
 
-                $jueves2_c=20;
 
-                $miercoles2_c=20;
 
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND DATE(hora_deteccion_entrada)='$day7_c'";
+$resultadofecha = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$cantidad7 = pg_affected_rows($resultadofecha);
+pg_free_result($resultadofecha);
 
-                $martes2_c=20;
 
-                $lunes2_c=20;
-            
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND DATE(hora_deteccion_entrada)='$day6_c'";
+$resultadofecha = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$cantidad6 = pg_affected_rows($resultadofecha);
+pg_free_result($resultadofecha);
 
-           
 
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND DATE(hora_deteccion_entrada)='$day5_c'";
+$resultadofecha = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$cantidad5 = pg_affected_rows($resultadofecha);
+pg_free_result($resultadofecha);
 
-              }
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND DATE(hora_deteccion_entrada)='$day4_c'";
+$resultadofecha = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$cantidad4 = pg_affected_rows($resultadofecha);
+pg_free_result($resultadofecha);
 
-              else if( $jueves==true){
-                $domingo2=Date('y-m-d', strtotime('+3 days'));                ;
-                $sabado2=Date('y-m-d', strtotime('+2 days'));  ;
-                $viernes2=Date('y-m-d', strtotime('+1 days'));  ;   ;
-                $jueves2=date('y-m-d');;    ;
-                $miercoles2=Date('y-m-d', strtotime('-1 days'));;
-                $martes2=Date('y-m-d', strtotime('-2 days'));;
-                $lunes2=Date('y-m-d', strtotime('-3 days'));;
 
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND DATE(hora_deteccion_entrada)='$day3_c'";
+$resultadofecha = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$cantidad3 = pg_affected_rows($resultadofecha);
+pg_free_result($resultadofecha);
 
-                $domingo2_c=0;
-                $sabado2_c=00;
-                
-                $viernes2_c=0;
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND DATE(hora_deteccion_entrada)='$day2_c'";
+$resultadofecha = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$cantidad2 = pg_affected_rows($resultadofecha);
+pg_free_result($resultadofecha);
 
-                $jueves2_c=40;
 
-                $miercoles2_c=20;
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND DATE(hora_deteccion_entrada)='$day1_c'";
+$resultadofecha = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$cantidad1 = pg_affected_rows($resultadofecha);
+pg_free_result($resultadofecha);
 
 
-                $martes2_c=20;
+                //determinar cantidad por dia
 
-                $lunes2_c=20;
-     
 
+                $var7 = (string) $cantidad7; 
+                $var6 = (string) $cantidad6; 
+                $var5 = (string) $cantidad5; 
+                $var4 = (string) $cantidad4;
+                $var3 = (string) $cantidad3; 
+                $var2 = (string) $cantidad2;
+                $var1 = (string) $cantidad1;
 
-              }
 
-              else if( $miercoles==true){
-                $domingo2=Date('y-m-d', strtotime('+4 days'));                ;
-                $sabado2=Date('y-m-d', strtotime('+3 days'));  ;
-                $viernes2=Date('y-m-d', strtotime('+2 days'));  ;   ;
-                $jueves2= Date('y-m-d', strtotime('+1 days')); ;
-                $miercoles2=date('y-m-d');  
-                $martes2=Date('y-m-d', strtotime('-1 days'));;
-                $lunes2=Date('y-m-d', strtotime('-2 days'));;
 
-               
-                $domingo2_c=0;
-                $sabado2_c=00;
-                
-                $viernes2_c=0;
 
-                $jueves2_c=0;
+                if($cantidad7>100){$per7 = '105';}else{$per7 = (string) $cantidad7;}
+                if($cantidad6>100){$per6 = '105';}else{$per6 = (string) $cantidad6;}
+                if($cantidad5>100){$per5 = '105';}else{$per5 = (string) $cantidad5;}
+                if($cantidad4>100){$per4 = '105';}else{$per4 = (string) $cantidad4;}
+                if($cantidad3>100){$per3 = '105';}else{$per3 = (string) $cantidad3;}
+                if($cantidad2>100){$per2 = '105';}else{$per2 = (string) $cantidad2;}
+                if($cantidad1>100){$per1 = '105';}else{$per1 = (string) $cantidad1;}
 
-                $miercoles2_c=40;
 
-
-                $martes2_c=20;
-
-                $lunes2_c=20; 
-    
-
-
-              }
-
-              else if( $martes==true){
-                $domingo2=Date('y-m-d', strtotime('+5 days'));                ;
-                $sabado2=Date('y-m-d', strtotime('+4 days'));  ;
-                $viernes2=Date('y-m-d', strtotime('+3 days'));  ;   ;
-                $jueves2= Date('y-m-d', strtotime('+2 days'));
-                $miercoles2=Date('y-m-d', strtotime('+1 days')); 
-                $martes2=date('y-m-d'); 
-                $lunes2=Date('y-m-d', strtotime('-1 days'));
-
-                $domingo2_c=0;
-                $sabado2_c=0;
-                
-                $viernes2_c=0;
-
-                $jueves2_c=0;
-
-                $miercoles2_c=0;
-
-
-                $martes2_c=40;
-
-                $lunes2_c=20; 
-    
-          
-
-           
-
-
-              } 
-              else{
-
-                $domingo2=Date('y-m-d', strtotime('+6 days'));                ;
-                $sabado2=Date('y-m-d', strtotime('+5 days'));  ;
-                $viernes2=Date('y-m-d', strtotime('+4 days'));  ;   ;
-                $jueves2= Date('y-m-d', strtotime('+3 days'));
-                $miercoles2=Date('y-m-d', strtotime('+2 days')); 
-                $martes2=Date('y-m-d', strtotime('+1 days'));  
-                $lunes2=date('y-m-d');
-   
-                $domingo2_c=0;
-                $sabado2_c=0;
-                
-                $viernes2_c=0;
-
-                $jueves2_c=0;
-
-                $miercoles2_c=0;
-
-
-                $martes2_c=0;
-
-                $lunes2_c=40; 
-           
-
-              }
-
-
-
-//Porcentaje para cada valor
-
-$porcentaje_lunes=0;
-
-
-if (($lunes2_c > 0) && ($lunes2_c <= 20)) {
-
-                $porcentaje_lunes=20;
-        
-               }
-        
-        
-             else  if (($lunes2_c >= 21) && ($lunes2_c <= 40)) {
-                $porcentaje_lunes=40;
-                 
-              }   
-              
-              else if (($lunes2_c >= 41) && ($num <= 60)) {
-                $porcentaje_lunes=60;
-                 
-              }  
-              else  if (($lunes2_c >= 61) && ($num <= 80)) {
-                $porcentaje_lunes=80;
-                 
-              }   else{
-                $porcentaje_lunes=100;
-              }
-
-
-              $porcentaje_martes=0;
-
-
-if (($martes2_c > 0) && ($martes2_c <= 20)) {
-
-                $porcentaje_martes=20;
-        
-               }
-        
-        
-             else  if (($martes2_c >= 21) && ($martes2_c <= 40)) {
-                $porcentaje_martes=40;
-                 
-              }   
-              
-              else if (($martes2_c >= 41) && ($num <= 60)) {
-                $porcentaje_martes=60;
-                 
-              }  
-              else  if (($martes2_c >= 61) && ($num <= 80)) {
-                $porcentaje_martes=80;
-                 
-              }   else{
-                $porcentaje_martes=100;
-              }
-
-
-              $porcentaje_miercoles=0;
-
-
-if (($miercoles2_c > 0) && ($miercoles2_c <= 20)) {
-
-                $porcentaje_miercoles=20;
-        
-               }
-        
-        
-             else  if (($miercoles2_c >= 21) && ($miercoles2_c <= 40)) {
-                $porcentaje_miercoles=40;
-                 
-              }   
-              
-              else if (($miercoles2_c >= 41) && ($num <= 60)) {
-                $porcentaje_miercoles=60;
-                 
-              }  
-              else  if (($miercoles2_c >= 61) && ($num <= 80)) {
-                $porcentaje_miercoles=80;
-                 
-              }   else{
-                $porcentaje_miercoles=100;
-              }
-
-
-              $porcentaje_jueves=0;
-
-
-if (($jueves2_c > 0) && ($jueves2_c <= 20)) {
-
-                $porcentaje_jueves=20;
-        
-               }
-        
-        
-             else  if (($jueves2_c >= 21) && ($jueves2_c <= 40)) {
-                $porcentaje_jueves=40;
-                 
-              }   
-              
-              else if (($jueves2_c >= 41) && ($num <= 60)) {
-                $porcentaje_jueves=60;
-                 
-              }  
-              else  if (($jueves2_c >= 61) && ($num <= 80)) {
-                $porcentaje_jueves=80;
-                 
-              }   else{
-                $porcentaje_jueves=100;
-              }
-
-
-              $porcentaje_viernes=0;
-
-
-if (($viernes2_c > 0) && ($viernes2_c <= 20)) {
-
-                $porcentaje_viernes=20;
-        
-               }
-        
-        
-             else  if (($viernes2_c >= 21) && ($viernes2_c <= 40)) {
-                $porcentaje_viernes=40;
-                 
-              }   
-              
-              else if (($viernes2_c >= 41) && ($num <= 60)) {
-                $porcentaje_viernes=60;
-                 
-              }  
-              else  if (($viernes2_c >= 61) && ($num <= 80)) {
-                $porcentaje_viernes=80;
-                 
-              }   else{
-                $porcentaje_viernes=100;
-              }
-         
-
-
-              
-
-            
-              //Obtener timestamps para grafico
-
-              /*
-              1.Obtener fecha de hoy
-              2.Ver que dia es hoy (de la semana), determinar fecha de inicio y fin
-
-               Si es domingo, hoy - ultimos 14 dias
-               Si es sabado, hoy + ultimos 12 dias
-               Si es viernes , hoy + ultimos 11 dias
-               Si es jueves, hoy + ultimos 10 dias
-               Si es miercoles, hoy + ultimos 9 dias
-               Si es martes, hoy + ultimos 8 dias
-               Si es lunes, hoy + ultimos 7 dias
-
-              */
-
+             
+                   
+;
 
               
               ?>
@@ -1023,6 +745,8 @@ if (($viernes2_c > 0) && ($viernes2_c <= 20)) {
     <?php
      
       echo $nombrecompleto;
+
+   
  
           ?>
         
@@ -1112,7 +836,7 @@ if (($viernes2_c > 0) && ($viernes2_c <= 20)) {
       
 
             <div class="border-head">
-              <h3>   <i class="fa fa-bar-chart-o">  VISITAS DE LA SEMANA ACTUAL A TU PARQUEO</i> </h3>
+              <h3>   <i class="fa fa-bar-chart-o">  VISITAS DE LOS ULTIMOS 7 DÍAS A TU PARQUEO</i> </h3>
             </div>
             <div class="custom-bar-chart">
               <ul class="y-axis">
@@ -1124,124 +848,32 @@ if (($viernes2_c > 0) && ($viernes2_c <= 20)) {
                 <li><span>0</span></li>
               </ul>
               <div class="bar">
-                <div class="title">LUNES</div>
-                <div class="value tooltips" data-original-title="<?php  echo  
-                $lunes2_c; ?>" data-toggle="tooltip" data-placement="top">
-                
-                <?php  
-                
-                if($lunes2_c>100){
-                  echo "100%";
-                }
-                else{
-                  echo  
-                  $porcentaje_lunes;
-                  echo "%";
-
-                }
-                ?>
-                </div>
+                <div class="title"><?php echo $day7?></div>
+                <div class="value tooltips" data-original-title="<?php echo $var7?>" data-toggle="tooltip" data-placement="top"><?php echo $per7?>%</div>
               </div>
               <div class="bar ">
-                <div class="title">MARTES</div>
-                <div class="value tooltips" data-original-title="<?php  echo  
-                $martes2_c; ?>" data-toggle="tooltip" data-placement="top">
-                
-                <?php  
-                
-                if($martes2_c>100){
-                  echo "100%";
-                }
-                else{
-                  echo  
-                  $martes_porcentaje;
-                  echo "%";
-
-                }
-                ?>
-                </div>
+                <div class="title"><?php echo $day6?></div>
+                <div class="value tooltips" data-original-title="<?php echo $var6?>" data-toggle="tooltip" data-placement="top"><?php echo $per6?>%</div>
               </div>
               <div class="bar ">
-                <div class="title">MIERCOLES</div>
-                <div class="value tooltips" data-original-title="<?php  echo  
-                $miercoles2_c; ?>" data-toggle="tooltip" data-placement="top">   
-                <?php  
-                
-                if($miercoles2_c>100){
-                  echo "100%";
-                }
-                else{
-                  echo  
-                  $miercoles_porcentaje;
-                  echo "%";
-
-                }
-                ?></div>
+                <div class="title"><?php echo $day5?></div>
+                <div class="value tooltips" data-original-title="<?php echo $var5?>" data-toggle="tooltip" data-placement="top"><?php echo $per5?>%</div>
               </div>
               <div class="bar ">
-                <div class="title">JUEVES</div>
-                <div class="value tooltips" data-original-title="<?php  echo  
-                $jueves2_c; ?>" data-toggle="tooltip" data-placement="top">    
-                 <?php  
-                if($jueves2_c>100){
-                  echo "100%";
-                }
-                else{
-                  echo  
-                  $jueves_porcentaje;
-                  echo "%";
-
-                }
-                ?></div>
+                <div class="title"><?php echo $day4?></div>
+                <div class="value tooltips" data-original-title="<?php echo $var4?>" data-toggle="tooltip" data-placement="top"><?php echo $per4?>%</div>
               </div>
               <div class="bar">
-                <div class="title">VIERNES</div>
-                <div class="value tooltips" data-original-title="<?php  echo  
-                $viernes2_c; ?>" data-toggle="tooltip" data-placement="top">
-                  <?php  
-                if($viernes2_c>100){
-                  echo "100%";
-                }
-                else{
-                  echo  
-                  $viernes_porcentaje;
-                  echo "%";
-
-                }
-                ?></div>
+                <div class="title"><?php echo $day3?></div>
+                <div class="value tooltips" data-original-title="<?php echo $var3?>" data-toggle="tooltip" data-placement="top"><?php echo $per3?>%</div>
               </div>
-            < <div class="bar ">
-                <div class="title">SABADO</div>
-                <div class="value tooltips" data-original-title="<?php  echo  
-                $sabado2_c; ?>" data-toggle="tooltip" data-placement="top">
-                
-                <?php  
-                if($sabado2_c>100){
-                  echo "100%";
-                }
-                else{
-                  echo  
-                  $sabado_porcentaje;
-                  echo "%";
-
-                }
-                ?> </div>
-              </div> 
+              <div class="bar ">
+                <div class="title"><?php echo $day2?></div>
+                <div class="value tooltips" data-original-title="<?php echo $var2?>" data-toggle="tooltip" data-placement="top"><?php echo $per2?>%</div>
+              </div>
               <div class="bar">
-                <div class="title">DOMINGO</div>
-                <div class="value tooltips" data-original-title="<?php  echo  
-                $domingo2_c; ?>" data-toggle="tooltip" data-placement="top">40%
-                  <?php  
-            /*    if($domingo2_c>100){
-                  echo "100%";
-                }
-                else{
-                  echo  
-                  $domingo_porcentaje;
-                  echo "%";
-
-                }*/
-                ?></div>
+                <div class="title"><?php echo $day1?> (HOY)</div>
+                <div class="value tooltips" data-original-title="<?php echo $var1?>" data-toggle="tooltip" data-placement="top"><?php echo $per1?>%</div>
               </div>
             </div>
             <!--custom chart end-->
@@ -1772,78 +1404,481 @@ else{
                 </div> -->
                 <!--new earning end-->
 
-                <h4 class="centered mt">Actvidad Reciente</h4>
-                <!-- First Activity -->
-                <div class="desc">
-                  <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                  </div>
-                  <div class="details">
-                    <p>
-                      <muted>Justo Ahora</muted>
+                      <!-- USERS ONLINE SECTION -->
+
+                      <?php
+
+                     
+                     $contador_entrada=0; 
+                     $E_placanumber1='';
+                      $E_image1='';
+                       $E_formatofecha1=''; 
+
+                      $E_placanumber2='';
+                      $E_image2='';
+                      $E_formatofecha2=''; 
+
+
+
+                      $E_placanumber3='';
+                      $E_image3='';
+                      $E_formatofecha3=''; 
+
+
+
+                      $E_placanumber4='';
+                      $E_image4='';
+                      $E_formatofecha4=''; 
+
+
+
+
+                      $contador_salida=0;
+
+                      $S_placanumber1='';
+                      $S_image1='';
+                      $E_formatofecha1=''; 
+
+
+                      $S_placanumber2='';
+                      $S_image2='';
+                      $E_formatofecha2=''; 
+
+
+
+                      $S_placanumber3='';
+                      $S_image3='';
+                      $E_formatofecha3=''; 
+
+                      
+
+                      $S_placanumber4='';
+                      $S_image4='';
+                      $E_formatofecha1=''; 
+
+
+
+                      //Datos de pruebas
+
+
+ 
+ 
+$E_placanumber1='P667HDP';$E_image1='https://res.cloudinary.com/parkiate-ki/image/upload/v1656483223/parqueos/F7B816/camara_entrada/vehiculo/gf9tkmdckvev0owih5vu.jpg';$E_formatofecha1='Fecha: 26/06 | Hora: 17:18'; 
+$E_placanumber2='P667HP';$E_image2='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481981/parqueos/F7B816/camara_entrada/vehiculo/k16egcazbiixaewy73rp.jpg';$E_formatofecha2='Fecha: 27/06 | Hora: 17:18'; 
+$E_placanumber3='';$E_image3='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481255/parqueos/F7B816/camara_entrada/vehiculo/vss6twjx80rc3nbrr0gp.jpg';$E_formatofecha3='Fecha: 28/06 | Hora: 17:18'; 
+$E_placanumber4='';$E_image4='https://res.cloudinary.com/parkiate-ki/image/upload/v1656462162/parqueos/F7B816/camara_entrada/vehiculo/mb27izgygwsejymkhiwr.jpg';$E_formatofecha4='Fecha: 29/06 | Hora: 17:18'; 
+
+
+
+
+echo '<h4 class="centered mt">AUTOS QUE RECIENTEMENTE  <a>LLEGARON</a> AL PARQUEO</h4>';
+
+
+
+if(strlen($E_placanumber1)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $E_image1;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $E_formatofecha1;
+                        
+  echo                                                 '</a> </b> <br/>
                       <br/>
-                      <a href="#"> Javier Escobar</a> llego al parqueo y comenzo su servicio.<br/>
+                    <b> PLACA: ';
+                            
+                               echo  $E_placanumber1; 
+                            
+                            echo '.</b>  <br/>
                     </p>
-                  </div>
-                </div>
-                <!-- Second Activity -->
-                <div class="desc">
-                  <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                  </div>
-                  <div class="details">
-                    <p>
-                      <muted>Hace 2 minutos </muted>
+              </div>
+            </div>
+
+            ';
+
+}
+else{
+
+echo ' 
+  <div class="desc">
+  <div class="thumb">
+    <img src="https://res.cloudinary.com/parkiate-ki/image/upload/v1653897978/detalles/10-109983_security-camera-icon-png-cctv-icon-transparent-png_mxdo9a.png" width="75px" height="auto" align="">
+  </div>
+  <div class="details">
+  <p>
+          
+       
+          <br/>
+        <b> NO HAY NINGUN AUTO REGISTRADO 
+        <br/>
+          
+        POR LA CAMARA DE ENTRADA.</b>  
+        </p>
+  </div>
+</div>
+';
+
+
+
+}
+
+
+
+if(strlen($E_placanumber2)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $E_image2;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $E_formatofecha2;
+                        
+  echo                                                 '</a> </b> <br/>
                       <br/>
-                      <a href="#">Huening Bahiyyih</a> Realizo una reserva para el día 26/03.<br/>
+                    <b> PLACA: ';
+                            
+                               echo  $E_placanumber2; 
+                            
+                            echo '.</b>  <br/>
                     </p>
-                  </div>
-                </div>
-                <!-- Third Activity -->
-                <div class="desc">
-                  <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                  </div>
-                  <div class="details">
-                    <p>
-                      <muted>Hace 3 horas</muted>
+              </div>
+            </div>
+
+            ';
+
+}
+
+
+if(strlen($E_placanumber3)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $E_image3;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $E_formatofecha3;
+                        
+  echo                                                 '</a> </b> <br/>
                       <br/>
-                      <a href="#">Jorge Pérez</a> Finalizo su servicio.<br/>
+                    <b> PLACA: ';
+                            
+                               echo  $E_placanumber3; 
+                            
+                            echo '.</b>  <br/>
                     </p>
-                  </div>
-                </div>
-                <!-- Fourth Activity -->
-                <div class="desc">
-                  <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                  </div>
-                  <div class="details">
-                    <p>
-                      <muted>Hace 1 día</muted>
+              </div>
+            </div>
+
+            ';
+
+}
+
+
+
+
+
+if(strlen($E_placanumber4)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $E_image4;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $E_formatofecha4;
+                        
+  echo                                                 '</a> </b> <br/>
                       <br/>
-                      <a href="#">Jenson Button</a> Realizo una reserva para el día de mañana .<br/>
+                    <b> PLACA: ';
+                            
+                               echo  $E_placanumber4; 
+                            
+                            echo '.</b>  <br/>
                     </p>
-                  </div>
-                </div>
+              </div>
+            </div>
+
+            ';
+
+
+}
+
+echo   '<h4 class="centered mt">AUTOS QUE RECIENTEMENTE  <a>SE FUERON</a> DEL PARQUEO</h4>';
+
+            
+           
+
+                    
+                       $contador_salida=0;
+ 
+$S_placanumber1='P667HDP';$S_image1='https://res.cloudinary.com/parkiate-ki/image/upload/v1656483223/parqueos/F7B816/camara_entrada/vehiculo/gf9tkmdckvev0owih5vu.jpg';$S_formatofecha1='Fecha: 27/06 | Hora: 17:18'; 
+$S_placanumber2='P667HDP';$S_image2='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481981/parqueos/F7B816/camara_entrada/vehiculo/k16egcazbiixaewy73rp.jpg';$S_formatofecha2='Fecha: 28/06 | Hora: 17:18'; 
+$S_placanumber3='';$S_image3='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481255/parqueos/F7B816/camara_entrada/vehiculo/vss6twjx80rc3nbrr0gp.jpg';$S_formatofecha3='Fecha: 29/06 | Hora: 17:18'; 
+$S_placanumber4='';$S_image4='https://res.cloudinary.com/parkiate-ki/image/upload/v1656462162/parqueos/F7B816/camara_entrada/vehiculo/mb27izgygwsejymkhiwr.jpg';$S_formatofecha4='Fecha: 30/06 | Hora: 17:18'; 
+ 
+
+
+
+
+if(strlen($S_placanumber1)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $S_image1;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $S_formatofecha1;
+                        
+  echo                                                 '</a> </b> <br/>
+                      <br/>
+                    <b> PLACA: ';
+                            
+                               echo  $S_placanumber1; 
+                            
+                            echo '.</b>  <br/>
+                    </p>
+              </div>
+            </div>
+
+            ';
+
+}
+else{
+
+echo ' 
+  <div class="desc">
+  <div class="thumb">
+    <img src="https://res.cloudinary.com/parkiate-ki/image/upload/v1653897978/detalles/10-109983_security-camera-icon-png-cctv-icon-transparent-png_mxdo9a.png" width="75px" height="auto" align="">
+  </div>
+  <div class="details">
+  <p>
+          
+       
+          <br/>
+        <b> NO HAY NINGUN AUTO REGISTRADO 
+        <br/>
+          
+        POR LA CAMARA DE SALIDA.</b>  
+        </p>
+  </div>
+</div>
+';
+
+
+
+}
+
+
+
+if(strlen($S_placanumber2)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $S_image2;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $S_formatofecha2;
+                        
+  echo                                                 '</a> </b> <br/>
+                      <br/>
+                    <b> PLACA: ';
+                            
+                               echo  $S_placanumber2; 
+                            
+                            echo '.</b>  <br/>
+                    </p>
+              </div>
+            </div>
+
+            ';
+
+}
+
+
+if(strlen($S_placanumber3)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $S_image3;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $S_formatofecha3;
+                        
+  echo                                                 '</a> </b> <br/>
+                      <br/>
+                    <b> PLACA: ';
+                            
+                               echo  $S_placanumber3; 
+                            
+                            echo '.</b>  <br/>
+                    </p>
+              </div>
+            </div>
+
+            ';
+
+}
+
+
+
+
+
+if(strlen($S_placanumber4)>0 )
+
+{
+
+echo '<div class="desc">
+             <div class="thumb">
+                <img src="';
+                
+                
+                echo $S_image4;
+                
+echo                   '" width="75px" height="auto" align="">
+              </div>
+              <div class="details">
+              <p>
+                      
+                   <b>  <a href=entrada.php>';
+
+  echo
+                    $S_formatofecha4;
+                        
+  echo                                                 '</a> </b> <br/>
+                      <br/>
+                    <b> PLACA: ';
+                            
+                               echo  $S_placanumber4; 
+                            
+                            echo '.</b>  <br/>
+                    </p>
+              </div>
+            </div>
+
+            ';
+
+
+}
+
+
+
+if ((strlen($S_placanumber1)==0) && (strlen($E_placanumber1)==0) )
+
+{
+
+echo '<div id="calendar" class="mb">
+<div class="panel green-panel no-margin">
+  <div class="panel-body">
+    <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+      <div class="arrow"></div>
+      <h3 class="popover-title" style="disadding: none;"></h3>
+      <div id="date-popover-content" class="popover-content"></div>
+    </div>
+    <div id="my-calendar"></div>
+  </div>
+</div>
+</div>
+ 
+</div>   
+';
+
+
+}
+ 
+         
+
+                      ?>
+
+
 
 
             
              
-                <!-- CALENDAR-->
-                <div id="calendar" class="mb">
-                  <div class="panel green-panel no-margin">
-                    <div class="panel-body">
-                      <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
-                        <div class="arrow"></div>
-                        <h3 class="popover-title" style="disadding: none;"></h3>
-                        <div id="date-popover-content" class="popover-content"></div>
-                      </div>
-                      <div id="my-calendar"></div>
-                    </div>
-                  </div>
-                </div>
-                <!-- / calendar -->
-              </div>   
+             
 
 
           <!-- /col-lg-3 -->
@@ -1874,218 +1909,6 @@ else{
 
   <script src="lib/xchart/d3.v3.min.js"></script>
   <script src="lib/xchart/xcharts.min.js"></script>
-  <script>
-    (function() {
-      var data = [{
-        "xScale": "ordinal",
-        "comp": [],
-        "main": [{
-          "className": ".main.l1",
-          "data": [{
-            "y": "<?php  echo   $lunes2_c; ?>",
-            "x": "2012-11-19T00:00:00"
-          }, {
-            "y": "<?php  echo $martes2_c; ?>",
-            "x": "2012-11-20T00:00:00"
-          }, {
-            "y": "<?php  echo  $miercoles2_c;?>",
-            "x": "2012-11-21T00:00:00"
-          }, {
-            "y": "<?php  echo $jueves2_c;?>",
-            "x": "2012-11-22T00:00:00"
-          }, {
-            "y": "<?php  echo $viernes2_c;
-            ?>",
-            "x": "2012-11-23T00:00:00"
-          }, {
-            "y": "<?php  echo $sabado2_c; ?>",
-            "x": "2012-11-24T00:00:00"
-          }, {
-            "y": "<?php  echo  
-                $domingo2_c;
-           ?>",
-            "x": "2012-11-25T00:00:00"
-          }]
-        }, {
-          "className": ".main.l2",
-          "data": [{
-            "y": "<?php  echo  
-                $domingo1_c; ?>",
-            "x": "2012-11-19T00:00:00"
-          }, {
-            "y": "<?php  echo   
-                $lunes1_c; ?>",
-            "x": "2012-11-20T00:00:00"
-          }, {
-            "y": "<?php  echo   
-                $martes1_c; ?>",
-            "x": "2012-11-21T00:00:00"
-          }, {
-            "y": "<?php  echo   
-                $miercoles1_c; ?>",
-            "x": "2012-11-22T00:00:00"
-          }, {
-            "y": "<?php  echo $jueves1_c; ?>",
-            "x": "2012-11-23T00:00:00"
-          }, {
-            "y": "<?php  echo $sabado1_c; ?>",
-            "x": "2012-11-24T00:00:00"
-          }, {
-            "y": "<?php  echo $domingo1_c; ?>",
-            "x": "2012-11-25T00:00:00"
-          }]
-        }],
-        "type": "line-dotted",
-        "yScale": "linear"
-      }, {
-        "xScale": "ordinal",
-        "comp": [],
-        "main": [{
-          "className": ".main.l1",
-          "data": [{
-            "y": 12,
-            "x": "2012-11-19T00:00:00"
-          }, {
-            "y": 18,
-            "x": "2012-11-20T00:00:00"
-          }, {
-            "y": 8,
-            "x": "2012-11-21T00:00:00"
-          }, {
-            "y": 7,
-            "x": "2012-11-22T00:00:00"
-          }, {
-            "y": 6,
-            "x": "2012-11-23T00:00:00"
-          }, {
-            "y": 12,
-            "x": "2012-11-24T00:00:00"
-          }, {
-            "y": 8,
-            "x": "2012-11-25T00:00:00"
-          }]
-        }, {
-          "className": ".main.l2",
-          "data": [{
-            "y": 29,
-            "x": "2012-11-19T00:00:00"
-          }, {
-            "y": 33,
-            "x": "2012-11-20T00:00:00"
-          }, {
-            "y": 13,
-            "x": "2012-11-21T00:00:00"
-          }, {
-            "y": 16,
-            "x": "2012-11-22T00:00:00"
-          }, {
-            "y": 7,
-            "x": "2012-11-23T00:00:00"
-          }, {
-            "y": 18,
-            "x": "2012-11-24T00:00:00"
-          }, {
-            "y": 8,
-            "x": "2012-11-25T00:00:00"
-          }]
-        }],
-        "type": "cumulative",
-        "yScale": "linear"
-      }, {
-        "xScale": "ordinal",
-        "comp": [],
-        "main": [{
-          "className": ".main.l1",
-          "data": [{
-            "y": 12,
-            "x": "2012-11-19T00:00:00"
-          }, {
-            "y": 18,
-            "x": "2012-11-20T00:00:00"
-          }, {
-            "y": 8,
-            "x": "2012-11-21T00:00:00"
-          }, {
-            "y": 7,
-            "x": "2012-11-22T00:00:00"
-          }, {
-            "y": 6,
-            "x": "2012-11-23T00:00:00"
-          }, {
-            "y": 12,
-            "x": "2012-11-24T00:00:00"
-          }, {
-            "y": 8,
-            "x": "2012-11-25T00:00:00"
-          }]
-        }, {
-          "className": ".main.l2",
-          "data": [{
-            "y": 29,
-            "x": "2012-11-19T00:00:00"
-          }, {
-            "y": 33,
-            "x": "2012-11-20T00:00:00"
-          }, {
-            "y": 13,
-            "x": "2012-11-21T00:00:00"
-          }, {
-            "y": 16,
-            "x": "2012-11-22T00:00:00"
-          }, {
-            "y": 7,
-            "x": "2012-11-23T00:00:00"
-          }, {
-            "y": 18,
-            "x": "2012-11-24T00:00:00"
-          }, {
-            "y": 8,
-            "x": "2012-11-25T00:00:00"
-          }]
-        }],
-        "type": "bar",
-        "yScale": "linear"
-      }];
-      var order = [0, 1, 0, 2],
-        i = 0,
-        xFormat = d3.time.format('%A'),
-        chart = new xChart('line-dotted', data[order[i]], '#chart', {
-          axisPaddingTop: 5,
-          dataFormatX: function(x) {
-            return new Date(x);
-          },
-          tickFormatX: function(x) {
-            return xFormat(x);
-          },
-          timing: 1250
-        }),
-        rotateTimer,
-        toggles = d3.selectAll('.multi button'),
-        t = 3500;
-
-     /* function updateChart(i) {
-        var d = data[i];
-        chart.setData(d);
-        toggles.classed('toggled', function() {
-          return (d3.select(this).attr('data-type') === d.type);
-        });
-        return d;
-      }
-
-      toggles.on('click', function(d, i) {
-        clearTimeout(rotateTimer);
-        updateChart(i);
-      });
-
-      function rotateChart() {
-        i += 1;
-        i = (i >= order.length) ? 0 : i;
-        var d = updateChart(order[i]);
-        rotateTimer = setTimeout(rotateChart, t);
-      }
-      rotateTimer = setTimeout(rotateChart, t);*/
-    }());
-  </script>
 
 
 

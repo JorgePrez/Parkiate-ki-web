@@ -313,21 +313,12 @@ else{
          <tbody>
 
            <?php
-           
+        
 
-
-           
-
-         //   $query = "select * from servicios_admin where Id_parqueo='$id_parqueo' order by Id DESCASC";   
             $query = "    select id_entrada_salida,id_deteccion_entrada, id_deteccion_salida, tiempo_total,id_auto,id_servicio_app,deteccion_entrada_salida from placas_entrada_salida
             where id_parqueo='$id_parqueo' and id_auto='$id_auto' order by tiempo_total desc";   
 
         
-
-
-            //                       $query = "select * from prospectos_template";
-
-
 
             $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
             $id_placa_entrada_salida='';

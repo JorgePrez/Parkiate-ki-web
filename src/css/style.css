@@ -799,8 +799,8 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .ds .details {
-	width: 170px;
-	float: left;
+	width: 200px;  /*170px*/
+	float: right;
 }
 
 .ds > .desc p {
