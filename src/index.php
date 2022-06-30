@@ -882,101 +882,28 @@ pg_free_result($resultadofecha);
             <!--custom chart end-->
             <div class="row mt">
               <!-- SERVER STATUS PANELS -->
-              <?php
 
-              if(str_contains($estadogeneral, '0')){
-     
-        echo '<div class="col-md-4 col-sm-4 mb">
+
+                <!--  /col-md-4 -->
+                <div class="col-md-4 col-sm-4 mb">
                 <div class="darkblue-panel pn">
                   <div class="darkblue-header">
-                    <h5>ESTADO GENERAL</h5>
+                    <h5>AUTOS ATENDIDOS POR TU PARQUEO</h5>
                   </div>
-                  <canvas id="serverstatus02" height="120" width="120"></canvas>
-                  <script>
-                    var doughnutData = [{
-                        value: 100,
-                        color: "#1c9ca7"
-                      },
-                      {
-                        value: 0,
-                        color: "#f68275"
-                      }
-                    ];
-                    var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-                  </script>
-               <p>';  
-     
-     echo $fecha;
-
-   
-
-      echo     '</p>
+                  <h1 class="mt"><i class="fa fa-car fa-3x"></i></h1>
+                  <p>+ 1,789 nuevos autos registrados hoy</p>
                   <footer>
-                    <!--  <div class="pull-left">
-                      <h5><i class="fa fa-hdd-o"></i> 0/0</h5>
-                    </div> -->
-                    <div>
-                      <h10> <b>No has registrado ningún slot (espacio) ve a la pestaña "Slots(libres/ocupados)"
-                      </b>
-                      </h10>
+                    <div class="centered">
+                      <h5><i class="fa fa-car"></i> Total de autos: 17,988 </h5>
                     </div>
                   </footer>
                 </div>
-           <!--     /darkblue panel -->
-              </div>';
+                <!--  /darkblue panel -->
+              </div>
+              <!-- /col-md-4 -->
 
-                  }
 
-                  else { 
- 
-         echo  '<div class="col-md-4 col-sm-4 mb">
-                <div class="darkblue-panel pn">
-                  <div class="darkblue-header">
-                    <h5>ESTADO GENERAL</h5>
-                  </div>
-                  <canvas id="serverstatus02" height="120" width="120"></canvas>
-                  <script>
-                    var doughnutData = [{
-                        value:  ';
-                        echo $complemento_porcentaje; 
-                        echo ',
-                        color: "#1c9ca7"
-                      },
-                      {
-                        value: ';
-                        echo $porcentaje_number;
-                        echo ',
-                        color: "#f68275"
-                      }
-                    ];
-                    var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-                  </script>
-                  <p>23 de Marzo, 2022</p>
-                  <footer>
-                    <div class="pull-left">
-                      <h5><i class="fa fa-hdd-o"></i> 
-                    ';
-                   
-
-     echo $proporcion;
-  
-
-echo                             '</h5>
-                    </div>
-                    <div class="pull-right">
-                      <h5>
-                      ';
-                      echo $porcentaje;
-                            echo '%
-                      Ocupado</h5>
-                    </div>
-                  </footer>
-                </div>
-              </div>'; 
-                  }
-
-                  
-              ?>  
+         
 
               <div class="col-lg-4 col-md-4 col-sm-4 mb">
                 <div class="content-panel pn">
@@ -1028,38 +955,7 @@ if($tuplasaafectadas_placa1>0){
 if($tuplasaafectadas_placa1>0){
 
   
-/*
-  if($deteccion_entrada_correcion!='NA'){
-    echo '<h3 style="color:yellow;" >Placa:';
-    echo  $deteccion_entrada_correcion;
-    echo '</h3>';
 
-
-  }
-  else if($error_entrada!='S'){
-    echo '<h3 style="color:yellow;" >Placa:';
-
-    echo $deteccion_entrada;
-    echo '</h3>';
-
-
-  }
-  else{
-    echo '<h3 style="color:red;" >Placa:';
-    echo $deteccion_entrada;
-    echo '</h3>';
-
-    echo '<h5 style="color:red;" >';
-    echo 'Posiblemente hay un ERROR';
-    echo '</h5>';
-
-    echo '<h5 style="color:red;" >';
-    echo 'en esta placa';
-    echo '</h5>';
-
-
-
-  }*/
 
   echo '<h3 style="color:yellow;" >Placa:';
 
@@ -1071,13 +967,7 @@ else{
 
 
 }
-/*
-echo '<h5 style="color:red;" >Placa:';
 
- 
-echo 'Esta placa puede tener errores, presione el boton para rojo para corregir';
-
- echo '</h5>';*/
     
           ?>
 
@@ -1185,39 +1075,7 @@ else{
                     <?php
                     if($tuplasaafectadas_placa2>0){
                  
-/*
-  if($deteccion_salida_correcion!='NA'){
-    echo '<h3 style="color:yellow;" >Placa:';
-    echo  $deteccion_salida_correcion;
-    echo '</h3>';
 
-
-  }
-  else if($error_salida!='S'){
-    echo '<h3 style="color:yellow;" >Placa:';
-
-    echo $deteccion_salida;
-    echo '</h3>';
-
-
-  }
-  else{
-    echo '<h3 style="color:red;" >Placa:';
-    echo $deteccion_salida;
-    echo '</h3>';
-
-    echo '<h5 style="color:red;" >';
-    echo 'Posiblemente hay un ERROR';
-    echo '</h5>';
-
-    echo '<h5 style="color:red;" >';
-    echo 'en esta placa';
-    echo '</h5>';
-
-
-
-  }
-*/
 
 
 echo '<h3 style="color:yellow;" >Placa:';
@@ -1286,6 +1144,149 @@ else{
              <div class="row mt">
               <!-- SERVER STATUS PANELS -->
 
+
+              
+               <!-- /col-md-4 -->
+               <div class="col-md-4 col-sm-4 mb">
+                <!-- WHITE PANEL - TOP USER -->
+                <div class="grey-panel pn">
+                  <div class="grey-header">
+                    <h5>VISITAS A TU PARQUEO </h5>
+                  </div>
+                  <p><img src="https://res.cloudinary.com/parkiate-ki/image/upload/v1656628282/detalles/fe744884-a74d-44f9-a336-fa3c9881954e_dmqvwh.png" class="img-circle" width="110"></p>
+                  <div class="row">
+                    <div class="col-md-6">
+                    
+                    <h5>
+                      <p class="small mt">VISITAS DE ESTE MES</p>
+                      <p>2012</p>
+                      </h5>
+                     
+                    </div>
+                    <div class="col-md-6">
+                 
+                    <h5>
+                      <p class="small mt">VISITAS TOTALES</p>
+                      <p>$ 47,60</p>
+
+                      </h5>
+                    
+                     
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+             
+
+
+
+              <?php
+
+if(str_contains($estadogeneral, '0')){
+
+echo '<div class="col-md-4 col-sm-4 mb">
+  <div class="darkblue-panel pn">
+    <div class="darkblue-header">
+      <h5>ESTADO GENERAL</h5>
+    </div>
+    <canvas id="serverstatus02" height="120" width="120"></canvas>
+    <script>
+      var doughnutData = [{
+          value: 100,
+          color: "#1c9ca7"
+        },
+        {
+          value: 0,
+          color: "#f68275"
+        }
+      ];
+      var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
+    </script>
+ <p>';  
+
+echo $fecha;
+
+
+
+echo     '</p>
+    <footer>
+      <!--  <div class="pull-left">
+        <h5><i class="fa fa-hdd-o"></i> 0/0</h5>
+      </div> -->
+      <div>
+        <h10> <b>No has registrado ningún slot (espacio) ve a la pestaña "Slots(libres/ocupados)"
+        </b>
+        </h10>
+      </div>
+    </footer>
+  </div>
+<!--     /darkblue panel -->
+</div>';
+
+    }
+
+    else { 
+
+echo  '<div class="col-md-4 col-sm-4 mb">
+  <div class="darkblue-panel pn">
+    <div class="darkblue-header">
+      <h5>ESTADO GENERAL</h5>
+    </div>
+    <canvas id="serverstatus02" height="120" width="120"></canvas>
+    <script>
+      var doughnutData = [{
+          value:  ';
+          echo $complemento_porcentaje; 
+          echo ',
+          color: "#1c9ca7"
+        },
+        {
+          value: ';
+          echo $porcentaje_number;
+          echo ',
+          color: "#f68275"
+        }
+      ];
+      var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
+    </script>
+    <p>23 de Marzo, 2022</p>
+    <footer>
+      <div class="pull-left">
+        <h5><i class="fa fa-hdd-o"></i> 
+      ';
+     
+
+echo $proporcion;
+
+
+echo                             '</h5>
+      </div>
+      <div class="pull-right">
+        <h5>
+        ';
+        echo $porcentaje;
+              echo '%
+        Ocupado</h5>
+      </div>
+    </footer>
+  </div>
+</div>'; 
+    }
+
+    
+?>  
+             
+           
+
+
+
+
+
+
+
+
               <div class="col-md-4 col-sm-4 mb">
                 <div class="grey-panel pn donut-chart">
                   <div class="grey-header">
@@ -1319,46 +1320,21 @@ else{
                 <!-- /grey-panel -->
               </div>
               <!-- /col-md-4-->
-
-               <!-- /col-md-4 -->
-               <div class="col-md-4 col-sm-4 mb">
-                <!-- REVENUE PANEL -->
-                <div class="green-panel pn">
-                  <div class="green-header">
-                    <h5>INGRESOS</h5>
-                  </div>
-                  <div class="chart mt">
-                    <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
-                  </div>
-                  <p class="mt"><b>Q 10,000</b><br/>Mes actual</p>
-                </div>
-              </div>
-              <!-- /col-md-4 -->
             
+              
+            </div>
+
+             
+
+
+
+              
+
             
             
            
 
-               <!--  /col-md-4 -->
-               <div class="col-md-4 col-sm-4 mb">
-                <div class="darkblue-panel pn">
-                  <div class="darkblue-header">
-                    <h5>SITE STATICS</h5>
-                  </div>
-                  <h1 class="mt"><i class="fa fa-user fa-3x"></i></h1>
-                  <p>+ 1,789 NEW VISITS</p>
-                  <footer>
-                    <div class="centered">
-                      <h5><i class="fa fa-trophy"></i> 17,988</h5>
-                    </div>
-                  </footer>
-                </div>
-                <!--  /darkblue panel -->
-              </div>
-              <!-- /col-md-4 -->
-              
-            </div>
-            <!-- /row -->
+        
            
            
           
@@ -1458,20 +1434,231 @@ else{
 
 
 
-                      //Datos de pruebas
-
-
- 
- 
-$E_placanumber1='P667HDP';$E_image1='https://res.cloudinary.com/parkiate-ki/image/upload/v1656483223/parqueos/F7B816/camara_entrada/vehiculo/gf9tkmdckvev0owih5vu.jpg';$E_formatofecha1='Fecha: 26/06 | Hora: 17:18'; 
-$E_placanumber2='P667HP';$E_image2='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481981/parqueos/F7B816/camara_entrada/vehiculo/k16egcazbiixaewy73rp.jpg';$E_formatofecha2='Fecha: 27/06 | Hora: 17:18'; 
-$E_placanumber3='';$E_image3='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481255/parqueos/F7B816/camara_entrada/vehiculo/vss6twjx80rc3nbrr0gp.jpg';$E_formatofecha3='Fecha: 28/06 | Hora: 17:18'; 
-$E_placanumber4='';$E_image4='https://res.cloudinary.com/parkiate-ki/image/upload/v1656462162/parqueos/F7B816/camara_entrada/vehiculo/mb27izgygwsejymkhiwr.jpg';$E_formatofecha4='Fecha: 29/06 | Hora: 17:18'; 
 
 
 
 
-echo '<h4 class="centered mt">AUTOS QUE RECIENTEMENTE  <a>LLEGARON</a> AL PARQUEO</h4>';
+
+
+$query = "select hora_deteccion_entrada,foto_auto_entrada,deteccion_entrada from placas_entrada where id_parqueo='$id_parqueo' order by hora_deteccion_entrada desc limit 4";
+$resultadoentrada = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+
+
+
+ $contador_entrada = $contador_entrada +1;
+  while ($row = pg_fetch_row($resultadoentrada)) {
+
+
+    if($contador_entrada==1){
+      $E_image1=$row[1];
+      $E_placanumber1=$row[2];
+
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
+
+    //'Fecha: 26/06 | Hora: 17:18';
+
+    $E_formatofecha1= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+
+    }
+
+    if($contador_entrada==2){
+      $E_image2=$row[1];
+      $E_placanumber2=$row[2];
+
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
+
+    $E_formatofecha2= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+
+    }
+
+    if($contador_entrada==3){
+      $E_image3=$row[1];
+      $E_placanumber3=$row[2];
+
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
+
+    $E_formatofecha3= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+    }
+
+    if($contador_entrada==4){
+      $E_image4=$row[1];
+      $E_placanumber4=$row[2];
+
+       
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1]; 
+
+    $E_formatofecha4= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+
+    }
+
+
+
+    $contador_entrada = $contador_entrada +1;
+
+    
+}
+  
+pg_free_result($resultadoentrada);
+
+
+
+
+
+
+
+
+
+
+
+
+
+$query = "select hora_deteccion_salida,foto_auto_salida,deteccion_salida from placas_salida where id_parqueo='$id_parqueo' order by hora_deteccion_salida desc limit 4";
+$resultadosalida = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+
+
+
+ $contador_salida = $contador_salida +1;
+  while ($row = pg_fetch_row($resultadosalida)) {
+
+
+    if($contador_salida==1){
+      $S_image1=$row[1];
+      $S_placanumber1=$row[2];
+
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
+
+    //'Fecha: 26/06 | Hora: 17:18';
+
+    $S_formatofecha1= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+
+    }
+
+    if($contador_salida==2){
+      $S_image2=$row[1];
+      $S_placanumber2=$row[2];
+
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
+
+    $S_formatofecha2= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+
+    }
+
+    if($contador_salida==3){
+      $S_image3=$row[1];
+      $S_placanumber3=$row[2];
+
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
+
+    $S_formatofecha3= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+    }
+
+    if($contador_salida==4){
+      $S_image4=$row[1];
+      $S_placanumber4=$row[2];
+
+       
+      $separada = explode(' ', $row[0]);
+
+      $separada2 = explode('-', $separada[0]);
+
+      $separada3 = explode(':', $separada[1]);
+
+      $hora_min_salida = $separada3[0]. ':'.$separada3[1];
+
+    $fecha_formato_salida = $separada2[2].'/'.$separada2[1]; 
+
+    $S_formatofecha4= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+
+
+
+    }
+
+
+
+    $contador_salida = $contador_salida +1;
+
+    
+}
+  
+pg_free_result($resultadosalida);
+
+
+
+
+
+
+echo   '<h4 class="centered mt">ÚLTIMAS FOTOS DE <a>CAMARA DE ENTRADA<a/> </h4>';
+
 
 
 
@@ -1651,22 +1838,12 @@ echo                   '" width="75px" height="auto" align="">
 
 }
 
-echo   '<h4 class="centered mt">AUTOS QUE RECIENTEMENTE  <a>SE FUERON</a> DEL PARQUEO</h4>';
+echo   '<h4 class="centered mt">ÚLTIMAS FOTOS DE <a>CAMARA DE SALIDA<a/> </h4>';
 
             
            
 
-                    
-                       $contador_salida=0;
- 
-$S_placanumber1='P667HDP';$S_image1='https://res.cloudinary.com/parkiate-ki/image/upload/v1656483223/parqueos/F7B816/camara_entrada/vehiculo/gf9tkmdckvev0owih5vu.jpg';$S_formatofecha1='Fecha: 27/06 | Hora: 17:18'; 
-$S_placanumber2='P667HDP';$S_image2='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481981/parqueos/F7B816/camara_entrada/vehiculo/k16egcazbiixaewy73rp.jpg';$S_formatofecha2='Fecha: 28/06 | Hora: 17:18'; 
-$S_placanumber3='';$S_image3='https://res.cloudinary.com/parkiate-ki/image/upload/v1656481255/parqueos/F7B816/camara_entrada/vehiculo/vss6twjx80rc3nbrr0gp.jpg';$S_formatofecha3='Fecha: 29/06 | Hora: 17:18'; 
-$S_placanumber4='';$S_image4='https://res.cloudinary.com/parkiate-ki/image/upload/v1656462162/parqueos/F7B816/camara_entrada/vehiculo/mb27izgygwsejymkhiwr.jpg';$S_formatofecha4='Fecha: 30/06 | Hora: 17:18'; 
- 
-
-
-
+           
 
 if(strlen($S_placanumber1)>0 )
 
@@ -1684,7 +1861,7 @@ echo                   '" width="75px" height="auto" align="">
               <div class="details">
               <p>
                       
-                   <b>  <a href=entrada.php>';
+                   <b>  <a href=salida.php>';
 
   echo
                     $S_formatofecha1;
@@ -1746,7 +1923,7 @@ echo                   '" width="75px" height="auto" align="">
               <div class="details">
               <p>
                       
-                   <b>  <a href=entrada.php>';
+                   <b>  <a href=salida.php>';
 
   echo
                     $S_formatofecha2;
@@ -1783,7 +1960,7 @@ echo                   '" width="75px" height="auto" align="">
               <div class="details">
               <p>
                       
-                   <b>  <a href=entrada.php>';
+                   <b>  <a href=salida.php>';
 
   echo
                     $S_formatofecha3;
@@ -1823,7 +2000,7 @@ echo                   '" width="75px" height="auto" align="">
               <div class="details">
               <p>
                       
-                   <b>  <a href=entrada.php>';
+                   <b>  <a href=salida.php>';
 
   echo
                     $S_formatofecha4;
