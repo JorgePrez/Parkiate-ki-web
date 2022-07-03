@@ -12,3 +12,44 @@
  </div>
 </div>
 <!-- /col-md-4 -->
+
+<?php
+//Crea la cola
+  $queue= new SplQueue();
+
+  //Añade elementos
+  $queue->enqueue('1');
+  $queue->enqueue('2');
+  $queue->enqueue('3');
+
+  //Muestra el número de elementos de la cola(3)
+  echo $queue->count();
+
+  //Situa el puntero al principio de la cola
+  $queue->rewind();
+
+  //Muestra los elementos (1, 2, 3)
+  while( $queue->valid() )
+  {
+    echo $queue->current(), PHP_EOL;
+    $queue->next();
+  }
+
+   //Saca de la cola el primer elemento y lo muestra
+    echo $queue->dequeue();
+
+  //Situa el puntero al principio de la cola
+   $queue->rewind();
+
+   //Muestra el número de elementos de la cola(2)
+    echo $queue->count();
+
+  //Muestra los elementos (2, 3)
+   while( $queue->valid() )
+   {
+    echo $queue->current(), PHP_EOL;
+    $queue->next();
+   }
+
+   
+?>

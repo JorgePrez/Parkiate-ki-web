@@ -466,7 +466,7 @@ date_default_timezone_set('America/Guatemala');
 //////////////////////////////////
 
 
-$query = "select id_slot,id_firebase_slot from slots where id_parqueo='$id_parqueo'";
+$query = "select estado from slots where id_parqueo='$id_parqueo'";
 //                       $query = "select * from prospectos_template";
 
 $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
@@ -479,7 +479,6 @@ $contador_ocupados=0;
 
 
 if($tuplasaafectadas>0){
-  include('formularios/dbcon.php');
 
 
   $estadogeneral='1';
@@ -487,8 +486,8 @@ if($tuplasaafectadas>0){
     
     
   while ($row = pg_fetch_row($result)) {
-    $id_slot=$row[0];
-    $id_firebase_slot=$row[1];
+    $estado_variable=$row[0];
+
 
 
 
@@ -499,30 +498,19 @@ RUTA DE ESTE MANERA: https://parkiate-ki-default-rtdb.firebaseio.com/Parking_Sta
 */
 
 
-$ref_tabla="/Parking_Status/".$id_firebase."/".$id_firebase_slot."/estado";
 
 
-$status = $database->getReference($ref_tabla)->getValue();
 
 
-$estado_boolean=true;
-
-if(str_contains($status, '1'))
+if(str_contains($estado_variable, 'S'))
 {
-$queriesa= "UPDATE slots SET estado=true WHERE id_slot='$id_slot'";
 
-
-$resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
 
 }
 
 
 else {
 
-$queriesa= "UPDATE slots SET estado=false WHERE id_slot='$id_slot'";
-
-
-$resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
 
 $contador_ocupados = $contador_ocupados+1;
 
@@ -726,9 +714,45 @@ pg_free_result($resultadofecha);
                 if($cantidad1>100){$per1 = '105';}else{$per1 = (string) $cantidad1;}
 
 
+//mes actual
+$month = idate("m");
+$mes_actual=$month;
+
+
+//Obteniendo total de autos registrados en este parqueo
+$query = "SELECT * from auto where id_parqueo='$id_parqueo'";
+$resultadototales = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$autos_totales = pg_affected_rows($resultadototales);
+pg_free_result($resultadototales);
+$autos_totales=(string) $autos_totales;
+
+//Obteniendo total de autos registrados en este parqueo este mes
+$query = "SELECT * from auto where id_parqueo='$id_parqueo' AND EXTRACT(MONTH FROM fecha_registro_auto)='$mes_actual'";
+$resultadototales = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$autos_mes = pg_affected_rows($resultadototales);
+pg_free_result($resultadototales);
+$autos_mes=(string) $autos_mes;
+
+
+//obtenieendo visitas del mes actual                
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo' AND EXTRACT(MONTH FROM hora_deteccion_entrada)='$mes_actual'";
+$resultadototales = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$visitas_mes = pg_affected_rows($resultadototales);
+pg_free_result($resultadototales);
+$visitas_mes=(string) $visitas_mes;
+
+
+
+/*Obteniendo visitas totales*/
+$query = "SELECT * from placas_entrada where id_parqueo='$id_parqueo'";
+$resultadototales = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$visitas_totales = pg_affected_rows($resultadototales);
+pg_free_result($resultadototales);
+$visitas_totales=(string) $visitas_totales;
+
+
              
-                   
-;
+                  
 
               
               ?>
@@ -891,10 +915,10 @@ pg_free_result($resultadofecha);
                     <h5>AUTOS ATENDIDOS POR TU PARQUEO</h5>
                   </div>
                   <h1 class="mt"><i class="fa fa-car fa-3x"></i></h1>
-                  <p>+ 1,789 nuevos autos registrados hoy</p>
+                  <p>+ <?php echo $autos_mes?> nuevos autos registrados este mes</p>
                   <footer>
                     <div class="centered">
-                      <h5><i class="fa fa-car"></i> Total de autos: 17,988 </h5>
+                      <h5><i class="fa fa-car"></i> Total de autos: <?php echo $autos_totales?> </h5>
                     </div>
                   </footer>
                 </div>
@@ -977,7 +1001,7 @@ else{
                   </div>
                   <p class="followers"><i class="fa fa-arrow-right"></i>
                   <?php
-                  if($tuplasaafectadas_placa2>0){
+                  if($tuplasaafectadas_placa1>0){
 
                //     echo   'Último auto en llegar';
 
@@ -1159,7 +1183,7 @@ else{
                     
                     <h5>
                       <p class="small mt">VISITAS DE ESTE MES</p>
-                      <p>2012</p>
+                      <p><?php echo $visitas_mes?> </p>
                       </h5>
                      
                     </div>
@@ -1167,7 +1191,7 @@ else{
                  
                     <h5>
                       <p class="small mt">VISITAS TOTALES</p>
-                      <p>$ 47,60</p>
+                      <p><?php echo $visitas_totales?> </p>
 
                       </h5>
                     
@@ -1657,7 +1681,7 @@ pg_free_result($resultadosalida);
 
 
 
-echo   '<h4 class="centered mt">ÚLTIMAS FOTOS DE <a>CAMARA DE ENTRADA<a/> </h4>';
+echo   '<h4 class="centered mt">ÚLTIMAS FOTOS DE  <a>CÁMARA DE ENTRADA<a/> </h4>';
 
 
 
@@ -1838,7 +1862,8 @@ echo                   '" width="75px" height="auto" align="">
 
 }
 
-echo   '<h4 class="centered mt">ÚLTIMAS FOTOS DE <a>CAMARA DE SALIDA<a/> </h4>';
+echo   '<h4 class="centered mt">ÚLTIMAS FOTOS DE  <a>CÁMARA DE SALIDA<a/> </h4>';
+
 
             
            

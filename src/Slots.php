@@ -275,13 +275,46 @@ else{
 //  echo	"<td style='display:none;'></td>";
 
  echo "<th style='display:none;'>ID</th>"; 
+
+
+ $query = "select * from slots where id_parqueo='$id_parqueo' and img_slot is NULL";
+
+
+ $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
+
+ $tuplasaafectadas_slot = pg_affected_rows($result);
+
+ pg_free_result($result);
+
+
+
+
+
+
   ?>
                     <th>Nombre de Espacio(slot)</th>
                     <th>Reservas</th>  <!-- disponible para reservar-->
                     <th>Estado</th>   <!-- ocupado o libbre-->
                     <th>Editar</th>
 
-                    <th>Foto Slot</th>
+                    <th>Foto en entrada</th>
+
+
+                    <?php
+
+
+if($tuplasaafectadas_slot==0){
+
+ echo '<th>Foto en Slot</th>';
+
+}
+
+
+?>
+
+
+
+
                     <th>Placa</th>
 
 
@@ -296,38 +329,6 @@ else{
                       <?php
 
                     /*Este parametro deberia estar guardado en el inicio de sesión*/ 
-
-
-                 //     $id_parqueo=$_GET["id_parqueo"];
-
-                     // echo $id_parqueo;
-                      
-
-// Obtener id firebase de parqueo
-
-
-
-$query = "select id_firebase from parqueo where id_parqueo='$id_parqueo'";
-//                       $query = "select * from prospectos_template";
-
-
-$result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
-$id_firebase='';
-
-
-
-
-
-while ($row = pg_fetch_row($result)) {
-  
-     $id_firebase=$row[0];
-
- 
-}
-
-pg_free_result($result);
-
-                   
 
 
 
@@ -356,11 +357,10 @@ pg_free_result($result);
 
                        $contador=0;
 
-                       if($tuplasaafectadas>0) {
+                     
 
 
                    
-                        include('formularios/dbcon.php');
               
            
 
@@ -389,20 +389,11 @@ pg_free_result($result);
   */
 
 
-           $ref_tabla="/Parking_Status/".$id_firebase."/".$id_firebase_slot."/estado";
+           
 
-    
-            $status = $database->getReference($ref_tabla)->getValue();
-
-
-            $estado_boolean=true;
-
-            if(str_contains($status, '1'))
+            if(str_contains($estado, 'S'))
             {
-              $queriesa= "UPDATE slots SET estado=true WHERE id_slot='$id_slot'";
-
-
-              $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
+       
               echo	"<tr class='gradeA'>";
 
    
@@ -411,10 +402,7 @@ pg_free_result($result);
 
             else {
 
-             $queriesa= "UPDATE slots SET estado=false WHERE id_slot='$id_slot'";
-
-
-            $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
+     
             echo	"<tr class='gradeX'>";
 
  
@@ -478,16 +466,12 @@ pg_free_result($result);
 
 
 
-                    if(str_contains($status, '1'))
+                    if(str_contains($estado, 'S'))
                     {
                       echo	"<td><span class='badge bg-success'>LIBRE</span>
                       </td>";
 
-                    //  $queriesas= "UPDATE slots SET placa_slot='Vacio' WHERE id_slot='$id_slot'";
-
-
-                    //  $resultadosa = pg_query($conn, $queriesas) or die('ERROR : ' . pg_last_error());
-
+              
 
 
                     }
@@ -499,36 +483,51 @@ pg_free_result($result);
 
                     }
 
-                    
-
-
-
-                    
-
-              
-
-                 
-
-
-                   
-
+         
                     
                     echo "<td><a class='btn btn-primary btn-xs fa fa-pencil' href=Editar_slot.php?id_slot=$id_slot></a></td>\n";    
                     
-                    /*<button class="btn btn-primary btn-xs fa fa-pencil"></button>*/
 
 
+                    if(str_contains($estado, 'S'))
+                    {
+                      echo	"<td> 
+                 <img class='img-responsive' src=https://res.cloudinary.com/parkiate-ki/image/upload/v1656830960/detalles/189-1896618_car-icons-green-car-icon-flat-png-transparent_dkepbn.jpg width='50px' height='auto' alt=''>
+               
+                      </td>";
 
+
+              
+
+
+                    }
+                    else{
+
+                      echo	"<td> 
+                      <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt=''></a>
+               
+                      </td>";
+                                          
+
+                    }
+
+
+                    
+if($tuplasaafectadas_slot==0){
+
+ 
+              
                     echo	"<td> 
                     <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt=''></a>
              
                     </td>"; 
                     
                     
+}     
                     
                     
 
-                    if(str_contains($status, '1'))
+                    if(str_contains($estado, 'S'))
                     {
                       echo	"<td><span class='badge bg-success'>VACIO</span>
                       </td>";
@@ -559,7 +558,7 @@ pg_free_result($result);
                       
                     }
 
-                     }
+                     
                     ?>
     
                     </tbody>

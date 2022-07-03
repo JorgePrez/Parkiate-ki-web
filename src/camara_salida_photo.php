@@ -18,8 +18,6 @@ use Cloudinary\Transformation\Format;
 
 
 
-
-
 $conn = pg_connect("host=db-instancia.ccwm7dhw4cau.us-east-1.rds.amazonaws.com port=5432 user=postgres password=56721449 dbname=postgres");
 if (!$conn){
     die("PostgreSQL connection failed");
@@ -58,7 +56,9 @@ include 'camaras_endpoints.php';
 //$id_parqueo ='2CE369'; //$_GET['id_parqueo']; //'2CE369'
 
 
-$id_parqueo_r ='2329C7';
+
+$id_parqueo_r ='86BE48';
+
 
 
 $id_parqueo=$id_parqueo_r;

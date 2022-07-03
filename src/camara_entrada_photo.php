@@ -49,7 +49,7 @@ include 'camaras_endpoints.php';
 
  //$id_parqueo ='2329C7';
 
- $id_parqueo_r ='2329C7';
+ $id_parqueo_r ='86BE48';
 
 
 
@@ -652,9 +652,29 @@ $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
 
 
+/*INSERTAR EN LA "COLA" DE los registros "por_asignar_espacios" */
+$key = '';
+$pattern = '1234567890ABCDEFGH123456789';
+$max = strlen($pattern)-1;
+for($i=0;$i < 6;$i++){
+     $key .= $pattern[mt_rand(0,$max)]; 
+    } 
+
+
+  $id_asignar=$key;
+
+
+  $query = "INSERT INTO por_asignar_espacio VALUES ('$id_asignar', '$now','$id_placa_entrada','$id_parqueo')";
+$result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$tuplasaafectadas = pg_affected_rows($result);
+pg_free_result($result);
+
+
+
+
+
 //sino tiene error hara lo sigueinte
 
-//////if($placa_necesita_correccion=='N'){ 
 // AUTO 
 $query = "Select  * FROM auto WHERE placa='$placa_detectada' AND id_parqueo='$id_parqueo'";
 $resultadoauto = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
@@ -702,8 +722,9 @@ for($i=0;$i < 6;$i++){
   $id_auto=$key;
 
   $query = "INSERT INTO auto(
-    id_auto, placa, numero_visitas, foto_delante, foto_atras, id_parqueo, id_usuario_app)
-    VALUES ('$id_auto', '$placa_detectada', 0, '$imagen_auto', 'Pendiente', '$id_parqueo', 'Por definir');";
+     id_auto, placa, numero_visitas, foto_delante, foto_atras, id_parqueo, id_usuario_app,fecha_registro_auto)
+    VALUES ('$id_auto', '$placa_detectada', 0, '$imagen_auto', 'Pendiente', '$id_parqueo', 'Por definir', '$now');";
+   
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
@@ -737,13 +758,6 @@ echo "Success: camara_entrada registrando";
 
 $success=true;
 
-/*
-}
-else{
-  echo "\n";
-
-  echo "warning: presente no se registro ni auto ni entrada_salida";
-}*/
 
 }
 else{

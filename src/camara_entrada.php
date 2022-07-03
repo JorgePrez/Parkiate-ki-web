@@ -784,8 +784,8 @@ for($i=0;$i < 6;$i++){
   $id_auto=$key;
 
   $query = "INSERT INTO auto(
-    id_auto, placa, numero_visitas, foto_delante, foto_atras, id_parqueo, id_usuario_app)
-    VALUES ('$id_auto', '$placa_detectada', 0, '$imagen_auto', 'Pendiente', '$id_parqueo', 'Por definir');";
+    id_auto, placa, numero_visitas, foto_delante, foto_atras, id_parqueo, id_usuario_app,fecha_registro_auto)
+    VALUES ('$id_auto', '$placa_detectada', 0, '$imagen_auto', 'Pendiente', '$id_parqueo', 'Por definir', '$now');";
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
