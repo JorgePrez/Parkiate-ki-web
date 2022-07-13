@@ -285,9 +285,8 @@ $contrasenia="";
               
 while ($row = pg_fetch_row($result)) {
 $id_duenio= $row[0];
-$nombre=$row[1];
-$correo=$row[2];
-$contrasenia=$row[3];
+$correo=$row[1];
+$contrasenia=$row[2];
 
 
 }
@@ -311,7 +310,7 @@ else{
         <!-- BASIC FORM ELELEMNTS -->
 
         <div class="col-lg-8 col-lg-offset-2 detailed mt">
-                        <h4 class="mb">Información de contacto</h4>
+                        <h4 class="mb">Información de Registro</h4>
                         <form role="form" class="form-horizontal" method="get" action="formularios/micuenta.php" onsubmit ="return matchPassword()">
                           <div class="form-group">
                             <label class="col-lg-2 control-label">Id de Usuario</label>
@@ -324,12 +323,7 @@ else{
 
                             </div>
                           </div>
-                          <div class="form-group">
-                            <label class="col-lg-2 control-label">Nombre:</label>
-                            <div class="col-lg-8">
-                              <input type="text" placeholder=" " name="nombre" id="nombre" class="form-control" minlength="2" value="<?php echo $nombre ?> " required>
-                            </div>
-                          </div>
+            
                
                        
                           <div class="form-group">

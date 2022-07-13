@@ -27,10 +27,11 @@ $query = "SELECT * from DUENIO WHERE email= '$correo1'";
 $result = pg_query($conn, $query) or die('ERROR AL OBTENER DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 
-//echo "numero: $tuplasaafectadas lo  ";
+
+echo "numero: $tuplasaafectadas lo  ";
+echo "\n";
 
 $id_usuario="";
-$nombre="";
 $correoo="";
 $contrasenia="";
 $id_parqueo="";
@@ -41,10 +42,9 @@ if($tuplasaafectadas>0){
 
 while ($row = pg_fetch_row($result)) {
  $id_usuario= $row[0]; 
-$nombre=$row[1];
-$correoo=$row[2];
-$contrasenia=$row[3];
-$id_parqueo=$row[4];  
+$correoo=$row[1];
+$contrasenia=$row[2];
+$id_parqueo=$row[3];  
 }
 
 
@@ -93,6 +93,7 @@ else {
 
   
   $url="Location: ./../login.php?resultado=2";
+  
 
    header($url);
 
