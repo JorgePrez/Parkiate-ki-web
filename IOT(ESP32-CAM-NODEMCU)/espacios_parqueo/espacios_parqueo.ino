@@ -10,7 +10,7 @@
  #define project "parkiate-ki-default-rtdb.firebaseio.com"
 #define secret "zofO8ckeIRWjFSqMT92wgNcPCUgXfkyyICunMnKH"
 
-#define ssid "Le Sserafim"
+#define ssid "Cristo_Liberta"
 #define password "579!!Oo296"
 
 
@@ -88,15 +88,15 @@ const String id_parqueo="-Mq73KmXyn-fx7tlnIQn";
 
 // Id de los slots
 
-String id1= "-N-z1WyD84Z1_hHh4nkQ";  
+String id1=  "-N7Tgw0j0BZUAEUNLOrD";  //P4
 
-String id2="-N02aeTREkypDcfEQ8Ch";
+String id2= "-N7TfmW4dgtEZp6Pdzt4";  //P3
+ 
+String id4 = "-N7TfLdiHveDI85xEUPQ"; //P2 
+ 
+String id3= "-N7TcC2MesgpzeMB-Kmf";  //P1
 
-String id3 = "-N02bNZNPsszn9wekk32";
-
-String id4= "-N02alg3lI1WRKBLKyWt";
-
-String id5= "-N3jbyztY7Oj5jN2n2VH";
+//String id5= "-N3jbyztY7Oj5jN2n2VH";
 
 // Rutas para cambiar el valor   : /Parking_Status/parqueo1/p1
 

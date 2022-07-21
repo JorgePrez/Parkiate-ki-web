@@ -19,15 +19,13 @@
 #define HREF_GPIO_NUM     23
 #define PCLK_GPIO_NUM     22
  
-const char* ssid = "Le Sserafim";
+const char* ssid = "Cristo_Liberta";
 const char* password = "579!!Oo296";
  
 AsyncWebServer server(80);
  
 bool initCamera(){
-   
-  camera_config_t config;
-   
+    camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
   config.pin_d0 = Y2_GPIO_NUM;
@@ -47,10 +45,24 @@ bool initCamera(){
   config.pin_pwdn = PWDN_GPIO_NUM;
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
-  config.pixel_format = PIXFORMAT_JPEG; 
-  config.frame_size = FRAMESIZE_UXGA;
+  config.pixel_format = PIXFORMAT_JPEG;
+  
+  // if PSRAM IC present, init with UXGA resolution and higher JPEG quality
+  //                      for larger pre-allocated frame buffer.
+  if(psramFound()){
+    config.frame_size = FRAMESIZE_UXGA;
+    config.jpeg_quality = 10;
+    config.fb_count = 2;
+  } else {
+    config.frame_size = FRAMESIZE_SVGA;
+    config.jpeg_quality = 12;
+    config.fb_count = 1;
+  }
+
+  
+  /*config.frame_size = FRAMESIZE_UXGA;
   config.jpeg_quality = 10; /////////////////////10 
-  config.fb_count = 1; //2;  //1
+  config.fb_count = 1; */ //2;  //1
 
 
     
@@ -94,4 +106,6 @@ void setup() {
   server.begin();
 }
  
-void loop(){}
+void loop(){
+
+}

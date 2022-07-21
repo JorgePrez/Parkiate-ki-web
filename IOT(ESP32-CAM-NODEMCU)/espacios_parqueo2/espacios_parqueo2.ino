@@ -12,7 +12,7 @@
  #define project "parkiate-ki-default-rtdb.firebaseio.com"
 #define secret "zofO8ckeIRWjFSqMT92wgNcPCUgXfkyyICunMnKH"
 
-#define ssid "Le Sserafim"
+#define ssid "Cristo_Liberta"
 #define password "579!!Oo296"
 
 
@@ -99,13 +99,13 @@ const String id_parqueo="-Mq73KmXyn-fx7tlnIQn";
 
 // Id de los slots
 
-String id1= "-N3jbyztY7Oj5jN2n2VH";  
+String id1= "-N7ThY5BhhVqwxi6vJQM";  //p9
 
-String id2="-N44V9outt8hMouQmcE0";
+String id2="-N7ThVS63iSiqu6unsJa";  //p8
+            
+String id3 = "-N7ThTRoPVI94K9orO9n";  //p7
 
-String id3 = "-N44VCx6q9VhFqdxawOW";
-
-String id4= "-N44VD-b5Q8RrI-efoHd";
+String id4= "-N7ThR-dJOMYKmBmSZjY";  //p6
 
 String id5= "-N3jbyztY7Oj5jN2n2VH";
 
