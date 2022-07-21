@@ -44,9 +44,10 @@ if (!$conn){
    
 }
 
+$img_slot='NA';
 //actualizar en la base de datos de POstgre
 
-$query = "Insert into slots values ('$id_slot','$codigo','$id_parqueo','$estado','$reservas','$id_firebase')";
+$query = "Insert into slots values ('$id_slot','$codigo','$id_parqueo','$estado','$reservas','$id_firebase','$img_slot')";
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
@@ -83,8 +84,10 @@ while ($row = pg_fetch_row($result)) {
 
 $postData = ['id_slot'=>$id_slot,
 'codigo'=>$codigo,
-'estado' => false,
-'reservas'=> $reservas 
+'estado' => true,
+'reservas'=> $reservas ,
+'img_slot'=> $img_slot 
+
 ];
 
 $ref_tabla="/Parking_Status/".$id_firebase."/";
@@ -112,11 +115,11 @@ pg_free_result($result);
 
 
 
- echo "momoland_thumbs_up";
+ echo "Correcto";
 }
 else{
 
- echo "somi - dumb dumb";
+ echo "Incorrecto";
 
 }
 

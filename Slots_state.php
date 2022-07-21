@@ -55,7 +55,7 @@ if (!$conn){
 }
 
 
-$id_park_slot='86BE48';
+$id_park_slot='2CE369'; 
 
 
 
@@ -84,10 +84,8 @@ if(strlen($id_firebase)>0 ){
 while(true){
 
 
-//$arreglo_candidatos=$response->results[0]->candidates;
 
-
-$query = "select id_firebase_slot,estado_anterior from slots where id_parqueo='$id_park_slot' order by codigo";
+$query = "select id_firebase_slot,estado_anterior,w_a,h_a,x_a,y_a from slots where id_parqueo='$id_park_slot' order by codigo";
 
 
 $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
@@ -97,9 +95,54 @@ $tuplasaafectadas = pg_affected_rows($result);
 
 $id_firebase_slot='';
 $estado_anterior='';
+$w_a='';
+$h_a='';
+$x_a='';
+$y_a='';
+$estado_anterior='';
+$id_firebase_slot='';
+$estado_anterior='';
 
+//TODO: condicion que si existen camaras de vigilancia o si solo existen sensores....
+
+
+$existen_camaras='0';
 
 if($tuplasaafectadas>0) {
+
+
+
+  $existen_camaras='1';
+
+
+  /* Si existen camaras se utilizara el ip de la camara para obtener foto de los slots*/
+
+ /* if(str_contains($existen_camaras, '1')){
+
+  
+
+                        $url = 
+                      'http://192.168.1.19/picture';
+                      //$endpoint_parqueo1_3;
+                      $ch = curl_init($url);
+                      $dir = './';
+                      $file_name = basename('foto_area_parqueo.jpeg');
+                      $save_file_loc = $dir . $file_name;
+                      $fp = fopen($save_file_loc, 'wb');
+                      curl_setopt($ch, CURLOPT_FILE, $fp);
+                      curl_setopt($ch, CURLOPT_HEADER, 0);
+                      curl_exec($ch);
+
+                      fclose($fp);
+
+                      $file = realpath('foto_area_parqueo.jpeg');  
+
+                       $img=$file;
+
+
+  }*/
+
+
 
   include('dbcon.php');
 
@@ -107,76 +150,13 @@ if($tuplasaafectadas>0) {
 
     $id_firebase_slot=$row[0];
     $estado_anterior=$row[1];
+    $w_a=$row[2];
+    $h_a=$row[3];
+    $x_a=$row[4];
+     $y_a=$row[5];
 
     $now = new Datetime('now');
 $now = $now->format('Y-m-d H:i:s');
-
-//Obtener el más antiguo (cola)
-
-$query = "select id_asignar,id_placa_entrada from por_asignar_espacio where id_parqueo='$id_park_slot' AND timestamp_asignado=(select min(timestamp_asignado) from por_asignar_espacio where id_parqueo='$id_park_slot')";
-
-
-$numero_de_placa_asignar='';
-$fotografia_entrada='';
-
-
-$result1 = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
-$tuplasaafectadas2 = pg_affected_rows($result1);
-
-$id_asignar='';
-$id_placa_entrada='';
-
-
-
-while ($row = pg_fetch_row($result1)) {
-  
-     $id_asignar=$row[0];
-     $id_placa_entrada=$row[1];
-
- 
-}
-
-pg_free_result($result1);
-
-
-if($tuplasaafectadas2>0) {
-
-  $query = "  select foto_auto_entrada,deteccion_entrada from placas_entrada where id_parqueo='$id_park_slot' AND id_placa_entrada='$id_placa_entrada'";
-
-
-$result2 = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
-
-$foto_auto_entrada='';
-$deteccion_entrada='';
-
-
-
-
-while ($row = pg_fetch_row($result2)) {
-  
-     $foto_auto_entrada=$row[0];
-     $deteccion_entrada=$row[1];
-
- 
-}
-
-pg_free_result($result2);
-
-$numero_de_placa_asignar=$deteccion_entrada;
-$fotografia_entrada=$foto_auto_entrada;
-
-}
-
-echo "placa:".$numero_de_placa_asignar ."\n";
-echo "foto:".$fotografia_entrada ."\n";
-
-
-
-
-
-
-
-    
 
 
 
@@ -214,6 +194,42 @@ echo "foto:".$fotografia_entrada ."\n";
         $queriesa= "UPDATE slots SET timestamp_cambio_vacio='$now' WHERE id_slot='$id_slot' AND id_parqueo='$id_park_slot'";
         $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
         pg_free_result($resultadosa);
+
+
+        //SI EXISTEN CÁMARAS SE ACTUALIZARÁ LA IMAGEN YA QUE HUBO CAMBIO
+
+        if(str_contains($existen_camaras, '1')){
+
+                                    $url = 
+                                    'http://192.168.1.19/picture';
+                                    //$endpoint_parqueo1_3;
+                                    $ch = curl_init($url);
+                                    $dir = './';
+                                    $file_name = basename('foto_area_parqueo.jpeg');
+                                    $save_file_loc = $dir . $file_name;
+                                    $fp = fopen($save_file_loc, 'wb');
+                                    curl_setopt($ch, CURLOPT_FILE, $fp);
+                                    curl_setopt($ch, CURLOPT_HEADER, 0);
+                                    curl_exec($ch);
+
+                                    fclose($fp);
+
+                                    $file = realpath('foto_area_parqueo.jpeg');  
+
+                                    $img=$file;
+
+
+                                    $rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/'.$codigo.'';
+                                    $response_auto=json_encode($uploader->upload($img,['folder' => $rutafull,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
+                                    $imagen_auto = json_decode($response_auto);
+                                    $imagen_auto =$imagen_auto->secure_url;
+                                    echo "\n";echo "slot:";echo $codigo;echo "\n";echo $imagen_auto;echo "\n";
+
+                                    $queriesa= "UPDATE slots SET img_slot='$imagen_auto' WHERE id_slot='$id_slot' AND id_parqueo='$id_park_slot'";
+                                    $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
+                                    pg_free_result($resultadosa);                              
+
+                                     }
     
         
       }
@@ -236,54 +252,67 @@ echo "foto:".$fotografia_entrada ."\n";
       }
       else{
 
-        //Si hubo este cambio se debe revisar si hay un auto en "espera" si lo esta entonces este se debe asignar a este espacio
 
 
-        if((strlen($numero_de_placa_asignar))>0){
 
-          echo "HUBO CAMBIO VACIO->OCUPADO + HAY AUTO PARA ASIGNAR\n";
 
-          //asginar correspondiente 
-
-          $queriesa= "UPDATE slots SET timestamp_cambio_ocupado='$now',auto_img='$fotografia_entrada',placa_slot='$numero_de_placa_asignar' WHERE id_slot='$id_slot' AND id_parqueo='$id_park_slot'";
-          $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
-          pg_free_result($resultadosa);
-
-          //eliminar
-
-          
-          //Borrar la que ya existe....
-          $query = "DELETE FROM  por_asignar_espacio WHERE id_parqueo='$id_park_slot' AND id_asignar='$id_asignar'";
-          if($resultadoeliminar = pg_query($query)){
-            echo "Data Deleted Successfully.";
-          }
-          else{
-            echo "Error.";
-          }
-          
-          pg_free_result($resultadoeliminar);
-  
-
-        }
-        else{
+     
           echo "HUBO CAMBIO VACIO->OCUPADO\n";
           $queriesa= "UPDATE slots SET timestamp_cambio_ocupado='$now' WHERE id_slot='$id_slot' AND id_parqueo='$id_park_slot'";
           $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
           pg_free_result($resultadosa);
+
+                          //SI EXISTEN CÁMARAS SE ACTUALIZARÁ LA IMAGEN YA QUE HUBO CAMBIO
+
+
+                          if(str_contains($existen_camaras, '1')){
+
+
+                            $url = 
+                            'http://192.168.1.19/picture';
+                            //$endpoint_parqueo1_3;
+                            $ch = curl_init($url);
+                            $dir = './';
+                            $file_name = basename('foto_area_parqueo.jpeg');
+                            $save_file_loc = $dir . $file_name;
+                            $fp = fopen($save_file_loc, 'wb');
+                            curl_setopt($ch, CURLOPT_FILE, $fp);
+                            curl_setopt($ch, CURLOPT_HEADER, 0);
+                            curl_exec($ch);
+
+                            fclose($fp);
+
+                            $file = realpath('foto_area_parqueo.jpeg');  
+
+                            $img=$file;
+
+
+                            $rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/'.$codigo.'';
+                            $response_auto=json_encode($uploader->upload($img,['folder' => $rutafull,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
+                            $imagen_auto = json_decode($response_auto);
+                            $imagen_auto =$imagen_auto->secure_url;
+                            echo "\n";echo "slot:";echo $codigo;echo "\n";echo $imagen_auto;echo "\n";
+
+                            $queriesa= "UPDATE slots SET img_slot='$imagen_auto' WHERE id_slot='$id_slot' AND id_parqueo='$id_park_slot'";
+                            $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
+                            pg_free_result($resultadosa);
+                      
+                                      }
+
   
 
 
         }
 
 
- 
+        $queriesa= "UPDATE slots SET estado_anterior='N' WHERE id_slot='$id_slot' AND id_parqueo='$id_park_slot'";
+        $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
+        pg_free_result($resultadosa);
     
         
       }
 
-      $queriesa= "UPDATE slots SET estado_anterior='N' WHERE id_slot='$id_slot' AND id_parqueo='$id_park_slot'";
-      $resultadosa = pg_query($conn, $queriesa) or die('ERROR : ' . pg_last_error());
-      pg_free_result($resultadosa);
+
   }
 
  
@@ -300,7 +329,9 @@ echo "foto:".$fotografia_entrada ."\n";
 
 
 
-}
+
+
+
 
 
 
@@ -323,563 +354,7 @@ else{
   echo "\n";
 
 
-
-
-  //OBTENER IMAGENES DE SLOTS
-
-
-  ////////////////////////////////////////////////////////////////////PENDIENTE
-
-  /*
-
-  include 'camaras_endpoints.php';
-
-
-
-
-  
-if((strlen($endpoint_parqueo1_3>0))&& (strlen($endpoint_parqueo4_6>0)) && (strlen($endpoint_parqueo7_9>0))){
-
-
-
-  
-//COPIAR LA IMAGEN A FILESYSTEM
-
-
-$url = 
-//'https://res.cloudinary.com/parkiate-ki/image/upload/v1655505257/autos/entrada/vehiculo/jne4f3z9apldjvtrvt2y.jpg';
-$endpoint_parqueo1_3;
-// Initialize the cURL session
-$ch = curl_init($url);
-
-// Initialize directory name where
-// file will be save
-$dir = './';
-
-// Use basename() function to return
-// the base name of file
-$file_name = basename('parqueo1_3.jpeg');
-
-// Save file into file location
-$save_file_loc = $dir . $file_name;
-
-// Open file
-$fp = fopen($save_file_loc, 'wb');
-
-// It set an option for a cURL transfer
-curl_setopt($ch, CURLOPT_FILE, $fp);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-
-// Perform a cURL session
-curl_exec($ch);
-
-// Closes a cURL session and frees all resources
-//curl_close($ch);
-
-// Close file
-fclose($fp);
-
-
-
-$url = 
-//'https://res.cloudinary.com/parkiate-ki/image/upload/v1655505257/autos/entrada/vehiculo/jne4f3z9apldjvtrvt2y.jpg';
-$endpoint_parqueo4_6;
-// Initialize the cURL session
-$ch = curl_init($url);
-
-// Initialize directory name where
-// file will be save
-$dir = './';
-
-// Use basename() function to return
-// the base name of file
-$file_name = basename('parqueo4_6.jpeg');
-
-// Save file into file location
-$save_file_loc = $dir . $file_name;
-
-// Open file
-$fp = fopen($save_file_loc, 'wb');
-
-// It set an option for a cURL transfer
-curl_setopt($ch, CURLOPT_FILE, $fp);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-
-// Perform a cURL session
-curl_exec($ch);
-
-// Closes a cURL session and frees all resources
-//curl_close($ch);
-
-// Close file
-fclose($fp);
-
-
-
-$url = 
-//'https://res.cloudinary.com/parkiate-ki/image/upload/v1655505257/autos/entrada/vehiculo/jne4f3z9apldjvtrvt2y.jpg';
-$endpoint_parqueo7_9;
-// Initialize the cURL session
-$ch = curl_init($url);
-
-// Initialize directory name where
-// file will be save
-$dir = './';
-
-// Use basename() function to return
-// the base name of file
-$file_name = basename('parqueo7_9.jpeg');
-
-// Save file into file location
-$save_file_loc = $dir . $file_name;
-
-// Open file
-$fp = fopen($save_file_loc, 'wb');
-
-// It set an option for a cURL transfer
-curl_setopt($ch, CURLOPT_FILE, $fp);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-
-// Perform a cURL session
-curl_exec($ch);
-
-// Closes a cURL session and frees all resources
-//curl_close($ch);
-
-// Close file
-fclose($fp);
-
-
-//SLOTS 1
-
-//109	251	602	566
-
-
-
-$xmin_auto=89;
-$ymin_auto=231;
-$xmax_auto=602;
-$ymax_auto=566;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo1_3.jpeg');  
-
-$img=$file;
-
-
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/1';
-
-
-
-$response_auto=json_encode($uploader->upload($img,['folder' => $rutafull,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:1";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-
-//SLOTS 2
-
-//634	233	1052	564
-
-
-
-$xmin_auto=614;
-$ymin_auto=213;
-$xmax_auto=1052;
-$ymax_auto=564;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo1_3.jpeg');  
-
-$img=$file;
-
-//TODO: mejor registrar con ID DE PARQUEO EN LA CARPETA....
-
-//TODO: DESPUES DE TENER TODOS LOS ESPACIOS HACER RESIZE
-
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/2';
-
-
-$response_auto=json_encode($uploader->upload($img,
-
-['folder' => $rutafull,'width' => $w_a, 'height' => $h_a, 'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:2";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-//SLOTS 3
-
-//982	217	1581	562
-
-
-$xmin_auto=962;
-$ymin_auto=197;
-$xmax_auto=1581;
-$ymax_auto=562;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo1_3.jpeg');  
-
-$img=$file;
-
-//TODO: mejor registrar con ID DE PARQUEO EN LA CARPETA....
-
-
-
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/3';
-
-
-
-
-
-//TODO: DESPUES DE TENER TODOS LOS ESPACIOS HACER RESIZE
-
-$response_auto=json_encode($uploader->upload($img,
-['folder' => $rutafull,
-'width' => $w_a, 'height' => $h_a, 
-'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-//print_r ($imagen_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:3";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-
-//SLOTS 4
-
-//42	335	538	639
-
-
-$xmin_auto=22;
-$ymin_auto=315;
-$xmax_auto=538;
-$ymax_auto=639;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo4_6.jpeg');  
-
-$img=$file;
-
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/4';
-
-
-
-$response_auto=json_encode($uploader->upload($img,
-['folder' => $rutafull,
-'width' => $w_a, 'height' => $h_a, 
-'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-//print_r ($imagen_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:4";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-
-
-
-//SLOTS 5
-
-//555	353	939	647
-
-
-$xmin_auto=535;
-$ymin_auto=333;
-$xmax_auto=939;
-$ymax_auto=647;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo4_6.jpeg');  
-
-$img=$file;
-
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/5';
-
-
-//TODO: mejor registrar con ID DE PARQUEO EN LA CARPETA....
-
-//TODO: DESPUES DE TENER TODOS LOS ESPACIOS HACER RESIZE
-
-$response_auto=json_encode($uploader->upload($img,
-['folder' => $rutafull,
-'width' => $w_a, 'height' => $h_a, 
-'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-//print_r ($imagen_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:5";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-
-//SLOTS 6
-
-//907	356	1457	639
-
-
-$xmin_auto=877;
-$ymin_auto=336;
-$xmax_auto=1457;
-$ymax_auto=639;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo4_6.jpeg');  
-
-$img=$file;
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/6';
-
-
-//TODO: mejor registrar con ID DE PARQUEO EN LA CARPETA....
-
-//TODO: DESPUES DE TENER TODOS LOS ESPACIOS HACER RESIZE
-
-$response_auto=json_encode($uploader->upload($img,
-['folder' => $rutafull,
-'width' => $w_a, 'height' => $h_a, 
-'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-//print_r ($imagen_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:6";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-
-
-//SLOTS 7
-
-//55	253	610	566
-
-
-$xmin_auto=35;
-$ymin_auto=233;
-$xmax_auto=610;
-$ymax_auto=566;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo7_9.jpeg');  
-
-$img=$file;
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/7';
-
-
-//TODO: mejor registrar con ID DE PARQUEO EN LA CARPETA....
-
-//TODO: DESPUES DE TENER TODOS LOS ESPACIOS HACER RESIZE
-
-$response_auto=json_encode($uploader->upload($img,
-['folder' => $rutafull,
-'width' => $w_a, 'height' => $h_a, 
-'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-//print_r ($imagen_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:7";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-//SLOTS 8
-
-//570	247	989	573
-
-
-$xmin_auto=550;
-$ymin_auto=227;
-$xmax_auto=989;
-$ymax_auto=573;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo7_9.jpeg');  
-
-$img=$file;
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/8';
-
-
-//TODO: mejor registrar con ID DE PARQUEO EN LA CARPETA....
-
-//TODO: DESPUES DE TENER TODOS LOS ESPACIOS HACER RESIZE
-
-$response_auto=json_encode($uploader->upload($img,
-['folder' => $rutafull,
-'width' => $w_a, 'height' => $h_a, 
-'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-//print_r ($imagen_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:8";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-
-//SLOTS 9
-//978	256	1475	564
-
-
-
-
-$xmin_auto=958;
-$ymin_auto=236;
-$xmax_auto=1475;
-$ymax_auto=564;
-
-
-$x_a=$xmin_auto; 
-$y_a= $ymin_auto;
-$w_a= $xmax_auto-$xmin_auto;
-$h_a= $ymax_auto-$ymin_auto;
-
-$file = realpath('parqueo7_9.jpeg');  
-
-$img=$file;
-
-$rutafull='/parqueos/'.$id_park_slot.'/camara_parqueo/9';
-
-
-
-
-$response_auto=json_encode($uploader->upload($img,
-['folder' => $rutafull,
-'width' => $w_a, 'height' => $h_a, 
-'crop' => 'crop' , 'x' => $x_a, 'y' => $y_a]));
-
-
-
-$imagen_auto = json_decode($response_auto);
-//print_r ($imagen_auto);
-$imagen_auto =$imagen_auto->secure_url;
-
-echo "\n";
-echo "slot:9";
-echo "\n";
-echo $imagen_auto;
-echo "\n";
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  sleep(5);
-*/  ////////////////////////////////////////////////////////////////////PENDIENTE
-
-
-
-sleep(5);
+sleep(10);
 
 
 }

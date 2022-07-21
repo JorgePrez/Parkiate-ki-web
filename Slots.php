@@ -276,7 +276,7 @@ else{
 
 
 
- $query = "select * from slots where id_parqueo='$id_parqueo' and img_slot is NULL";// TODO_ img_slot is NULL??????
+ $query = "select * from slots where id_parqueo='$id_parqueo'";// TODO_ img_slot is NULL??????
 
 
  $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
@@ -310,22 +310,26 @@ else{
 
                         
                     <th>Nombre de Espacio(slot)</th>
-                    <th>Tipo de espacio (puede editarlo)</th>  <!-- disponible para reservar-->
+                              <!--    
+       <th>Tipo de espacio (espacio para reservas o espacio común)</th> --> <!-- disponible para reservar-->
+
+                    <th>Tipo (<span class='badge bg-inverse'>Espacio Común</span> / <span class='badge bg-warning'>Espacio Reservas</span> )</th>   <!-- ocupado o libbre-->
+
+
                  <!--   <th>Editar</th> -->
 
-                    <th>Estado</th>   <!-- ocupado o libbre-->
+                                  <!--    
 
-                    <th>Foto en entrada</th>
+                    <th>Estado (<span class='label label-success'>LIBRE</span> / <span class='label label-danger'>OCUPADO</span> )</th> -->  <!-- ocupado o libbre-->
+                    <th>Estado (<span class='label label-success'>LIBRE</span> / <span class='label label-danger'>OCUPADO</span> )</th>   <!-- ocupado o libbre-->
+
+                    <th>Foto De Espacio</th>
 
 
                     <?php
 
 
-if($tuplasaafectadas_slot==0){
 
- echo '<th>Foto en Slot</th>';
-
-}
 
 
 ?>
@@ -333,7 +337,6 @@ if($tuplasaafectadas_slot==0){
 
 
 
-                    <th>Placa</th>
 
 
 
@@ -371,7 +374,6 @@ if($tuplasaafectadas_slot==0){
                        $reservas='';
                        $id_firebase_slot='';
                        $auto_slot_img='';
-                       $placa_slot='';
 
                        $contador=0;
 
@@ -394,7 +396,6 @@ if($tuplasaafectadas_slot==0){
                         $reservas= $row[4];
                         $id_firebase_slot=$row[5];
                         $auto_slot_img=$row[6];
-                        $placa_slot=$row[7];
                         $contador = $contador+1;
 
                   
@@ -494,8 +495,13 @@ if($tuplasaafectadas_slot==0){
 
                     if(str_contains($estado, 'S'))
                     {
-                      echo	"<td><span class='badge bg-success'>LIBRE</span>
-                      </td>";
+                     /* echo	"<td><span class='badge bg-success'>LIBRE</span>
+                      </td>"*/;
+
+                      echo	"<td> 
+                      <img class='img-responsive' src=https://res.cloudinary.com/parkiate-ki/image/upload/v1658432245/detalles/slot_libre_ne1co7.png width='75px' height='auto' alt=''>
+                    
+                           </td>";
 
               
 
@@ -503,8 +509,10 @@ if($tuplasaafectadas_slot==0){
                     }
                     else{
 
-                      echo	"<td><span class='badge bg-important'>OCUPADO</span>
-                      </td>";
+                      echo	"<td> 
+                      <img class='img-responsive' src=https://res.cloudinary.com/parkiate-ki/image/upload/v1658432245/detalles/slot_ocupado_folvnz.png width='75px' height='auto' alt=''>
+                    
+                           </td>";
                                           
 
                     }
@@ -516,8 +524,13 @@ if($tuplasaafectadas_slot==0){
 
                     if(str_contains($estado, 'S'))
                     {
-                      echo	"<td> 
+                     /* echo	"<td> 
                  <img class='img-responsive' src=https://res.cloudinary.com/parkiate-ki/image/upload/v1656830960/detalles/189-1896618_car-icons-green-car-icon-flat-png-transparent_dkepbn.jpg width='50px' height='auto' alt=''>
+               
+                      </td>";*/
+
+                      echo	"<td> 
+                      <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt=''></a>
                
                       </td>";
 
@@ -532,49 +545,18 @@ if($tuplasaafectadas_slot==0){
                       <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt=''></a>
                
                       </td>";
+                 
                                           
 
                     }
 
 
                     
-if($tuplasaafectadas_slot==0){
-
  
-              
-                    echo	"<td> 
-                    <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt=''></a>
-             
-                    </td>"; 
-                    
-                    
-}     
                     
                     
 
-                    if(str_contains($estado, 'S'))
-                    {
-                      echo	"<td><span class='badge'>VACIO</span>
-                      </td>";
-
-                     
-
-
-
-                    }
-                    else{
-
-                      echo	"<td><span class='badge'>";
-
-                      echo  $placa_slot;
-                      
-                      echo "</span>
-                      </td>";
-                                          
-
-                    }
-
-            
+                 
 
 
                             

@@ -133,18 +133,17 @@ else{
              <!--sidebar start-->
              <?php
               
-              $query = "select nombre_empresa,reservas from parqueo where id_parqueo='$id_parqueo'";
+              $query = "select nombre_empresa from parqueo where id_parqueo='$id_parqueo'";
               //                       $query = "select * from prospectos_template";
               
               $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
               $nombrecompleto = '';
-              $reservas='';
               
               
               while ($row = pg_fetch_row($result)) {
               $nombrecompleto= $row[0];
-              $reservas = $row[1];
               }
+              $reservas='S';
 
 
 
@@ -270,7 +269,7 @@ else{
                   <label class="col-sm-8 col-sm-8 control-label"> <b>Código de espacio</b> (Slot): 
                 </label>
                   <div class="col-sm-4">
-                    <input type="text" name="codigo" placeholder="Por ejemplo 'P-7' o Simplemente '7'" class="form-control"> 
+                    <input type="text" name="codigo" placeholder="Por ejemplo 'P-7' , 'P7' o Simplemente '7'" class="form-control"> 
 
                     <input type="hidden" name="id_parqueo" value=<?php echo $id_parqueo;?>>
 

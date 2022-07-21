@@ -132,7 +132,7 @@ else{
               
              
               
-              $query = "select nombre_empresa,reservas from parqueo where id_parqueo='$id_parqueo'";
+              $query = "select nombre_empresa from parqueo where id_parqueo='$id_parqueo'";
               //                       $query = "select * from prospectos_template";
               
               $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
@@ -142,7 +142,6 @@ else{
               
               while ($row = pg_fetch_row($result)) {
               $nombrecompleto= $row[0];
-              $reservas = $row[1];
               }
 
 

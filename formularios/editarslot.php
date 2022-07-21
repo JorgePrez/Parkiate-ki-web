@@ -48,6 +48,9 @@ $id_parqueo = '';
 $estado= '';
 $reservasE='';
 $id_firebase_slot='';
+$img_slot='';
+
+
 
 
 while ($row = pg_fetch_row($result)) {
@@ -57,6 +60,7 @@ while ($row = pg_fetch_row($result)) {
  $estado= $row[3];
  $reservasE= $row[4];
  $id_firebase_slot=$row[5];
+ $img_slot=$row[6];
 
 
 }
@@ -126,7 +130,8 @@ $estado_boolean = false;
 $postData = ['id_slot'=>$id_slot,
 'codigo'=>$codigoE,
 'estado' => $estado_boolean,
-'reservas'=> $reservasE  
+'reservas'=> $reservasE ,
+'img_slot'=> $img_slot 
 ];
 
 

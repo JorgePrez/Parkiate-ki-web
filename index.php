@@ -922,7 +922,7 @@ $visitas_totales=(string) $visitas_totales;
           </li>
 
 <li class="mt">
-<a href="RegistrarParqueo1.php">
+<a href="MisServicios.php">
   <i class="fa fa-external-link"></i>
   <span>Registro de Servicios(App)</span>
   </a>
