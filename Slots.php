@@ -255,17 +255,6 @@ else{
                       <tr>
 
                      <!-- <th>Id -->
-
-
-                      <?php
-
-/*Este parametro deberia estar guardado en el inicio de sesión*/ 
-
-
- // $id_parqueo=$_GET["id_parqueo"];
-
-
-  ?>
   
 
                       </th>
@@ -309,21 +298,23 @@ else{
            ?> 
 
                         
-                    <th>Nombre de Espacio(slot)</th>
+                    <th>Nombre de Espacio</th>
                               <!--    
        <th>Tipo de espacio (espacio para reservas o espacio común)</th> --> <!-- disponible para reservar-->
 
-                    <th>Tipo (<span class='badge bg-inverse'>Espacio Común</span> / <span class='badge bg-warning'>Espacio Reservas</span> )</th>   <!-- ocupado o libbre-->
+                    <th>Tipo (<span class='badge bg'>Espacio Común</span> / <span class='badge bg-warning'>Espacio Reservas</span> )</th>   <!-- ocupado o libbre-->
 
 
                  <!--   <th>Editar</th> -->
 
-                                  <!--    
 
-                    <th>Estado (<span class='label label-success'>LIBRE</span> / <span class='label label-danger'>OCUPADO</span> )</th> -->  <!-- ocupado o libbre-->
-                    <th>Estado (<span class='label label-success'>LIBRE</span> / <span class='label label-danger'>OCUPADO</span> )</th>   <!-- ocupado o libbre-->
+
+                    <th>Estado (<span class='badge bg-success'>LIBRE</span> / <span class='badge bg-important'>OCUPADO</span> )</th>   <!-- ocupado o libbre-->
 
                     <th>Foto De Espacio</th>
+
+                    <th>Información</th>
+
 
 
                     <?php
@@ -396,8 +387,28 @@ else{
                         $reservas= $row[4];
                         $id_firebase_slot=$row[5];
                         $auto_slot_img=$row[6];
+                        $timestamp_cambio_ocupado=$row[8];
+                        $timestamp_cambio_vacio=$row[9];
+
                         $contador = $contador+1;
 
+
+                        $separada = explode(' ', $timestamp_cambio_ocupado);
+                        $separada2 = explode('-', $separada[0]);
+                        $separada3 = explode(':', $separada[1]);
+                        $hora_min_ocupado = $separada3[0]. ':'.$separada3[1];
+                      $fecha_formato_ocupado = $separada2[2].' / '.$separada2[1].' / '.$separada2[0];
+
+
+                      $separada = explode(' ', $timestamp_cambio_vacio);
+                      $separada2 = explode('-', $separada[0]);
+                      $separada3 = explode(':', $separada[1]);
+                      $hora_min_vacio = $separada3[0]. ':'.$separada3[1];
+                    $fecha_formato_vacio = $separada2[2].' / '.$separada2[1].' / '.$separada2[0];
+
+
+
+         
                   
 
   
@@ -458,8 +469,8 @@ else{
 
 
 
-
-                    echo	"<td><span class='badge'>$codigo </span></td>";
+                    
+       echo	"<td><h4> <span class='label label-default'>  $codigo</span></h4></td>";
 
 
 
@@ -471,8 +482,9 @@ else{
                     
                     if(str_contains($reservas, 'S'))
                     {
-                      echo	"<td><span class='badge bg-warning'>Para reservas</span>
+                      echo	"<td> <h4> <span class='label label-warning'>Para reservas</span> 
                       <a class='btn btn-primary btn-xs fa fa-pencil' href=Editar_slot.php?id_slot=$id_slot></a>
+                      </h4>
                       </td>";
 
 
@@ -480,8 +492,9 @@ else{
                     }
                     else{
 
-                      echo	"<td><span class='badge bg-inverse'>Espacio común</span>
+                      echo	"<td> <h4>  <span class='label label-default'>Espacio común</span>
                       <a class='btn btn-primary btn-xs fa fa-pencil' href=Editar_slot.php?id_slot=$id_slot></a>
+                      </h4>
                       </td>";
                                           
 
@@ -503,6 +516,26 @@ else{
                     
                            </td>";
 
+                           echo	"<td> 
+                           <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt='photo_auto'></a>
+                    
+                           </td>";
+     
+                      
+                           echo	"<td> <h5> <span class='label label-success'>  Libre Desde:</span> </h5>";
+
+                           echo "<h4> <span class='label label-warning'>
+         
+                           $fecha_formato_vacio
+                                  </span>
+                                  <span class='label label-info'>
+                                   
+                           $hora_min_vacio
+                                  </span>
+                                  </h4>";
+
+    
+
               
 
 
@@ -513,52 +546,34 @@ else{
                       <img class='img-responsive' src=https://res.cloudinary.com/parkiate-ki/image/upload/v1658432245/detalles/slot_ocupado_folvnz.png width='75px' height='auto' alt=''>
                     
                            </td>";
-                                          
 
-                    }
 
+
+                           echo	"<td> 
+                           <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt='photo_auto'></a>
+                    
+                           </td>";
+
+
+
+                           echo	"<td> <h5> <span class='label label-danger'>  Ocupado Desde:</span> </h5>";
+
+                           echo "<h4> <span class='label label-warning'>
          
-                    
-                    
+                           $fecha_formato_ocupado
+                                  </span>
+                                  <span class='label label-info'>
+                                   
+                           $hora_min_ocupado
+                                  </span>
+                                  </h4>";
 
 
-                    if(str_contains($estado, 'S'))
-                    {
-                     /* echo	"<td> 
-                 <img class='img-responsive' src=https://res.cloudinary.com/parkiate-ki/image/upload/v1656830960/detalles/189-1896618_car-icons-green-car-icon-flat-png-transparent_dkepbn.jpg width='50px' height='auto' alt=''>
-               
-                      </td>";*/
-
-                      echo	"<td> 
-                      <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt=''></a>
-               
-                      </td>";
-
-
-              
-
-
-                    }
-                    else{
-
-                      echo	"<td> 
-                      <a class='fancybox' href=$auto_slot_img><img class='img-responsive' src=$auto_slot_img width='75px' height='auto' alt=''></a>
-               
-                      </td>";
-                 
                                           
 
                     }
 
-
-                    
- 
-                    
-                    
-
-                 
-
-
+        
                             
                     echo	"</tr>";
                 
@@ -765,6 +780,19 @@ else{
       });
     });
   </script>
+
+<script>
+    $(document).ready(function() {
+       
+    // (OR 30 seconds).
+        setInterval('refreshPage()', 30000);
+    });
+ 
+    function refreshPage() { 
+        location.reload(); 
+    }
+</script>
+
 </body>
 
 </html>
