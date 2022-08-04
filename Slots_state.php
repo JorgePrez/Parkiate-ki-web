@@ -85,6 +85,8 @@ if(strlen($id_firebase)>0 ){
 
 while(true){
 
+  
+
 
 
 $query = "select id_firebase_slot,estado_anterior,w_a,h_a,x_a,y_a from slots where id_parqueo='$id_park_slot' order by codigo";

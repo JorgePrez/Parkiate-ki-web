@@ -315,7 +315,7 @@ else{
            <?php
         
 
-            $query = "    select id_entrada_salida,id_deteccion_entrada, id_deteccion_salida, tiempo_total,id_auto,id_servicio_app,deteccion_entrada_salida from placas_entrada_salida
+            $query = "    select id_entrada_salida,id_deteccion_entrada, id_deteccion_salida, tiempo_total,id_auto,id_usuario_app,deteccion_entrada_salida from placas_entrada_salida
             where id_parqueo='$id_parqueo' and id_auto='$id_auto' order by tiempo_total desc";   
 
         

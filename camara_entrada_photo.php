@@ -746,7 +746,7 @@ for($i=0;$i < 6;$i++){
   $id_entrada_salida=$key;
 
 $query="INSERT INTO placas_entrada_salida(
-	id_entrada_salida, id_deteccion_entrada, id_deteccion_salida, id_auto, id_parqueo, id_servicio_app,tiempo_total,deteccion_entrada_salida,existe_error)
+	id_entrada_salida, id_deteccion_entrada, id_deteccion_salida, id_auto, id_parqueo, id_usuario_app,tiempo_total,deteccion_entrada_salida,existe_error)
 	VALUES ('$id_entrada_salida', '$id_placa_entrada', 'NA', '$id_auto', '$id_parqueo', 'NA','NA','$placa_detectada','$placa_necesita_correccion');";
 
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());

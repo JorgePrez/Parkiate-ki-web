@@ -180,6 +180,7 @@ pg_free_result($result);
 ?>
 #spotify1 {
   background: url(<?php echo $foto_auto_salida2?>) no-repeat center top;
+  
 
   
   /*background:url('https://res.cloudinary.com/parkiate-ki/image/upload/v1653897978/detalles/10-109983_security-camera-icon-png-cctv-icon-transparent-png_mxdo9a.png') no-repeat center top;
@@ -674,7 +675,7 @@ $fecha=$dia." de ". $mesesN[$month] ." de $anio";
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
       <!--logo start-->
-      <a href="index.html" class="logo"><b><span>PARK</span>IATE<span>-KI</span></b></a>
+      <a href="index.html" class="logo"><b><span>  PARK</span>IATE<span>-KI  </span> <i class="fa fa-car"></i></b></a>
       <!--logo end-->
       <div class="nav notify-row" id="top_menu">
         <!--  notification start -->

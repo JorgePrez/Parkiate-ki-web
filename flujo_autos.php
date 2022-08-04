@@ -325,7 +325,7 @@ else{
            
 
          //   $query = "select * from servicios_admin where Id_parqueo='$id_parqueo' order by Id DESCASC";   
-            $query = " select hora_deteccion_entrada,id_entrada_salida,id_deteccion_entrada, id_deteccion_salida, tiempo_total,id_auto,id_servicio_app,deteccion_entrada_salida,existe_error 
+            $query = " select hora_deteccion_entrada,id_entrada_salida,id_deteccion_entrada, id_deteccion_salida, tiempo_total,id_auto,id_usuario_app,deteccion_entrada_salida,existe_error 
             from placas_entrada_salida as PES,placas_entrada as PE where PE.id_parqueo='$id_parqueo' AND id_deteccion_entrada=id_placa_entrada order by hora_deteccion_entrada desc";   
 
         

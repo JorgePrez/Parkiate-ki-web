@@ -803,6 +803,19 @@ echo	"<td>$fecha</td>";
       
     });
   </script>
+
+<script>
+    $(document).ready(function() {
+       
+    // (OR 30 seconds).
+        setInterval('refreshPage()', 30000);
+    });
+ 
+    function refreshPage() { 
+        location.reload(); 
+    }
+</script>
+
 </body>
 
 </html>

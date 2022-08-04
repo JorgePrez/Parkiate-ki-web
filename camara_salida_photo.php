@@ -765,6 +765,10 @@ $tiempo_total=$interval->format('%d-%H-%i-%s');//00 years 0 months 0 days 08 hou
 
 //actualizar en la tabla entrada_salida
 
+
+
+
+
 $query= "UPDATE placas_entrada_salida SET id_deteccion_salida='$id_placa_salida', tiempo_total='$tiempo_total' WHERE id_deteccion_entrada='$id_placa_entrada_recibida' AND id_parqueo='$id_parqueo'";
 
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
@@ -773,6 +777,24 @@ pg_free_result($result);
 
 //actualizar en la tabla auto
 $placa_auto_escribir='';
+
+
+ // TODO: obtener id de placas_entrada_Salida
+
+ $query = "SELECT id_entrada_salida FROM placas_entrada_salida WHERE id_deteccion_entrada='$id_placa_entrada_recibida' AND id_parqueo='$id_parqueo'";
+ 
+ $resultplaca = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
+ $id_placa_entrada_salida_app='';
+  
+
+ while ($row = pg_fetch_row($resultplaca)) {
+  $id_placa_entrada_salida_app=$row[0];
+ }
+
+ pg_free_result($resultplaca);
+
+
+ ////////////////////////////////////////////
 
 /*if($deteccion_entrada_correcion!='NA'){
  $placa_auto_escribir=$deteccion_entrada_correcion;
@@ -843,6 +865,40 @@ $query= "UPDATE placas_entrada SET dentro_fuera='F' WHERE id_placa_entrada='$id_
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
+
+
+
+//TODO: /////////////////////////
+
+$query = "SELECT id_usuario_app from placas_entrada_salida WHERE  id_entrada_salida='$id_placa_entrada_salida_app' and id_parqueo='$id_parqueo'";
+ 
+ $resultplaca = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
+ $id_usuario_app_actual='';
+  
+
+ while ($row = pg_fetch_row($resultplaca)) {
+  $id_usuario_app_actual=$row[0];
+ }
+
+ pg_free_result($resultplaca);
+
+
+
+ if( (strcmp($id_usuario_app_actual, 'NA')) ==0 ){  }
+
+ else{
+  $query= "UPDATE usuarios_app set id_visita_actual='N' WHERE id=$id_usuario_app_actual";
+
+$result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$tuplasaafectadas = pg_affected_rows($result);
+pg_free_result($result);
+
+
+
+ }
+
+ //////////////////
+
 
 
 
@@ -952,6 +1008,59 @@ $query= "UPDATE placas_entrada_salida SET id_deteccion_salida='$id_placa_salida'
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
+
+
+
+
+//TODO: SI EN USUARIO APP, EXISTE UN Id de placas_entrada_salida, actualizarlo a 'N'
+
+
+$query = "SELECT id_usuario_app from placas_entrada_salida WHERE  id_entrada_salida='$id_placa_entrada_recibida' and id_parqueo='$id_parqueo'";
+ 
+ $resultplaca = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
+ $id_usuario_app_actual='';
+  
+
+ while ($row = pg_fetch_row($resultplaca)) {
+  $id_usuario_app_actual=$row[0];
+ }
+
+ pg_free_result($resultplaca);
+
+
+
+ if( (strcmp($id_usuario_app_actual, 'NA')) ==0 ){  }
+
+ else{
+  $query= "UPDATE usuarios_app set id_visita_actual='N' WHERE id=$id_usuario_app_actual";
+
+$result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
+$tuplasaafectadas = pg_affected_rows($result);
+pg_free_result($result);
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////
+
+
 
 //actualizar en la tabla auto
 $placa_auto_escribir='';

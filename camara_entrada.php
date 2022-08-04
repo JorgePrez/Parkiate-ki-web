@@ -102,7 +102,7 @@ while((str_contains($activado, '1')))
 // $id_parqueo_r ='2329C7';
 
 
- $id_parqueo ='86BE48';
+ $id_parqueo =$id_parqueo_actual;
 
 
 
@@ -887,6 +887,7 @@ else{
 $database->getReference($ref_tabla1)->set(false);
 
 
+echo "\n";
 
   echo "termino de procesar, mostrando resultado";
   echo "\n";
@@ -913,7 +914,7 @@ $database->getReference($ref_tabla1)->set(false);
 
   }
   
-  sleep(3);
+  sleep(10);
 
 }
 

@@ -101,7 +101,8 @@ while((str_contains($activado, '1')))
 {
 
   
-  $id_parqueo ='86BE48';
+  $id_parqueo =$id_parqueo_actual;
+
 
 
 
@@ -947,7 +948,10 @@ $success=true;
  
 }
 else {  //////
+  echo "\n";
+
   echo 'Warning: Ninguna placa coincide exactamente, buscando la placa más parecida';
+  echo "\n";
 
 
   //RECORRER TODAS LAS PLACAS DE ADENTRO Y HACER COINCIDIR CON LA QUE MAS SE PAREZCA,
@@ -984,8 +988,10 @@ $placaprovisional="";
 
   $placa_detectada=$placaprovisional;
   echo "\n";
-  echo "nueva placa";
+  echo "nueva placa: ";
   echo $placa_detectada;
+  echo "\n";
+ 
 
   pg_free_result($result123);
   
@@ -1152,6 +1158,8 @@ else{
   echo "\n";
   echo "Success: camara_salida registrando";
   $success=true;
+  echo "\n";
+
 
 
 
@@ -1169,6 +1177,7 @@ else{
   echo "\n";
 
   echo 'Warning: Foto repetida';
+  echo "\n";
   $success=false;
 
 
@@ -1182,6 +1191,7 @@ else{
   echo "\n";
 
   echo "Warning: en la foto no hay ninguna placa";
+  echo "\n";
   $success=false;
 
 
@@ -1203,6 +1213,7 @@ else{
 $database->getReference($ref_tabla1)->set(false);
 
 
+echo "\n";
 
   echo "termino de procesar, mostrando resultado";
   echo "\n";
