@@ -7,7 +7,7 @@ const imagen= document.querySelector('#user-photo');
 
 let widget_cloudinary= cloudinary.createUploadWidget({
     cloudName: 'parkite-ki',
-    uploadPreset: 'is-sales-preset',
+    uploadPreset: 'zljya79r',
     api_key: '794241658481217',
     api_secret:'qRQnXnrfL-xqXug4sfFlMgGfeAY'  
 },

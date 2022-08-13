@@ -54,7 +54,12 @@ if (!$conn){
 
 
 
-  $query = "select id_placa_entrada,hora_deteccion_entrada, foto_auto_entrada,deteccion_entrada from placas_entrada where id_parqueo='$id_parqueo' and dentro_fuera='D' order by hora_deteccion_entrada desc limit 1";   
+  $query = "
+  select id_placa_entrada,hora_deteccion_entrada, foto_auto_entrada,deteccion_entrada,id_usuario_app from placas_entrada,placas_entrada_salida
+where placas_entrada.id_parqueo='$id_parqueo' and dentro_fuera='D' and id_deteccion_entrada=id_placa_entrada 
+and id_usuario_app='NA'
+order by hora_deteccion_entrada desc limit 1";
+  
 
 
 
@@ -81,6 +86,45 @@ if (!$conn){
 
 
  
+ if(!(strlen($id_placa_entrada)>0)){ //puede ser que no existe ninguna foto $id_placa_entrada=''
+  $registro_exitoso='10';
+
+  
+  
+  $mensaje1=' Registro Incorrecto';
+  $mensaje2=' No existe fotografía reciente en la base de datos';
+
+
+ }
+ else   
+ {
+
+
+
+ //puede ser que si exista [rango de tiempo] limitado , y 
+          //si cumple que es menor a los 3 min, se registro
+          //error, qr no confirmado.
+
+
+          $datetime1 = new DateTime($hora_deteccion_entrada);//start time
+$datetime2 = new DateTime($now);//end time
+$interval = $datetime1->diff($datetime2);
+
+$otravariable=$interval->i;
+
+//$cantidad_minutos=6;// int($interval->i);
+
+if($otravariable>=5){
+  $rango_aceptable=false;
+
+}
+else{
+  $rango_aceptable=true;
+}
+
+
+  if($rango_aceptable){
+    
  $query = "
  
  select id_entrada_salida from placas_entrada_salida,placas_entrada as Pe 
@@ -129,31 +173,37 @@ $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_e
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
 
+$registro_exitoso='1';
 
-if((strlen($id_entrada_salida))>2 ){
-  $registro_exitoso='1';
-
-  $mensaje1=' Registro exitoso';
-  $mensaje2=' Los datos fueron registrados correctamente , puedes cerrar esta ventana.';
-
-  
-}
-else{
-
-  $registro_exitoso='10';
-
-  
-  
-  $mensaje1=' Registro Incorrecto';
-  $mensaje2=' No existe fotografía reciente en la base de datos';
+$mensaje1=' Registro exitoso';
+$mensaje2=' Los datos fueron registrados correctamente , puedes cerrar esta ventana.';
 
 
 
 
 
+  }
+
+  else{
+    $registro_exitoso='10';
+
+$mensaje1=' Registro Incorrecto';
+$mensaje2=' El qr no fue escaneado en un rango de tiempo válido (3 min)';
 
 
-}
+  }
+
+
+
+
+ }
+
+
+
+
+ 
+
+
 
  }
 else{
@@ -387,9 +437,9 @@ $fecha_formato_entrada = $separada2[2].'/'.$separada2[1];
                     </div>
               
                   </div>
-                  <p class="followers"><i class="fa fa-arrow-right"></i> Imagen registrada al usuario (';
-                   echo $deteccion_entrada ;
-                   echo') </p>
+                  <p class="followers"><i class="fa fa-arrow-right"></i> Imagen registrada al usuario ';
+                   echo $timestamp_entrada;
+                   echo' </p>
                 </div>
               </div>';
         }

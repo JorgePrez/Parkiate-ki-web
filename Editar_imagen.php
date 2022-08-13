@@ -127,21 +127,7 @@ else{
         MAIN SIDEBAR MENU
         *********************************************************************************************************************************************************** -->
        <!--sidebar start-->
-       <?php
-              
-              $query = "select nombre from duenio where id_duenio='$id_usuario'";
-              //                       $query = "select * from prospectos_template";
-              
-              $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
-              $nombrecompleto = '';
-              
-              
-              while ($row = pg_fetch_row($result)) {
-              $nombrecompleto= $row[0];
-              }
-              
-              ?>
-              
+
           
           
              <!--sidebar start-->

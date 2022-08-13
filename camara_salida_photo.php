@@ -954,6 +954,8 @@ $placaprovisional="";
   echo "\n";
   echo "nueva placa";
   echo $placa_detectada;
+  echo "\n";
+
 
   pg_free_result($result123);
   
