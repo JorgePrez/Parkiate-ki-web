@@ -185,10 +185,14 @@ $mensaje2=' Los datos fueron registrados correctamente , puedes cerrar esta vent
   }
 
   else{
+
+
+
+    
     $registro_exitoso='10';
 
 $mensaje1=' Registro Incorrecto';
-$mensaje2=' El qr no fue escaneado en un rango de tiempo válido (3 min)';
+$mensaje2=' No existe fotografía reciente en la base de datos';  //' El qr no fue escaneado en un rango de tiempo válido (3 min)';
 
 
   }
@@ -269,11 +273,16 @@ $fecha_formato_entrada = $separada2[2].'/'.$separada2[1];
 
   <!-- Favicons -->
   <link href="img/favicon1.png" rel="icon">
+  
 
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
    <!-- Bootstrap core CSS -->
    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+   
   <!--external css-->
   <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="css/zabuto_calendar.css">

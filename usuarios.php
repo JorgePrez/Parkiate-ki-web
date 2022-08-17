@@ -185,37 +185,6 @@ else{
 </li>
 
 
-<li class="mt">
-            <a class="active" href="javascript:;">
-              <i class="fa fa-camera"></i>
-              <span>Flujo de autos(placas)</span>
-              </a>
-            <ul class="sub">
-            <li><a href="entrada.php">Registro de Autos Entrada</a></li>
-              <li><a href="salida.php">Registro de Autos Salida</a></li>
-              <li><a href="flujo_autos.php">Entrada y Salida por Placa</a></li>
-              <li><a href="autos.php">Registro por auto</a></li>
-            </ul>
-          </li>
-
-          
-<li class="mt">
-<a href="RegistrarParqueo1.php">
-  <i class="fa fa-external-link"></i>
-  <span>Registro de Servicios(App)</span>
-  </a>
-
-</li>
-
-
-
-<li class="mt">
-<a href="RegistrarParqueo1.php">
-  <i class="fa fa-book"></i>
-  <span>Reservas</span>
-  </a>
-
-</li>
 
 <li class="mt">
             <a href="javascript:;">
@@ -246,8 +215,6 @@ else{
           </li>
 
 
-
-
     
 
 
@@ -267,7 +234,7 @@ else{
      <section id="main-content">
       <section class="wrapper">
 
-      <h3><i class="fa fa-table"></i> Registro de autos (cámara de entrada)
+      <h3><i class="fa fa-table"></i> Registro de usuarios (aplicación móvil)
       </h3>
 
   
@@ -316,23 +283,23 @@ else{
 
 
 
-           <th><b>Fecha y Hora (Formato| 24h) </b></th>
+           <th><b>Email </b></th>
 
 
 
-           <th><b>Placa Obtenida</b></th>
+           <th><b>Nombre</b></th>
           <!-- <th>Prospectos</th> -->
-          <th><b>Placa</b></th>
+          <th><b>Teléfono</b></th>
       <!--    <th><b> ¿Error en la placa?
           </b></th>-->
 
        <!--   <th><b> Editar placa
           </b></th> -->
-          <th><b>Auto</b></th>
+          <th><b>Foto de perfil</b></th>
 
-          <th><b>Foto tomada</b></th>
+          <th><b>Fecha de creación de usuario</b></th>
 
-          <th><b>¿Estado?</b></th>
+          <th><b>¿Se encuentra en parqueo?</b></th>
 
           
 
@@ -349,23 +316,20 @@ else{
 
            
 
-         //   $query = "select * from servicios_admin where Id_parqueo='$id_parqueo' order by Id DESCASC";   
-            $query = "select * from placas_entrada where id_parqueo='$id_parqueo' order by dentro_fuera, hora_deteccion_entrada DESC";   
-            //                       $query = "select * from prospectos_template";
+            $query = "
+                
+    
+      select max(id),email,nombre,telefono,foto_perfil,timestamp_creacion, id_visita_actual 
+      from usuarios_app, placas_entrada_salida  where  id_usuario_app= CAST (usuarios_app.id AS TEXT) 
+         and id_parqueo='$id_parqueo' group by id order by id
+
+               ";   
 
 
 
             $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
-            $id_placa_entrada='';
-            $hora_deteccion_entrada='';
-            $foto_auto_entrada = '';
-            $deteccion_entrada= '';
-            $id_parqueo='';
-            $completo_entrada = '';
-            $foto_placa_entrada=''; 
-            $dentro_fuera='';
+            $id='';
 
-            $contador = 0;
           
 
 
@@ -373,56 +337,72 @@ else{
            
 
            while ($row = pg_fetch_row($result)) {
+             $id=$row[0];
+             $email=$row[1];
+             $nombre = $row[2];
+             $telefono= $row[3];
+             $foto_perfil=$row[4];
+             $timestamp_creacion=$row[5];
+             $id_visita_actual=$row[6];
 
-              
-           
-             $id_placa_entrada=$row[0];
-             $hora_deteccion_entrada=$row[1];
-             $foto_auto_entrada = $row[2];
-             $deteccion_entrada= $row[3];
-             $id_parqueo=$row[4];
-             $completo_entrada = $row[5];
-   
-             $foto_placa_entrada=$row[6];
-             $dentro_fuera=$row[7];
-             $contador = $contador+1;
-
-
-   /*
-                 echo	"<tr class='gradeC'>";
-
-   */ 
-        
-  /*      if (str_contains($error_entrada, 'N') AND ($deteccion_entrada_correccion=='NA')) {
-              echo	"<tr class='gradeA'>";
-             
-            }else if (str_contains($error_entrada, 'S') AND ($deteccion_entrada_correccion=='NA')){
-              echo	"<tr class='gradeX'>";
-
-            }
-            else{
-              echo	"<tr class='gradeC'>";
-            }
-*/
             
 echo	"<tr class='gradeA'>";
 
 
-      /*   echo	"<tr class='gradeA'>";*/
       
 
 
       
 
 
-      echo	"<td style='display:none;'>$id_placa_entrada</td>";
+      echo	"<td style='display:none;'>$id</td>";
 
-      echo	"<td style='display:none;'>$contador</td>";
+      echo	"<td style='display:none;'>$id</td>";
+
+      echo	"<td>
+
+        <h4> <span class='label label-default'>  
+        $email
+     </span>
+               </h4>
+        
+        
+        </td>";
 
 
-        /* echo	"<td>$hora_deteccion_entrada</td>";*/
+        echo	"<td>
 
-        $separada = explode(' ', $hora_deteccion_entrada);
+        <h4> <span class='label label-primary'>  
+        $nombre
+               </span>
+               </h4>
+        
+        
+        </td>";
+
+
+
+        echo	"<td>
+
+        <h4> <span class='label label-info'>  
+        $telefono
+               </span>
+               </h4>
+        
+        
+        </td>";
+
+
+        echo	"<td> 
+        <div class='photo'>
+        <a class='fancybox' href=$foto_perfil><img class='img-responsive' src=$foto_perfil width='100' height='100' alt=''></a>
+      </div>
+      </td>";
+
+
+
+
+        $separada = explode(' ',        $timestamp_creacion);
 
         $separada2 = explode('-', $separada[0]);
 
@@ -433,208 +413,23 @@ echo	"<tr class='gradeA'>";
       $fecha_formato = $separada2[2].' / '.$separada2[1].' / '.$separada2[0];
 
 
-  /*    <h4>
-      <i class="fa fa-magic">     </i> 
-
-              Codigo de colores por fila(
-              <span class="label label-danger">Placa necesita correción</span>
-              <span class="label label-success">Placa cumple con formato</span>
-              <span class="label label-primary">Placa corregida por administrador(usted)</span>
-              )
-         
-              </h4>
-*/
          echo	"<td>
          <h4> <span class='label label-warning'>
          
  $fecha_formato
         </span>
-        <span class='label label-info'>
-         
- $hora_min
-        </span>
+
         </h4>
 
         </td>";
 
-        //comprobando si hubo correción , si lo hubo mostrar esa.
-
-      /* if($deteccion_entrada_correccion!='NA'){
-         echo	"<td>
-
-        <h4> <span class='label label-default'>  
-        $deteccion_entrada_correccion
-               </span>
-               </h4>
-        
-        
-        </td>";
-       }
-       else{
-        echo	"<td>
-
-        <h4> <span class='label label-default'>  
-        $deteccion_entrada
-               </span>
-               </h4>
-        
-        
-        </td>";
-       }*/
-
-       echo	"<td>
-
-        <h4> <span class='label label-default'>  
-        $deteccion_entrada
-               </span>
-               </h4>
-        
-        
-        </td>";
 
 
-       
-
-       //  echo	"<td>$deteccion_entrada</td>";
-         /*echo	"<td>$foto_placa_entrada</td>";*/
-       /* echo	"<td>         
-         <img src=$foto_placa_entrada  alt=''>
-         </td>";
-         
-                  <a class='fancybox' href=$foto_placa_entrada><img class='img-responsive' src='https://res.cloudinary.com/parkiate-ki/image/upload/v1653994130/autos/entrada/full/qf36r1h5ofqwbvhqa58z.jpg' width='100px' height='100px' alt=''></a>
-
-         */
-         echo	"<td> 
-         <div class='photo'>
-         <a class='fancybox' href=$foto_placa_entrada><img class='img-responsive' src=$foto_placa_entrada width='100px' height='auto' alt='' alt=''></a>
-       </div>
-       </td>";
-
-
-    /*   if (str_contains($error_entrada, 'N') AND ($deteccion_entrada_correccion=='NA')) {
-
-        
-        echo	"<td>
-        <h4> <span class='label label-success'>
-        
- Placa Cumple con formato
-
-       </span>
-  
-
-      
-       </h4>
-
-       </td>";
-
-       
-      }else if (str_contains($error_entrada, 'S') AND ($deteccion_entrada_correccion=='NA')){
-       
-        echo	"<td>
-        <h4> <span class='label label-danger'>
-        
-Necesita correción (posiblemente)
-
-       </span>
- 
-
-
-       </h4>
-
-
-       </td>";
-      }
-      else{
-
-        echo	"<td>
-        <h4> <span class='label label-primary'>
-        
- Placa Corregida
-
-       </span>
-      
-
-      
-       </h4>
-
-       </td>";
-      }*/
-
-     // echo	"<td>";
-      ?>
-
-
-<!--
-<form action="editar_placa.php" method="get">
-
-
-    <input type="hidden" name="id_placa_entrada" value="<?php echo  $id_placa_entrada ?>">
-    <input type="hidden" name="entrada_salida" value="E">
-
-
-
-
-    <button class='btn btn-primary btn-xs'><i class='fa fa-pencil'></i></button>
-
-     </form>-->
-     
-     <?php 
-  //  echo "</td>";
-
-
-
-
-
-/*           <img src=$foto_auto_entrada  width='100px' height='100px' alt=''>
-          <img style='max-width: 60px; height: auto;'  src=$completo_entrada />
-
-          <a class='fancybox' href=$foto_auto_entrada><img style='max-width: 75px; height: auto; src=$foto_auto_entrada alt=''></a>     
-
- */
-          echo	"<td> 
-          <a class='fancybox' href=$foto_auto_entrada><img class='img-responsive' src=$foto_auto_entrada width='75px' height='auto' alt=''></a>
-   
-          </td>";
-        
-        echo  
-        
-        "<td>
-        <a class='fancybox' href=$completo_entrada><img class='img-responsive' src=$completo_entrada width='80px' height='auto' alt=''></a>        
-          </td>";
-
-
-
-
-
-
-          /*
-echo	"<td>$fecha</td>";
-
-//        echo	"<td>$precio</td>";
-
-           
-        $comparador="Por Definir";
-         
-         if($precio== $comparador){
-
-           echo "<td><p> <font color=red>En Proceso</font> </p> </td>";
-           echo "<td><a href=Detalles_Servicio.php?id_parqueo=$id_parqueo&id_servicio=$id_servicio>Ver Detalles </a></td>\n";                  
-
-         }
-         else {
-
-           echo "<td><p> <font color=green>Finalizado</font> </p> </td>";
-           echo "<td><a href=Detalles_Serviciofinalizado.php?id_parqueo=$id_parqueo&id_servicio=$id_servicio>Ver Detalles </a></td>\n";                  
-
-           
-         }  
-
-*/
-if($dentro_fuera=='D'){
+if( $id_visita_actual==$id_parqueo){
   echo	"<td>
 
  <h4> <span class='label label-primary'>  
- Dentro del parqueo
+ Usuario esta en el parqueo
         </span>
         </h4>
  
@@ -645,7 +440,7 @@ else{
  echo	"<td>
 
  <h4> <span class='label label-danger'>  
- Finalizado
+ No se encuentra en parqueo
         </span>
         </h4>
  

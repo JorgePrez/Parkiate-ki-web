@@ -302,10 +302,10 @@ else{
                               <!--    
        <th>Tipo de espacio (espacio para reservas o espacio común)</th> --> <!-- disponible para reservar-->
 
-                    <th>Tipo (<span class='badge bg'>Espacio Común</span> / <span class='badge bg-warning'>Espacio Reservas</span> )</th>   <!-- ocupado o libbre-->
+                 <!--      <th>Tipo (<span class='badge bg'>Espacio Común</span> / <span class='badge bg-warning'>Espacio Reservas</span> )</th>   
 
 
-                 <!--   <th>Editar</th> -->
+                 <th>Editar</th> -->
 
 
 
@@ -313,7 +313,7 @@ else{
 
                     <th>Foto De Espacio</th>
 
-                    <th>Información</th>
+                    <th>Información (registro de tiempo)</th>
 
 
 
@@ -479,7 +479,7 @@ else{
 
 
 
-                    
+               /*    
                     if(str_contains($reservas, 'S'))
                     {
                       echo	"<td> <h4> <span class='label label-warning'>Para reservas</span> 
@@ -498,7 +498,7 @@ else{
                       </td>";
                                           
 
-                    }
+                    }*/
 
 
                   
@@ -522,9 +522,9 @@ else{
                            </td>";
      
                       
-                           echo	"<td> <h5> <span class='label label-success'>  Libre Desde:</span> </h5>";
+                           echo	"<td> <h4> <span class='label label-success'>  Libre Desde:</span> ";
 
-                           echo "<h4> <span class='label label-warning'>
+                           echo " <span class='label label-warning'>
          
                            $fecha_formato_vacio
                                   </span>
@@ -556,9 +556,9 @@ else{
 
 
 
-                           echo	"<td> <h5> <span class='label label-danger'>  Ocupado Desde:</span> </h5>";
+                           echo	"<td> <h4> <span class='label label-danger'>  Ocupado Desde:</span> ";
 
-                           echo "<h4> <span class='label label-warning'>
+                           echo " <span class='label label-warning'>
          
                            $fecha_formato_ocupado
                                   </span>

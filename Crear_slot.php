@@ -288,54 +288,6 @@ else{
 
 
 
-            <?php
- if(str_contains($reservas, 'S'))
- {
-
-echo ' <div class="form-group">
-<label class="col-sm-8 col-sm-8 control-label"> <b>Reservas</b>  (seleccione si este espacio estará destinado a reservas o será un espacio normal, puede modificarlo en cualquier momento):</label>
-<div class="col-sm-4">   
-
-
-<select name="reservas" class="form-control">
-
-
-<option value="N">Espacio cómun</option>
-<option value="S">Espacio Destinado para reservas</option>
-
-</select>
-
-</div>
-</div>';
-
-
- }
- else
- { 
-
-        echo   '<div class="form-group">
-                  <label class="col-sm-8 col-sm-8 control-label"> <b>[Reservas]</b> en su caso todos los espacios serán comunes ya que no tiene habilitada la opción de reservas. <b>(Puede cambiar esta opción en la pestaña "Editar datos de parqueo")</b></label>
-                  <div class="col-sm-4">   
-             
-
-                  <select name="reservas" class="form-control" disabled>
-
-
-                  <option value="N">Espacio cómun</option>
-                  <option value="S">Espacio Destinado para reservas</option>
- 
-                </select>
-
-                  </div>
-                </div>';
-              
-         
-
-              } 
-
-              
-              ?>
-            
 
           
 

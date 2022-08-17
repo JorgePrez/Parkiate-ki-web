@@ -912,32 +912,27 @@ $visitas_totales=(string) $visitas_totales;
 <li class="mt">
             <a href="javascript:;">
               <i class="fa fa-camera"></i>
-              <span>Flujo de autos(placas)</span>
+              <span>Registro de autos(cámaras)</span>
               </a>
             <ul class="sub">
-            <li><a href="entrada.php">Registro de Autos Entrada</a></li>
-              <li><a href="salida.php">Registro de Autos Salida</a></li>
+            <li><a href="entrada.php">Registro de autos (Entrada)</a></li>
+              <li><a href="salida.php">Registro de autos (Salida)</a></li>
               <li><a href="flujo_autos.php">Entrada y Salida por Placa</a></li>
               <li><a href="autos.php">Registro por auto</a></li>
             </ul>
           </li>
 
-<li class="mt">
-<a href="MisServicios.php">
-  <i class="fa fa-external-link"></i>
-  <span>Registro de Servicios(App)</span>
-  </a>
-
-</li>
-
-<li class="mt">
-<a href="RegistrarParqueo1.php">
-  <i class="fa fa-book"></i>
-  <span>Reservas</span>
-  </a>
-
-</li>
-
+          <li class="mt">
+            <a href="javascript:;">
+            <i class="fa fa-qrcode"></i>
+              <span>Registros desde app móvil</span>
+              </a>
+            <ul class="sub">
+            <li><a href="visitas.php">Visitas actuales</a></li>
+              <li><a href="historial_visitas.php">Historial de visitas (finalizadas)</a></li>
+              <li><a href="usuarios.php">Registro de usuarios</a></li>
+            </ul>
+          </li>
 
 
     
@@ -961,48 +956,9 @@ $visitas_totales=(string) $visitas_totales;
       
 
             <div class="border-head">
-              <h3>   <i class="fa fa-bar-chart-o">  VISITAS DE LOS ULTIMOS 7 DÍAS A TU PARQUEO</i> </h3>
+              <h3>   <i class="fa fa-bar-chart-o">  DASHBOARD CON DATOS PRINCIPALES DE TU PARQUEO</i> </h3>
             </div>
-            <div class="custom-bar-chart">
-              <ul class="y-axis">
-                <li><span>+100</span></li>
-                <li><span>80</span></li>
-                <li><span>60</span></li>
-                <li><span>40</span></li>
-                <li><span>20</span></li>
-                <li><span>0</span></li>
-              </ul>
-              <div class="bar">
-                <div class="title"><?php echo $day7?></div>
-                <div class="value tooltips" data-original-title="<?php echo $var7?>" data-toggle="tooltip" data-placement="top"><?php echo $per7?>%</div>
-              </div>
-              <div class="bar ">
-                <div class="title"><?php echo $day6?></div>
-                <div class="value tooltips" data-original-title="<?php echo $var6?>" data-toggle="tooltip" data-placement="top"><?php echo $per6?>%</div>
-              </div>
-              <div class="bar ">
-                <div class="title"><?php echo $day5?></div>
-                <div class="value tooltips" data-original-title="<?php echo $var5?>" data-toggle="tooltip" data-placement="top"><?php echo $per5?>%</div>
-              </div>
-              <div class="bar ">
-                <div class="title"><?php echo $day4?></div>
-                <div class="value tooltips" data-original-title="<?php echo $var4?>" data-toggle="tooltip" data-placement="top"><?php echo $per4?>%</div>
-              </div>
-              <div class="bar">
-                <div class="title"><?php echo $day3?></div>
-                <div class="value tooltips" data-original-title="<?php echo $var3?>" data-toggle="tooltip" data-placement="top"><?php echo $per3?>%</div>
-              </div>
-              <div class="bar ">
-                <div class="title"><?php echo $day2?></div>
-                <div class="value tooltips" data-original-title="<?php echo $var2?>" data-toggle="tooltip" data-placement="top"><?php echo $per2?>%</div>
-              </div>
-              <div class="bar">
-                <div class="title"><?php echo $day1?> (HOY)</div>
-                <div class="value tooltips" data-original-title="<?php echo $var1?>" data-toggle="tooltip" data-placement="top"><?php echo $per1?>%</div>
-              </div>
-            </div>
-            <!--custom chart end-->
-
+         
 
             <!--custom chart end-->
             <div class="row mt">
@@ -1408,127 +1364,39 @@ echo                             '</h5>
 
 
 
-    if(str_contains($estadogeneral2, '0')){
 
 
-      
 
-echo'
+
+             
+    
+
+
+            ?>        
+
 
 <div class="col-md-4 col-sm-4 mb">
-   <div class="grey-panel pn">
-     <div class="grey-header">
-       <h5>ESPACIOS PARA RESERVAS</h5>
-     </div>
-     <canvas id="serverstatus01" height="120" width="120"></canvas>
-     <script>
-       var doughnutData = [{
-           value:';           echo "0"; 
-           echo',
-           color: "#FF6B6B"
-         },
-         {
-           value:';   echo "100"; 
-           echo',
-           color: "#fdfdfd"
-         }
-       ];
-       var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-     </script>
-                       <p>';
-                       echo $fecha;
-                        echo '</p>
+<!-- REVENUE PANEL -->
+<div class="green-panel pn">
+  <div class="green-header">
+    <h5>VISITAS DE LOS ÚLTIMOS 7 DÍAS</h5>
+  </div>
+  <div class="chart mt">
+    <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[ 
+    <?php echo $cantidad7 ?> ,<?php echo $cantidad6   ?> ,<?php  echo $cantidad5   ?>,<?php echo $cantidad4   ?>,<?php echo $cantidad3   ?>,<?php echo $cantidad2   ?>,<?php echo $cantidad1   ?>]"></div>
+  </div>
+  <p class="mt"><br/><h5><i class="fa fa-car"></i> Autos atendidos hoy: <b><?php echo $cantidad1   ?> </b> </h5></p>
 
-                        <footer>
-                        <!--  <div class="pull-left">
-                          <h5><i class="fa fa-hdd-o"></i> 0/0</h5>
-                        </div> -->
-                        <div>
-                          <h10> <b>No has registrado ningún espacio(slot) para reservas ve a la pestaña "Slots(libres/ocupados)"
-                          </b>
-                          </h10>
-                        </div>
-                      </footer>
+  
 
-   </div>
-   <!-- /grey-panel -->
- </div>
- <!-- /col-md-4-->
+</div>
+</div>
 
 
 
 
  
 </div>
-
-
-';
-
-
-    
-
-             
-    }
-    else{
-
-    
-
-
-
-echo'
-
-             <div class="col-md-4 col-sm-4 mb">
-                <div class="grey-panel pn">
-                  <div class="grey-header">
-                    <h5>ESPACIOS PARA RESERVAS</h5>
-                  </div>
-                  <canvas id="serverstatus01" height="120" width="120"></canvas>
-                  <script>
-                    var doughnutData = [{
-                        value:';           echo $porcentaje_number2; 
-                        echo',
-                        color: "#FF6B6B"
-                      },
-                      {
-                        value:';   echo $complemento_porcentaje2; 
-                        echo',
-                        color: "#fdfdfd"
-                      }
-                    ];
-                    var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-                  </script>
-                                    <p>';
-                                    echo $fecha;
-                                     echo '</p>
-
-                  <footer>
-                    <div class="pull-left">
-                      <h5><i class="fa fa-hdd-o"></i>'; echo $proporcion2; echo'</h5>
-                    </div>
-                    <div class="pull-right">
-                      <h5>'; echo $porcentaje2;
-                       echo '%
-                     Ocupardo</h5>
-                    </div>
-                  </footer>
-            
-                </div>
-                <!-- /grey-panel -->
-              </div>
-              <!-- /col-md-4-->
-
-
-           
-            
-              
-            </div>
-
-             
-';
-                  }
-
-            ?>        
-
             
             
            
@@ -1639,7 +1507,7 @@ echo'
 
 
 
-$query = "select hora_deteccion_entrada,foto_auto_entrada,deteccion_entrada from placas_entrada where id_parqueo='$id_parqueo' order by hora_deteccion_entrada desc limit 4";
+$query = "select hora_deteccion_entrada,foto_auto_entrada,deteccion_entrada from placas_entrada where id_parqueo='$id_parqueo' order by hora_deteccion_entrada desc limit 3";//4
 $resultadoentrada = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 
 
@@ -1751,7 +1619,7 @@ pg_free_result($resultadoentrada);
 
 
 
-$query = "select hora_deteccion_salida,foto_auto_salida,deteccion_salida from placas_salida where id_parqueo='$id_parqueo' order by hora_deteccion_salida desc limit 4";
+$query = "select hora_deteccion_salida,foto_auto_salida,deteccion_salida from placas_salida where id_parqueo='$id_parqueo' order by hora_deteccion_salida desc limit 3"; //4
 $resultadosalida = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 
 

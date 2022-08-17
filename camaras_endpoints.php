@@ -12,7 +12,7 @@ $id_parqueo_actual='2CE369';
 
 
 
-$endpoint_parqueo='http://192.168.1.14/picture';
+$endpoint_parqueo='http://192.168.1.23/picture';
 
 
 //lista
@@ -29,10 +29,20 @@ $endpoint_parqueo='http://192.168.1.14/picture';
 
 //$endpoint_image_entrada='https://res.cloudinary.com/parkiate-ki/image/upload/v1656822652/placas_guatemala_pruebas/P441GHC.jpg';
 //$endpoint_image_entrada='https://res.cloudinary.com/parkiate-ki/image/upload/v1656822655/placas_guatemala_pruebas/P012CHG.jpg';
+/////////////////
+////////////////////
+//$endpoint_image_entrada='https://res.cloudinary.com/parkiate-ki/image/upload/v1656463076/placas_guatemala_pruebas/P470JPX.jpg';
 
-$endpoint_image_entrada='https://res.cloudinary.com/parkiate-ki/image/upload/v1656822685/placas_guatemala_pruebas/P317GTV.jpg';
 
-$endpoint_image_salida='https://res.cloudinary.com/parkiate-ki/image/upload/v1656460351/placas_guatemala_pruebas/P101GBV.jpg';
+
+
+
+$listado_enpoints=['url1','url2','url3','url4'];
+
+
+$endpoint_image_entrada='https://res.cloudinary.com/parkiate-ki/image/upload/v1656460354/placas_guatemala_pruebas/P406BXJ.jpg';
+$endpoint_image_salida='https://res.cloudinary.com/parkiate-ki/image/upload/v1656460354/placas_guatemala_pruebas/P406BXJ.jpg';
+
 
 
 

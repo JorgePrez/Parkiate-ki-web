@@ -55,7 +55,7 @@ if (!$conn){
 }
 
 
-$id_park_slot='2CE369'; 
+$id_park_slot='86BE48'; //'2CE369'; 
 include 'camaras_endpoints.php';
 
 
@@ -112,11 +112,21 @@ $estado_anterior='';
 
 $existen_camaras='0';
 
-if($tuplasaafectadas>0) {
+if(($tuplasaafectadas>0)) {
+
+
+  if((strlen($w_a))>1){
+    $existen_camaras='1';
+
+
+  }
+  else{
+    $existen_camaras='0';
+
+  }
 
 
 
-  $existen_camaras='1';
 
 
   /* Si existen camaras se utilizara el ip de la camara para obtener foto de los slots*/

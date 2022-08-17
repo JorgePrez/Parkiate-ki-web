@@ -14,7 +14,7 @@ include('dbcon.php');
 
   $codigo = $_GET['codigo'];
 
-  $reservas = $_GET['reservas'];
+  $reservas = 'N';
 
   
 
