@@ -205,7 +205,7 @@ else{
           <li class="mt">
             <a href="javascript:;">
             <i class="fa fa-qrcode"></i>
-              <span>Registros desde app móvil</span>
+            <span>Registros desde app (QR)</span>
               </a>
             <ul class="sub">
             <li><a href="visitas.php">Visitas actuales</a></li>
@@ -299,6 +299,10 @@ else{
 
           <th><b>Fecha de creación de usuario</b></th>
 
+          <th><b>Cantidad de visitas</b></th>
+
+
+
           <th><b>¿Se encuentra en parqueo?</b></th>
 
           
@@ -329,6 +333,14 @@ else{
 
             $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
             $id='';
+            $email='';
+            $nombre='';
+            $telefono='';
+            $foto_perfil='';
+            $timestamp_creacion='';
+            $id_visita_actual='';
+
+
 
           
 
@@ -422,6 +434,42 @@ echo	"<tr class='gradeA'>";
         </h4>
 
         </td>";
+
+        $queryinterno = "
+
+
+        select count(*) from placas_entrada_salida where id_usuario_app='$id' and id_parqueo='$id_parqueo'
+
+  
+                 ";   
+  
+  
+  
+              $resultinterno = pg_query($conn, $queryinterno) or die('ERROR : ' . pg_last_error());
+              $cantidad=0;
+  
+  
+            
+  
+  
+                         
+             
+  
+             while ($row = pg_fetch_row($resultinterno)) {
+               $cantidad=$row[0];
+              }
+
+              echo	"<td>
+
+        <h4> <span class='label label-primary'>  
+        $cantidad
+               </span>
+               </h4>
+        
+        
+        </td>";
+       
+
 
 
 
@@ -521,7 +569,7 @@ else{
 
                 <div class="btn-group">
 
-                <form action="salida.php" method="get">
+                <form action="historial_visitas.php" method="get">
 
                 <?php
 
@@ -541,7 +589,7 @@ else{
                 echo $id_parqueo_cookie=$_COOKIE["id_parqueo"];
                 ; ?>">
 
-                  <button type="submit" class="btn btn-theme04"><i class="fa fa-hand-o-right"></i> Ir a registro de autos (Cámara de Salida) </button>
+                  <button type="submit" class="btn btn-theme04"><i class="fa fa-users"></i> Ir a historial de visitas de usuarios(app) </button>
                  
                   </form>
 

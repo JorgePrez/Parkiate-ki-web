@@ -184,38 +184,37 @@ else{
   </a>
 </li>
 
-
 <li class="mt">
-            <a class="active" href="javascript:;">
+            <a href="javascript:;">
               <i class="fa fa-camera"></i>
-              <span>Flujo de autos(placas)</span>
+              <span>Registro de autos(cámaras)</span>
               </a>
             <ul class="sub">
-            <li><a href="entrada.php">Registro de Autos Entrada</a></li>
-              <li><a href="salida.php">Registro de Autos Salida</a></li>
+            <li><a href="entrada.php">Registro de autos (Entrada)</a></li>
+              <li><a href="salida.php">Registro de autos (Salida)</a></li>
               <li><a href="flujo_autos.php">Entrada y Salida por Placa</a></li>
               <li><a href="autos.php">Registro por auto</a></li>
             </ul>
           </li>
 
-          
-<li class="mt">
-<a href="RegistrarParqueo1.php">
-  <i class="fa fa-external-link"></i>
-  <span>Registro de Servicios(App)</span>
-  </a>
-
-</li>
 
 
+    
+          <li class="mt">
+            <a href="javascript:;">
+            <i class="fa fa-qrcode"></i>
+              <span>Registros desde app (QR)</span>
+              </a>
+            <ul class="sub">
+            <li><a href="visitas.php">Visitas actuales</a></li>
+              <li><a href="historial_visitas.php">Historial de visitas (finalizadas)</a></li>
+              <li><a href="usuarios.php">Registro de usuarios</a></li>
+            </ul>
+          </li>
 
-<li class="mt">
-<a href="RegistrarParqueo1.php">
-  <i class="fa fa-book"></i>
-  <span>Reservas</span>
-  </a>
 
-</li>
+
+
 
 
 
@@ -549,7 +548,7 @@ if($foto_atras!='Pendiente')
             echo	"<td>
             <h4> <span class='label label-danger'>
             
-     Se encuentra en tu parqueo
+     Se encuentra en parqueo
     
            </span>
       
@@ -566,7 +565,7 @@ else{
   echo	"<td>
   <h4> <span class='label label-success'>
   
-No esta en parqueo
+  No se encuentra en parqueo
 
  </span>
 
