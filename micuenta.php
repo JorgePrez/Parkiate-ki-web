@@ -279,6 +279,8 @@ $id_duenio="";
 $nombre="";
 $correo="";
 $contrasenia="";
+$nombre="";
+$telefono="";
 
               
               
@@ -286,6 +288,8 @@ while ($row = pg_fetch_row($result)) {
 $id_duenio= $row[0];
 $correo=$row[1];
 $contrasenia=$row[2];
+$nombre=$row[4];
+$telefono=$row[5];
 
 
 }
@@ -312,7 +316,7 @@ else{
                         <h4 class="mb">Información de Registro</h4>
                         <form role="form" class="form-horizontal" method="get" action="formularios/micuenta.php" onsubmit ="return matchPassword()">
                           <div class="form-group">
-                            <label class="col-lg-2 control-label">Id de Usuario</label>
+                            <label class="col-lg-2 control-label">  <i class="fa fa-user"></i> Id de Usuario</label>
                             <div class="col-lg-8">
                               <input class="form-control" id="disabledInput" type="text" name="id" value="<?php echo $id_usuario ?> "  disabled>
                                
@@ -322,20 +326,46 @@ else{
 
                             </div>
                           </div>
+
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">  <i class="fa fa-envelope"></i> Email</label>
+                            <div class="col-lg-8">
+                              <input class="form-control" id="disabledInput" type="email" name="id" value="<?php echo $correo ?> "  disabled>
+                               
+                            
+                              <input type="hidden" name="correo" id="correo" class="form-control" value="<?php echo $correo?>" required>
+
+
+                            </div>
+                          </div>
+            
             
                
-                       
+
+
+                            
                           <div class="form-group">
-                            <label class="col-lg-2 control-label">Email</label>
+                            <label class="col-lg-2 control-label">                  <i class="fa fa-user"></i>  Nombre</label>
                             <div class="col-lg-8">
-                            <input type="email" placeholder=" " name="correo" id="correo" class="form-control" value="<?php echo $correo?>" required>
+                            <input type="text" placeholder=" " name="nombre" id="nombre" class="form-control" value="<?php echo $nombre?>" required>
                             </div>
                           </div>
 
-                      
+
+                                 
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">                  <i class="fa fa-mobile"></i>  Teléfono</label>
+                            <div class="col-lg-8">
+                            <input type="text" placeholder=" " name="telefono" id="telefono" class="form-control" value="<?php echo $telefono?>" required>
+                            </div>
+                          </div>
+
+
+
+                          
 
                           <div class="form-group" id="contrasenia_input2">
-                            <label class="col-lg-2 control-label">Contraseña</label>
+                            <label class="col-lg-2 control-label">                  <i class="fa fa-key"></i>    Contraseña</label>
                             <div class="col-lg-8">
                               <input type="password" placeholder="Escriba su contraseña para confirmar cambios" name="password" id="password" class="form-control" required>
                               <p class="help-block" id="mensaje"></p>
@@ -345,7 +375,7 @@ else{
 
 
                           <div class="form-group">
-                            <label class="col-lg-2 control-label">Id de Parqueo</label>
+                            <label class="col-lg-2 control-label">   <i class="fa fa-home"></i>  Id de Parqueo</label>
                             <div class="col-lg-8">
                               <input class="form-control" id="disabledInput" type="text" name="id" value="<?php echo $id_parqueo_show ?> "  disabled>
 

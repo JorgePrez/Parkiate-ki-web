@@ -20,18 +20,19 @@ for($i=0;$i < 6;$i++){
   $contrasenia= $_POST['password']; 
   $correo=  $_POST['email'];
 
-//  $correo= 'uncorreo.gmail.com';
+
+  $nombre= $_POST['nombre']; 
+  $telefono=  $_POST['telefono'];
+
 
   $contrasenia_hash=md5($contrasenia);
 
 
-//  $correo1= urldecode($correo);
 
   $id_parqueo ="N";
 
 
 
-//var_dump( explode( '@', $correo1 ) );
 
 
 
@@ -47,7 +48,7 @@ if (!$conn){
 }
 
 
-$query = "Insert into duenio values ('$id','$correo','$contrasenia_hash','$id_parqueo')";
+$query = "Insert into duenio values ('$id','$correo','$contrasenia_hash','$id_parqueo','$nombre','$telefono')";
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);

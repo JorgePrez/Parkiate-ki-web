@@ -557,7 +557,7 @@ $hora_min_entrada
 
 
 
-                <form action="entrada.php" method="get">
+                <form action="visitas.php" method="get">
 
 
              <!--    <input type="hidden" name="id_parqueo" value=

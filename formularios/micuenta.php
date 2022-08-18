@@ -4,8 +4,10 @@ $id_usuario= $_COOKIE["id_usuario"];
  
 
   $nombre= $_GET['nombre'];
-  $correo=  $_GET['correo'];
-  $correo1= urldecode($correo);
+
+  $telefono= $_GET['telefono'];
+
+
 
 
   $conn = pg_connect("host=db-instancia.ccwm7dhw4cau.us-east-1.rds.amazonaws.com port=5432 user=postgres password=56721449 dbname=postgres");
@@ -16,7 +18,7 @@ if (!$conn){
 
 
 
-$query= "UPDATE duenio SET nombre = '$nombre', correoo='$correo1' WHERE id_duenio = '$id_usuario'";
+$query= "UPDATE duenio SET nombre = '$nombre', telefono='$telefono' WHERE id_duenio = '$id_usuario'";
 
                      $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
                      $tuplasaafectadas = pg_affected_rows($result);

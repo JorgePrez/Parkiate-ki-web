@@ -61,9 +61,43 @@ else{
             
 
                 <div class="form-group ">
-                  <label for="email" class="control-label col-lg-3">Email:</label>
+                  <label for="email" class="control-label col-lg-3">
+                  <i class="fa fa-envelope"></i>    
+
+                  Email
+
+
+                
+                </label>
                   <div class="col-lg-8">
                     <input class="form-control" id="email" name="email" type="email" required />
+                  </div>
+                </div>
+
+                
+                <div class="form-group ">
+                  <label for="email" class="control-label col-lg-3">
+                    
+                  <i class="fa fa-user"></i>    
+
+                  Nombre (nombre + apellido):</label>
+                  <div class="col-lg-8">
+                    <input class="form-control" id="nombre" name="nombre" type="text" required />
+                  </div>
+                </div>
+
+
+                
+                <div class="form-group ">
+                  <label for="email" class="control-label col-lg-3">
+                    
+                  <i class="fa fa-mobile"></i>    
+
+                  Teléfono:
+                
+                </label>
+                  <div class="col-lg-8">
+                    <input class="form-control" id="telefono" name="telefono" type="number" required />
                   </div>
                 </div>
         
@@ -72,7 +106,12 @@ else{
 
 
                 <div class="form-group" id="contrasenia_input">
-                  <label for="password" class="control-label col-lg-3">Contraseña</label>
+                  <label for="password" class="control-label col-lg-3">
+                    
+                  <i class="fa fa-key"></i>    
+
+                  Contraseña
+                </label>
                   <div class="col-lg-8">
                     <input class="form-control" id="password" name="password" minlength="8" type="password" required />
                   </div>
@@ -80,7 +119,11 @@ else{
                
                 </div>
                 <div class="form-group" id="contrasenia_input2">
-                  <label for="confirm_password" class="control-label col-lg-3">Confirmar Contraseña</label>
+                  <label for="confirm_password" class="control-label col-lg-3">
+                  
+                  <i class="fa fa-check"></i>    
+
+                  Confirmar Contraseña</label>
                   <div class="col-lg-8">
                     <input class="form-control" id="confirm_password" name="confirm_password" minlength="8" type="password" required />
 

@@ -658,7 +658,7 @@ echo '><button class="btn btn-warning btn-xs"><i class="fa fa-eye"></i></button>
 
 
 
-                <form action="salida.php" method="get">
+                <form action="autos.php" method="get">
 
 
              <!--    <input type="hidden" name="id_parqueo" value=
@@ -723,6 +723,19 @@ echo '><button class="btn btn-warning btn-xs"><i class="fa fa-eye"></i></button>
       jQuery(".fancybox").fancybox();
     });
   </script>
+
+
+<script>
+    $(document).ready(function() {
+          // Call a function every 10000 milliseconds  (OR 10 seconds).
+
+        setInterval('refreshPage()', 30000);
+    });
+ 
+    function refreshPage() { 
+        location.reload(); 
+    }
+</script>
   
   <script type="text/javascript">
     /* Formating function for row details */

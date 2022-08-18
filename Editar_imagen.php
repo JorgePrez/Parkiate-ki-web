@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -295,19 +294,15 @@ while ($row = pg_fetch_row($result)) {
               <input type="hidden" name="id_parqueo" id="id_parqueo" value="<?php echo $id_parqueo; ?>">
 
 
-              
-<div class="project-wrapper">
-                              <div class="project">
-                                <div class="photo-wrapper">
+              <center>
                                   <div class="photo">
                                         <img id=user-photo class="img-responsive" src=" <?php              
   echo $imagenes;
        
-                ?>" alt="">
+                ?>" width='700px' height='auto' alt="">
                                   </div>
-                                </div>
-                              </div>
-                            </div>
+
+</center>
 
 
                             <div class=" add-task-row">

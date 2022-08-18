@@ -780,87 +780,8 @@ $id_parqueo=$_GET["id_parqueo"];
                 </div>
 
 
-                <h4 class="mb"><i class="fa fa-clock-o"></i> ¿Desea llevar control de las entradas y salidas de los usuarios que usen la app móvil para llegar a su parqueo?  </h4>
+
           
-
-                <?php
-
-
-
-if (!(str_contains($control_pagos, 'S'))) {
-
-
-  echo '
-
-  <div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="S" checked>
-    Si (DEBERÁ DESCARGAR LA APLICACIÓN MÓVIL ya que será necesario escanear el código QR del usuario, al entrar y al salir)
-    </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="N">
-    No, por el momento no deseo llevar control de las entradas y salidas de los usuarios que usen la app.
-    </label>
-</div>
-<hr>
-  
-  
-  
-  ';
-
-
-}
-
-else {
-
-  echo '
-
-  <div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="S">
-    Si (DEBERÁ DESCARGAR LA APLICACIÓN MÓVIL ya que será necesario escanear el código QR del usuario, al entrar y al salir)
-    </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="N" checked>
-    No, por el momento no deseo llevar control de las entradas y salidas de los usuarios que usen la app.
-    </label>
-</div>
-<hr>
-  
-  ';
-
-
-
-
-}
-
-         
-          ?>
-
-                    <!--/col-md-12
-
-
-<h4 class="mb"><i class="fa fa-ticket"></i> ¿Su parqueo tendrá habilitada la opción de reservar parqueos por medio de la aplicación móvil?  </h4>
-          
-
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadiosD" id="optionsRadiosD1" value="S" checked>
-              Si, deseo habilitar la opción de reservar parqueos (Necesitaras descargar la app Parkiate-ki, <b>ya que se usarán códigos QR</b>)
-              </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadiosD" id="optionsRadiosD2" value="N">
-              No, por el momento deseo que la opción de reservas desde la app este deshabilitada
-              </label>
-          </div>
-          <hr>
-                     -->
 
 
 

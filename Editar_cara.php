@@ -887,72 +887,9 @@ while ($row = pg_fetch_row($result)) {
                   </ul>
                 </div>
 
-                <h4 class="mb"><i class="fa fa-clock-o"></i> ¿Desea llevar control de las entradas y salidas por medio de la app móvil? </h4>
 
           
           
-
-                <?php
-
-
-
-if (str_contains($control_pagos, 'S')) {
-
-
-  echo '
-
-  <div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="S" checked>
-    Si (DEBERÁ DESCARGAR LA APLICACIÓN MÓVIL ya que será necesario escanear el código QR del usuario, al entrar y al salir)
-    </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="N">
-    No, por el momento no deseo llevar control de las entradas y salidas de los usuarios que usen la app.
-    </label>
-</div>
-<hr>
-  
-  
-  
-  ';
-
-
-}
-
-else {
-
-  echo '
-
-  <div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios1" value="S">
-    Si (DEBERÁ DESCARGAR LA APLICACIÓN MÓVIL ya que será necesario escanear el código QR del usuario, al entrar y al salir)
-    </label>
-</div>
-<div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="N" checked>
-    No, por el momento no deseo llevar control de las entradas y salidas de los usuarios que usen la app.
-    </label>
-</div>
-<hr>
-  
-  ';
-
-
-
-
-}
-?>
-
-
-         
-
-
-          ?>
 
 
                 <div class=" add-task-row">

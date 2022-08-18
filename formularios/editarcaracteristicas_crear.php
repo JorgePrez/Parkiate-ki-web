@@ -60,7 +60,7 @@ include('dbcon.php');
    $vallet = $_GET['vallet'];
 
 
-   $control = $_GET['optionsRadios'];
+   $control = 'S';
 
 
 

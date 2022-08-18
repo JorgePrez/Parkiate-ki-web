@@ -773,7 +773,8 @@ else{
 
 <script>
     $(document).ready(function() {
-        // auto refresh page after 1 second
+          // Call a function every 10000 milliseconds  (OR 10 seconds).
+
         setInterval('refreshPage()', 30000);
     });
  

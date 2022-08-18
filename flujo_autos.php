@@ -637,7 +637,7 @@ $hora_min_salida
        if (!($id_deteccion_salida=='NA')) {
         
         echo	"<td>
-        <h4> <span class='label label-success'>
+        <h4> <span class='label label-primary'>
         
         $formatotiempototal
 
@@ -854,16 +854,9 @@ echo "<form action='editar_placa.php' method='get'>";
 
 
 
-                <form action="salida.php" method="get">
+                <form action="flujo_autos.php" method="get">
 
 
-             <!--    <input type="hidden" name="id_parqueo" value=
-                
-                "<?php 
-                /*$id_parqueo=$_GET["id_parqueo"];
-                echo $id_parqueo;*/ ?>">
-
--->
 
                   <button type="submit" class="btn btn-theme"><i class="fa fa-refresh"></i> Actualizar </button>
 
@@ -919,6 +912,18 @@ echo "<form action='editar_placa.php' method='get'>";
       //    fancybox
       jQuery(".fancybox").fancybox();
     });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+          // Call a function every 10000 milliseconds  (OR 10 seconds).
+
+        setInterval('refreshPage()', 60000);
+    });
+ 
+    function refreshPage() { 
+        location.reload(); 
+    }
   </script>
   
   <script type="text/javascript">

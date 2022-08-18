@@ -490,7 +490,7 @@ while ($row = pg_fetch_row($result)) {
                         </div>
 
 
-                        <h4><i class="fa fa-calendar-o"></i> Horarios de Fin de Semana (Sino la ofrece dejar en 12:00 am ambos)</h4>
+                        <h4><i class="fa fa-calendar-o"></i> Horarios de Fin de Semana (Sino la ofrece dejar en 12:00 am / 00:00 ambos)</h4>
 
 
 

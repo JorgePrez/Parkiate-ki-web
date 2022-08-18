@@ -915,68 +915,6 @@ echo '<li class="list-primary"><i class=" fa fa-lightbulb-o"></i><div class="tas
                           }
                           ?>
 
-                          <h4 class="mb"><i class="fa fa-clock-o"></i> ¿Desea llevar control de las entradas y salidas de los usuarios que usen la app móvil para llegar a su parqueo? </h4>
-          
-
-                          <?php
-          
-          
-          
-          if (str_contains($control_pagos, 'S')) {
-          
-          
-            echo '
-          
-            <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="S" checked disabled>
-              Si (DEBERÁ DESCARGAR LA APLICACIÓN MÓVIL ya que será necesario escanear el código QR del usuario, al entrar y al salir)
-              </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios2" value="N" disabled>
-              No, por el momento no deseo llevar control de las entradas y salidas de los usuarios que usen la app.
-              </label>
-          </div>
-          <hr>
-            
-            
-            
-            ';
-          
-          
-          }
-          
-          else {
-          
-            echo '
-          
-            <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1" value="S" disabled>
-              Si (DEBERÁ DESCARGAR LA APLICACIÓN MÓVIL ya que será necesario escanear el código QR del usuario, al entrar y al salir)
-              </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios2" value="N" checked disabled>
-              No, por el momento no deseo llevar control de las entradas y salidas de los usuarios que usen la app.
-              </label>
-          </div>
-          <hr>
-            
-            ';
-          
-          
-          
-          
-          }
-          ?>
-    
-
-                   
-             
                   
                   </ul>
                 </div>
@@ -1019,6 +957,7 @@ echo "<a class='btn btn-success btn-sm pull-left' href=Editar_cara.php?id_parque
 
               <form class="form-horizontal style-form">
 
+              <center>
               <div class="photo">
 
               <?php   
@@ -1035,7 +974,7 @@ echo "<a class='btn btn-success btn-sm pull-left' href=Editar_cara.php?id_parque
                             <?php
 
 
-echo "<a class='btn btn-success btn-sm pull-left' href=Editar_imagen.php?id_parqueo=$id_parqueo>Editar Imagen</a>";
+echo "<a class='btn btn-success btn-sm pull-center' href=Editar_imagen.php?id_parqueo=$id_parqueo>Editar Imagen</a>";
 
 
 
@@ -1053,6 +992,9 @@ echo "<a class='btn btn-success btn-sm pull-left' href=Editar_imagen.php?id_parq
 
            
               </div>
+
+              </center>
+
             </section>
 
 

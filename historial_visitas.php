@@ -619,17 +619,10 @@ $hora_min_salida
 
 
 
-                <form action="entrada.php" method="get">
+                <form action="historial_visitas.php" method="get">
 
 
-             <!--    <input type="hidden" name="id_parqueo" value=
-                
-                "<?php 
-                /*$id_parqueo=$_GET["id_parqueo"];
-                echo $id_parqueo;*/ ?>">
-
--->
-
+        
                   <button type="submit" class="btn btn-theme"><i class="fa fa-refresh"></i> Actualizar </button>
 
                   </form>

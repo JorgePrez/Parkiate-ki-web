@@ -60,7 +60,7 @@ include('dbcon.php');
    $vallet = $_GET['vallet'];
 
 
-   $control = $_GET['optionsRadios'];
+   $control = 'S';
 
 
 
@@ -91,7 +91,7 @@ include('dbcon.php');
 
 
 
- $query= "UPDATE parqueo SET detalles='$detalles', control_pagos='$control'  WHERE id_parqueo = '$id_parqueo'";
+ $query= "UPDATE parqueo SET detalles='$detalles' WHERE id_parqueo = '$id_parqueo'";
 
   $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
   $tuplasaafectadas = pg_affected_rows($result);

@@ -436,11 +436,7 @@ echo	"<tr class='gradeA'>";
         </td>";
 
         $queryinterno = "
-
-
         select count(*) from placas_entrada_salida where id_usuario_app='$id' and id_parqueo='$id_parqueo'
-
-  
                  ";   
   
   
@@ -470,13 +466,38 @@ echo	"<tr class='gradeA'>";
         </td>";
        
 
+        $queryinterno2 = "
+        select    COUNT(*) 
+        from usuarios_app,placas_entrada_salida where id_usuario_app=CAST (usuarios_app.id AS TEXT) 
+           and id_usuario_app='$id' and id_parqueo='$id_parqueo' and tiempo_total ='NA'
+        ";  
 
 
 
-if( $id_visita_actual==$id_parqueo){
+     $resultinterno2 = pg_query($conn, $queryinterno2) or die('ERROR : ' . pg_last_error());
+     $cantidad2=0;
+
+
+   
+
+
+                
+    
+
+    while ($row = pg_fetch_row($resultinterno2)) {
+      $cantidad2=$row[0];
+     }
+
+
+
+
+
+//al buscar el id de la visita actual, existe el parqueo actual
+
+if( $cantidad2==1){
   echo	"<td>
 
- <h4> <span class='label label-primary'>  
+ <h4> <span class='label label-danger'>  
  Usuario esta en el parqueo
         </span>
         </h4>
@@ -487,7 +508,7 @@ if( $id_visita_actual==$id_parqueo){
 else{
  echo	"<td>
 
- <h4> <span class='label label-danger'>  
+ <h4> <span class='label label-success'>  
  No se encuentra en parqueo
         </span>
         </h4>
@@ -549,7 +570,7 @@ else{
 
 
 
-                <form action="entrada.php" method="get">
+                <form action="usuarios.php" method="get">
 
 
              <!--    <input type="hidden" name="id_parqueo" value=
