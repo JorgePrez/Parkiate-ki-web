@@ -4,11 +4,11 @@
 
 
 //ESP32 CAMS
-$endpoint_entrada='http://192.168.1.11/picture';
-$endpoint_salida='http://192.168.1.18/picture';
+$endpoint_entrada='http://192.168.1.8/picture';
+$endpoint_salida='http://192.168.1.7/picture';
 
 //$id_parqueo_actual='86BE48';
-$id_parqueo_actual='2CE369'; 
+$id_parqueo_actual='78FFFE'; 
 
 
 
