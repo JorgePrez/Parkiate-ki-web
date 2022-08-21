@@ -10,9 +10,7 @@ $endpoint_salida='http://192.168.1.7/picture';
 //$id_parqueo_actual='86BE48';
 $id_parqueo_actual='78FFFE'; 
 
-
-
-$endpoint_parqueo='http://192.168.1.23/picture';
+$endpoint_parqueo='http://192.168.1.5/picture';
 
 
 //lista
@@ -40,8 +38,8 @@ $endpoint_parqueo='http://192.168.1.23/picture';
 $listado_enpoints=['url1','url2','url3','url4'];
 
 
-$endpoint_image_entrada='https://res.cloudinary.com/parkiate-ki/image/upload/v1656822679/placas_guatemala_pruebas/P400GTR.jpg';
-$endpoint_image_salida='https://res.cloudinary.com/parkiate-ki/image/upload/v1656534922/placas_guatemala_pruebas/P263BPF.jpg';
+$endpoint_image_entrada='https://res.cloudinary.com/parkiate-ki/image/upload/v1656822646/placas_guatemala_pruebas/P566GYG.jpg';
+$endpoint_image_salida='https://res.cloudinary.com/parkiate-ki/image/upload/v1656822646/placas_guatemala_pruebas/P566GYG.jpg';
 
 
 

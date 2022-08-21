@@ -165,6 +165,7 @@ $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
 
 
+//TODO: SINO HAY AUTO......
 
 $query="update auto set id_usuario_app='$id_usuario' where placa='$deteccion_entrada' and id_parqueo='$id_parqueo'"; 
 

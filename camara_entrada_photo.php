@@ -49,7 +49,7 @@ include 'camaras_endpoints.php';
 
  //$id_parqueo ='2329C7';
 
- $id_parqueo_r ='86BE48';
+ $id_parqueo_r =$id_parqueo_actual;'//86BE48';
 
 
 
