@@ -314,6 +314,9 @@ while ($row = pg_fetch_row($result)) {
 }
 
 
+$placa_antigua=$deteccion;
+
+
 $separada = explode(' ', $hora_deteccion);
 
 $separada2 = explode('-', $separada[0]);
@@ -347,7 +350,8 @@ $id_entrada_salida=$_GET["id_entrada_salida"];
                   </div>
                   <br>
                 </div>
-
+               
+                <center>
                 <div class="row mt">
           <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 desc">
                   <div class="photo">
@@ -356,7 +360,13 @@ $id_entrada_salida=$_GET["id_entrada_salida"];
                     <a class="fancybox" href="<?php echo $foto_placa; ?>"><img class="img-responsive" src="<?php echo $foto_placa; ?>" 
                     width='400px' height='auto' alt=""></a>
                   </div>
-                  <div class="overlay"></div>
+
+
+              <!--       <div class="photo">
+                    <a class="fancybox" href="<?php //echo $foto_auto?>"><img class="img-responsive" src="<?php// echo $foto_auto ?>"  width='500px' height='auto' alt=""></a>
+                  </div>
+                  <div class="overlay"></div>-->
+                <!--    <div class="overlay"></div> -->
               
               
             
@@ -366,10 +376,13 @@ $id_entrada_salida=$_GET["id_entrada_salida"];
                   <div class="photo">
                     <a class="fancybox" href="<?php echo $foto_auto?>"><img class="img-responsive" src="<?php echo $foto_auto ?>"  width='500px' height='auto' alt=""></a>
                   </div>
-                  <div class="overlay"></div>
+                  <!--   <div class="overlay"></div>   -->
+              
                 
               
           </div>
+
+       </center>
           <!-- col-lg-4 -->
    
               
@@ -397,7 +410,7 @@ $id_entrada_salida=$_GET["id_entrada_salida"];
             <section class="task-panel tasks-widget">
               <div class="panel-heading">
                 <div class="pull-left">
-                  <h4><i class="fa fa-edit"></i> Hacer corrección de Placa</h4>
+                  <h4><i class="fa fa-edit"></i> Hacer corrección de Placa (si la placa coincide exactamente con la imagen solo presiona el botón "guardar cambios")</h4>
                 </div>
                 <br>
               </div>
@@ -454,6 +467,10 @@ echo '<div class="form-group has-success">';
                   </div>
                
                   <input type="hidden" name="id_placa_corr" value="<?php echo $id_entrada_salida; ?>">
+
+
+                  <input type="hidden" name="placa_antigua" value="<?php echo $valor_mostrado; ?>">
+
 
                   <div class=" add-task-row">
 

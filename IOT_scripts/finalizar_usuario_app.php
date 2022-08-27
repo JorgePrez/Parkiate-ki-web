@@ -9,6 +9,7 @@ if (!$conn){
 }
 
 
+
 $query = "SELECT id_usuario_app from placas_entrada_salida WHERE  id_entrada_salida='$id_placa_entrada_salida_app' and id_parqueo='$id_parqueo'";
  
  $resultplaca = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());

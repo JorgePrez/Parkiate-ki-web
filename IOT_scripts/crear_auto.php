@@ -25,6 +25,8 @@ for($i=0;$i < 8;$i++){ //6
   $query = "INSERT INTO auto(
      id_auto, placa, numero_visitas, foto_delante, foto_atras, id_parqueo, id_usuario_app,fecha_registro_auto)
     VALUES ('$id_auto', '$placa_detectada', 0, '$imagen_auto', 'Pendiente', '$id_parqueo', 'Por definir', '$now');";
+
+    //TODO: afecta que en lugar de por definir sea NA
    
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);

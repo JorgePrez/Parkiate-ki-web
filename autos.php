@@ -282,12 +282,13 @@ else{
 
 
            <th><b>Número de visitas</b></th>
-          <!-- <th>Prospectos</th> -->
+        
           </b></th>
 
-          <th><b> Foto en entrada (más reciente)
+          <th><b> Foto en entrada 
+              <!--   <th><b> Foto en entrada //(más reciente)-->
           </b></th>
-          <th><b>Foto en salida (más reciente)</b></th>
+          <th><b>Foto en salida </b></th>
 
           <th><b>Estado</b></th>
 

@@ -14,6 +14,7 @@
   //$id_usuario= '8';
 
 
+  date_default_timezone_set('America/Guatemala');
 
 
 
@@ -105,6 +106,7 @@ order by hora_deteccion_entrada desc limit 1";
           //si cumple que es menor a los 3 min, se registro
           //error, qr no confirmado.
 
+          $now = new Datetime('now');$now = $now->format('Y-m-d H:i:s');
 
           $datetime1 = new DateTime($hora_deteccion_entrada);//start time
 $datetime2 = new DateTime($now);//end time
@@ -127,7 +129,7 @@ else{
     
  $query = "
  
- select id_entrada_salida from placas_entrada_salida,placas_entrada as Pe 
+ select id_entrada_salida,id_auto from placas_entrada_salida,placas_entrada as Pe 
  where id_placa_entrada='$id_placa_entrada' and id_placa_entrada=id_deteccion_entrada
   and Pe.id_parqueo='$id_parqueo'
  ";   
@@ -136,10 +138,12 @@ else{
 
  $result = pg_query($conn, $query) or die('ERROR : ' . pg_last_error());
  $id_entrada_salida='';
+ $id_auto='';
 
 while ($row = pg_fetch_row($result)) {   
 
   $id_entrada_salida=$row[0];
+  $id_auto=$row[1];
 
 }
 
@@ -155,6 +159,8 @@ $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_e
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
 
+//OBTENER EL ID DE LA TALBA id_entrada_Salida con este id, debo revisar si tiene  id_auto != NA
+
 
 
 
@@ -167,12 +173,17 @@ pg_free_result($result);
 
 //TODO: SINO HAY AUTO......
 
-$query="update auto set id_usuario_app='$id_usuario' where placa='$deteccion_entrada' and id_parqueo='$id_parqueo'"; 
+if($id_auto!='NA'){
+  
+$query="update auto set id_usuario_app='$id_usuario' where placa='$deteccion_entrada' and id_parqueo='$id_parqueo' and id_auto='$id_auto'"; 
 
 
 $result = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . pg_last_error());
 $tuplasaafectadas = pg_affected_rows($result);
 pg_free_result($result);
+
+}
+
 
 $registro_exitoso='1';
 

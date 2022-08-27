@@ -329,7 +329,7 @@ else{
           placas_entrada_salida,
           placas_entrada,
           usuarios_app
-          where placas_entrada_salida.id_parqueo='86BE48' and tiempo_total='NA'
+          where placas_entrada_salida.id_parqueo='$id_parqueo' and tiempo_total='NA'
           and id_deteccion_entrada=id_placa_entrada 
           and id_usuario_app= CAST (usuarios_app.id AS TEXT)
           order by hora_deteccion_entrada desc

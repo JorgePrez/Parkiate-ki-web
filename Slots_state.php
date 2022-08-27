@@ -55,8 +55,12 @@ if (!$conn){
 }
 
 
-$id_park_slot='86BE48'; //'2CE369'; 
 include 'camaras_endpoints.php';
+
+$id_park_slot= $id_parqueo_actual; //'86BE48'; //'2CE369'; 
+
+$existen_camaras=$existen_camaras_slot;
+
 
 
 
@@ -107,25 +111,29 @@ $estado_anterior='';
 $id_firebase_slot='';
 $estado_anterior='';
 
-//TODO: condicion que si existen camaras de vigilancia o si solo existen sensores....
 
 
-$existen_camaras='0';
 
 if(($tuplasaafectadas>0)) {
 
-
+/*
   if((strlen($w_a))>1){
     $existen_camaras='1';
+
+    echo "Si hay camaras\n";
+
 
 
   }
   else{
     $existen_camaras='0';
 
+    echo "No existen camaras\n";
+
+
   }
 
-
+*/
 
 
 
@@ -225,6 +233,10 @@ $now = $now->format('Y-m-d H:i:s');
 
         if(str_contains($existen_camaras, '1')){
 
+
+          echo "ACTUALIZANDO IMAGEN\n";
+
+
                                     $url = 
                                    // 'http://192.168.1.19/picture';
                                     $endpoint_parqueo;
@@ -294,6 +306,9 @@ $now = $now->format('Y-m-d H:i:s');
 
 
                           if(str_contains($existen_camaras, '1')){
+
+                            echo "ACTUALIZANDO IMAGEN\n";
+
 
 
                             $url = 
