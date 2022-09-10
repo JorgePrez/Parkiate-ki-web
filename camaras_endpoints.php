@@ -4,12 +4,12 @@
 
 
 //ESP32 CAMS
-$endpoint_entrada='http://192.168.1.10/picture';
-$endpoint_salida='http://192.168.1.9/picture';
+$endpoint_entrada='http://192.168.1.23/picture';
+$endpoint_salida='http://192.168.1.21/picture';
 
 $id_parqueo_actual='2CE369';  //'78FFFE'; 
 
-$endpoint_parqueo='http://192.168.1.8/picture';
+$endpoint_parqueo='http://192.168.1.24/picture';
 
 
 //$endpoint_image_entrada=$endpoint_image_salida='https://res.cloudinary.com/parkiate-ki/image/upload/v1656822671/placas_guatemala_pruebas/P673HRL.jpg';

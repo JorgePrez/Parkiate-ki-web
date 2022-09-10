@@ -1532,7 +1532,7 @@ $resultadoentrada = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' .
 
     //'Fecha: 26/06 | Hora: 17:18';
 
-    $E_formatofecha1= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $E_formatofecha1= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
 
@@ -1552,7 +1552,7 @@ $resultadoentrada = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' .
 
     $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
 
-    $E_formatofecha2= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $E_formatofecha2= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
 
@@ -1572,7 +1572,7 @@ $resultadoentrada = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' .
 
     $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
 
-    $E_formatofecha3= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $E_formatofecha3= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
     }
@@ -1592,7 +1592,7 @@ $resultadoentrada = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' .
 
     $fecha_formato_salida = $separada2[2].'/'.$separada2[1]; 
 
-    $E_formatofecha4= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $E_formatofecha4= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
 
@@ -1644,7 +1644,7 @@ $resultadosalida = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . 
 
     //'Fecha: 26/06 | Hora: 17:18';
 
-    $S_formatofecha1= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $S_formatofecha1= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
 
@@ -1664,7 +1664,7 @@ $resultadosalida = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . 
 
     $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
 
-    $S_formatofecha2= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $S_formatofecha2= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
 
@@ -1684,7 +1684,7 @@ $resultadosalida = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . 
 
     $fecha_formato_salida = $separada2[2].'/'.$separada2[1];
 
-    $S_formatofecha3= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $S_formatofecha3= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
     }
@@ -1704,7 +1704,7 @@ $resultadosalida = pg_query($conn, $query) or die('ERROR AL INSERTAR DATOS: ' . 
 
     $fecha_formato_salida = $separada2[2].'/'.$separada2[1]; 
 
-    $S_formatofecha4= 'Fecha: '.$fecha_formato_entrada. ' | Hora: '.$hora_min_salida ; 
+    $S_formatofecha4= 'Fecha: '.$fecha_formato_salida. ' | Hora: '.$hora_min_salida ; 
 
 
 
